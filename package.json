@@ -1,0 +1,15 @@
+{
+  "name": "archive",
+  "description": "archiver",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "pm2 start archive.js",
+    "stop": "pm2 delete archive.js"
+  },
+  "dependencies": {
+    "knex": "^0.9.0",
+    "sqlite3": "^3.1.1",
+    "twit": "^2.1.1",
+    "utf8": "^2.1.1"
+  }
+}
