@@ -1,6 +1,5 @@
 'use strict';
 
-var fs = require('fs');
 var knex = require('knex')({
 	client: 'sqlite3',
 	connection: {
@@ -27,3 +26,18 @@ stream.on('tweet', function(data) {
 	}).return();
 });
 
+var _ = require('underscore');
+var express = require('express');
+var app = express();
+
+app.use('/', express.static('public'));
+
+app.get('/api/tweets', function(req, res) {
+	knex(table_name)
+	.then(function(rows) {
+		var tweets = _.map(rows, function(tweet) { return JSON.parse(tweet.data); });
+		res.json(tweets);
+	});
+});
+
+app.listen(8012);
