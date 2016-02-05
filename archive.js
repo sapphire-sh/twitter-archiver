@@ -1,13 +1,21 @@
 'use strict';
 
-function date(d) {
+function date(d, p) {
 	function pad(n) {
-		return n < 10 ? '0'+n : n
+		return n < 10 ? '0' + n : n
 	}
 	if(typeof d !== 'object' || d.constructor.name !== 'Date') {
 		d = new Date();
 	}
-    return d.getFullYear().toString().slice(-2) + pad(d.getMonth()+1) + pad(d.getDate());
+	var str = d.getFullYear();
+	str += '-' + pad(d.getMonth() + 1);
+	str += '-' + pad(d.getDate());
+	
+	if(p === true) {
+		str += '/' + pad(d.getHours());
+	}
+	
+	return str;
 }
 
 var prev_date = date();
@@ -38,7 +46,6 @@ var curr_date;
 var stream = tw.stream('user');
 stream.on('tweet', function(data) {
 	curr_date = date(new Date(data.created_at));
-	console.log(curr_date);
 	if(prev_date === curr_date) {
 		insert(data);
 	}
@@ -86,18 +93,29 @@ app.get('/api/tweets', function(req, res) {
 	});
 });
 
-app.get('/view/:id', function(req, res) {
-	var k = require('knex')({
+app.get('/view/:date/:hour', function(req, res) {
+	var now = new Date(req.params.date);
+	now.setHours(req.params.hour);
+	var prev = new Date(now.getTime());
+	var next = new Date(now.getTime());
+	prev.setHours(prev.getHours() - 1);
+	next.setHours(next.getHours() + 1);
+	
+	require('knex')({
 		client: 'sqlite3',
 		connection: {
-			filename: './db/tweet-' + req.params.id + '.sqlite'
+			filename: './db/tweet-' + date(req.params.date) + '.sqlite'
 		}
-	});
-	knex(table_name)
+	})(table_name)
+	.where('created_at', '>=', now.getTime())
+	.andWhere('created_at', '<', next.getTime())
 	.orderBy('id', 'asc')
 	.then(function(rows) {
 		res.render('pages/index', {
-			id: req.params.id,
+			url: {
+				prev: date(prev, true),
+				next: date(next, true)
+			},
 			tweets: rows
 		});
 	});
