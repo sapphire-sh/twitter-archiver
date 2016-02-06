@@ -32,6 +32,19 @@ var tw = new twit(config);
 
 var table_name = 'tweet';
 
+var users = {
+    blocked: [],
+    muted: []
+};
+
+tw.get('blocks/ids', function(err, res) {
+	users.blocked = res.ids;
+});
+
+tw.get('mutes/users/ids', function(err, res) {
+	users.muted = res.ids;
+});
+
 knex.schema.hasTable(table_name)
 .then(function(exists) {
 	if(!exists) {
@@ -111,12 +124,24 @@ app.get('/view/:date/:hour', function(req, res) {
 	.andWhere('created_at', '<', next.getTime())
 	.orderBy('id', 'asc')
 	.then(function(rows) {
+		var tweets = _.map(rows, function(row) {
+			return JSON.parse(row.data);
+		});
+		
+		tweets = _.reject(tweets, function(tweet) {
+			return _.contains(users.blocked, tweet.user.id);
+		});
+		
+		tweets = _.reject(tweets, function(tweet) {
+			return _.contains(users.muted, tweet.user.id);
+		});
+		
 		res.render('pages/index', {
 			url: {
 				prev: date(prev, true),
 				next: date(next, true)
 			},
-			tweets: rows
+			tweets: tweets
 		});
 	});
 });

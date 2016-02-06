@@ -111,7 +111,6 @@
 	
 	<div class="list-group">
 	<% tweets.forEach(function(tweet) { %>
-		<% tweet = JSON.parse(tweet.data); %>
 		<div class="list-group-item">
 			<% if(tweet.retweeted_status) { %>
 			<div>RT by <a href="https://twitter.com/<%=tweet.user.screen_name %>" target="_blank"><strong><%=tweet.user.name %></strong> (@<%=tweet.user.screen_name %>)</a></div>
