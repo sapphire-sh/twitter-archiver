@@ -60,7 +60,7 @@
 					<span>@<%=user.screen_name %></span>
 				</a>
 				<div class="text">
-					<span><%-text %></span>
+					<span><%-text.replace(/\n/g, '<br />') %></span>
 				</div>
 <%
 		if(entities.media) {

@@ -104,7 +104,7 @@ app.get('/view/:date/:hour', function(req, res) {
 	require('knex')({
 		client: 'sqlite3',
 		connection: {
-			filename: './db/tweet-' + date(req.params.date) + '.sqlite'
+			filename: './db/tweet-' + date(now) + '.sqlite'
 		}
 	})(table_name)
 	.where('created_at', '>=', now.getTime())
@@ -122,3 +122,4 @@ app.get('/view/:date/:hour', function(req, res) {
 });
 
 app.listen(8015);
+
