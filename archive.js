@@ -37,12 +37,17 @@ var users = {
     muted: []
 };
 
-tw.get('blocks/ids', function(err, res) {
-	users.blocked = res.ids;
-});
+(function(fn) {
+    fn();
+    setInterval(fn, 15 * 60 * 1000);
+})(function() {
+    tw.get('blocks/ids', function(err, res) {
+    	users.blocked = res.ids;
+    });
 
-tw.get('mutes/users/ids', function(err, res) {
-	users.muted = res.ids;
+    tw.get('mutes/users/ids', function(err, res) {
+        users.muted = res.ids;
+    });
 });
 
 knex.schema.hasTable(table_name)

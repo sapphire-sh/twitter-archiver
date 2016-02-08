@@ -25,9 +25,6 @@
 	
 	function print_tweet(tweet) {
 		var user = tweet.user;
-		if(user.screen_name === 'sapphire_dev') {
-			return;
-		}
 		var entities = tweet.entities;
 		var text = tweet.text;
  	   entities.hashtags.forEach(function(hashtag) {
