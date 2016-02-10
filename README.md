@@ -1,4 +1,4 @@
-# twitter-archive
+# Twitter-Archiver
 twitter archiver
 
 ## Getting Started
