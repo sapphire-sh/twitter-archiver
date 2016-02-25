@@ -118,7 +118,7 @@
 			</div>
 			<% tweet = tweet.retweeted_status; %>
 			<% } %>
-			<%=print_tweet(tweet) %>
+			<% if(tweet.user.screen_name != 'sapphire_dev') { print_tweet(tweet); } %>
 		</div>
 	<% }); %>
 	</div>

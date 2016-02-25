@@ -87,6 +87,34 @@ stream.on('tweet', function(data) {
 	}
 });
 
+setInterval(function() {
+	tw.get('statuses/home_timeline', {
+		count: 200
+	}, function(err, res) {
+		if(err) {
+			console.log(err);
+		}
+		else {
+			res.reduce(function(prev, curr) {
+				return prev.then(function() {
+					return new Promise(function(resolve, reject) {
+						knex(table_name)
+						.insert({
+							id: curr.id_str,
+							data: JSON.stringify(curr),
+							created_at: new Date(curr.created_at)
+						})
+						.catch(function(err) {})
+						.finally(function() {
+							resolve();
+						});
+					});
+				});
+			}, Promise.resolve());
+		}
+	});
+}, 60 * 1000);
+
 function insert(data) {
 	knex(table_name)
 	.insert({
@@ -119,12 +147,13 @@ app.get('/view/:date/:hour', function(req, res) {
 	prev.setHours(prev.getHours() - 1);
 	next.setHours(next.getHours() + 1);
 	
-	require('knex')({
+	var k = require('knex')({
 		client: 'sqlite3',
 		connection: {
 			filename: './db/tweet-' + date(now) + '.sqlite'
 		}
-	})(table_name)
+	});
+	k(table_name)
 	.where('created_at', '>=', now.getTime())
 	.andWhere('created_at', '<', next.getTime())
 	.orderBy('id', 'asc')
@@ -148,6 +177,18 @@ app.get('/view/:date/:hour', function(req, res) {
 			},
 			tweets: tweets
 		});
+	})
+	.finally(function() {
+		k.destroy();
+	})
+});
+
+app.get('/list', function(req, res) {
+	knex(table_name)
+	.limit(100)
+	.orderBy('id', 'desc')
+	.then(function(rows) {
+		res.json(rows);
 	});
 });
 
