@@ -42,11 +42,15 @@ var users = {
     setInterval(fn, 15 * 60 * 1000);
 })(function() {
     tw.get('blocks/ids', function(err, res) {
-    	users.blocked = res.ids;
+    	users.blocked = _.map(res.ids, function(id) {
+    		return id.toString();
+    	});
     });
 
     tw.get('mutes/users/ids', function(err, res) {
-        users.muted = res.ids;
+        users.muted = _.map(res.ids, function(id) {
+        	return id.toString();
+        });
     });
 });
 
@@ -163,11 +167,14 @@ app.get('/view/:date/:hour', function(req, res) {
 		});
 		
 		tweets = _.reject(tweets, function(tweet) {
-			return _.contains(users.blocked, tweet.user.id);
-		});
-		
-		tweets = _.reject(tweets, function(tweet) {
-			return _.contains(users.muted, tweet.user.id);
+			var flag = false;
+			flag |= _.contains(users.blocked, tweet.user.id_str);
+			flag |= _.contains(users.muted, tweet.user.id_str);
+			if(tweet.retweeted_status !== undefined) {
+				flag |= _.contains(users.blocked, tweet.retweeted_status.user.id_str);
+				flag |= _.contains(users.muted, tweet.retweeted_status.user.id_str);
+			}
+			return flag;
 		});
 		
 		res.render('pages/index', {
