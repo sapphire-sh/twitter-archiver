@@ -5,7 +5,7 @@ var path = require('path');
 exports.date = {
 	format: function(d, p) {
 		function pad(n) {
-			return n < 10 ? '0' + n : n
+			return n < 10 ? '0' + n : n;
 		}
 		
 		var date;

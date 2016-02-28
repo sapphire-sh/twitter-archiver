@@ -1,4 +1,5 @@
 {
+  "strict": true,
   "node": true,
-  "strict": true
+  "esnext": true
 }

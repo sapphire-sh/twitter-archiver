@@ -1,5 +1,7 @@
 'use strict';
 
+var _ = require('underscore');
+
 var helper = require('./helper');
 
 var Tweet = function(twit) {
@@ -26,13 +28,13 @@ Tweet.prototype._update = function() {
 	var self = this;
 	
 	self.twit.get('blocks/ids', function(err, res) {
-		blocked = _.map(res.ids, function(id) {
+		self.users.blocked = _.map(res.ids, function(id) {
 			return id.toString();
 		});
 	});
 	
 	self.twit.get('mutes/users/ids', function(err, res) {
-		muted = _.map(res.ids, function(id) {
+		self.users.muted = _.map(res.ids, function(id) {
 			return id.toString();
 		});
 	});

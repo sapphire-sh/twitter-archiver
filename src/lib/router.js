@@ -3,7 +3,25 @@
 var router = require('express').Router();
 var _ = require('underscore');
 
-var helper = require('./lib/helper');
+var helper = require('./helper');
+
+router.get('/tweets', function(req, res) {
+	var knex = require('knex')({
+		client: 'sqlite3',
+		connection: {
+			filename: helper.path.db() + helper.date.format(new Date()) + '.db'
+		}
+	});
+	knex('tweet')
+	.limit(10)
+	.orderBy('id', 'desc')
+	.then(function(rows) {
+		var tweets = _.map(rows, function(tweet) {
+			return JSON.parse(tweet.data);
+		});
+		res.json(tweets);
+	});
+});
 
 router.get('/view/:date/:hour', function(req, res) {
 	var now = new Date(req.params.date);
@@ -49,7 +67,7 @@ router.get('/view/:date/:hour', function(req, res) {
 	})
 	.finally(function() {
 		k.destroy();
-	})
+	});
 });
 
 module.exports = router;

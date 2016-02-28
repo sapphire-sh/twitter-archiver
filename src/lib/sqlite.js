@@ -52,7 +52,7 @@ SQLite.prototype._initialize = function() {
 						}
 					});
 				});
-			})
+			});
 		}, Promise.resolve());
 	});
 };
