@@ -2,10 +2,10 @@
   "name": "archive",
   "description": "archiver",
   "version": "0.0.1",
-  "scripts": {
-    "start": "pm2 start archive.js",
-    "stop": "pm2 delete archive.js"
-  },
+  "author": "sapphire",
+  "keywords": [
+    "twitter"
+  ],
   "dependencies": {
     "ejs": "^2.4.1",
     "express": "^4.13.3",
@@ -13,5 +13,11 @@
     "sqlite3": "^3.1.1",
     "twit": "^2.1.1",
     "underscore": "^1.8.3"
+  },
+  "license": "MIT",
+  "main": "./src/archive.js",
+  "scripts": {
+    "start": "pm2 start archive.js",
+    "stop": "pm2 delete archive.js"
   }
 }
