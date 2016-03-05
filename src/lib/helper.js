@@ -32,7 +32,13 @@ exports.date = {
 };
 
 exports.path = {
+	data: function() {
+		return path.join(__dirname, '/../../data/');
+	},
 	db: function() {
-		return path.join(__dirname, '/../../db/');
+		return path.join(__dirname, '/../../data/db/');
+	},
+	index: function() {
+		return path.join(__dirname, '/../../data/index/');
 	}
 };
