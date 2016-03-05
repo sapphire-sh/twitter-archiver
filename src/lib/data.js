@@ -6,22 +6,23 @@ var _ = require('underscore');
 
 var helper = require('./helper');
 
-var Database = function() {
-	if (this instanceof Database) {
+var Data = function() {
+	if (this instanceof Data) {
 		var self = this;
-
+		
 		self.date = helper.date.format(new Date());
+		self.index = [];
 		
 		self._initialize();
-		setInterval(self._createDatabase.bind(self), 24 * 60 * 60 * 1000);
+		setInterval(self._createData.bind(self), 24 * 60 * 60 * 1000);
 		setInterval(self._updateIndex.bind(self), 60 * 1000);
 	}
 	else {
-		return new Database();
+		return new Data();
 	}
 };
 
-Database.prototype._initialize = function() {
+Data.prototype._initialize = function() {
 	var self = this;
 
 	try {
@@ -42,16 +43,7 @@ Database.prototype._initialize = function() {
 		}
 	}
 
-	try {
-		fs.statSync(helper.path.index());
-	}
-	catch(err) {
-		if (err.code === 'ENOENT') {
-			fs.mkdirSync(helper.path.index());
-		}
-	}
-
-	self._createDatabase();
+	self._createData();
 	
 	fs.readdir(helper.path.db(), (err, files) => {
 		_.each(files, (file) => {
@@ -74,7 +66,7 @@ Database.prototype._initialize = function() {
 	});
 };
 
-Database.prototype._createDatabase = function() {
+Data.prototype._createData = function() {
 	var self = this;
 
 	_(10).times(function(i) {
@@ -100,7 +92,7 @@ Database.prototype._createDatabase = function() {
 	});
 };
 
-Database.prototype._createIndex = function(date) {
+Data.prototype._createIndex = function(date) {
 	var self = this;
 
 	var knex = require('knex')({
@@ -125,11 +117,14 @@ Database.prototype._createIndex = function(date) {
 		var count = _.map(values, (value) => {
 			return value[0]['count'];
 		});
-		fs.writeFile(helper.path.index() + date + '.json', JSON.stringify(count));
+		self.index.push({
+			date: date,
+			count: count
+		});
 	});
 };
 
-Database.prototype._updateIndex = function() {
+Data.prototype._updateIndex = function() {
 	var self = this;
 	
 	var date = helper.date.format(new Date());
@@ -141,4 +136,4 @@ Database.prototype._updateIndex = function() {
 	}
 };
 
-module.exports = Database;
+module.exports = Data;

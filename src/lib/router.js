@@ -5,7 +5,16 @@ var fs = require('fs');
 var router = require('express').Router();
 var _ = require('underscore');
 
+var data = require('./data')();
+
 var helper = require('./helper');
+
+router.get('/index', function(req, res) {
+	var index = _.sortBy(data.index, (index) => {
+		return -(new Date(index.date).getTime());
+	});
+	res.json(index);
+});
 
 router.get('/data/js/tweets/:datetime', function(req, res) {
 	var datetime = req.params.datetime.split('.')[0];
@@ -42,45 +51,8 @@ router.get('/data/js/tweets/:datetime', function(req, res) {
 });
 
 router.get('/data/js/tweet_index.js', function(req, res) {
-	fs.readdir(helper.path.db(), function(err, files) {
-		if(!err) {
-			res.write('var tweet_index = [\n');
-			var databases = _.filter(files, function(file) {
-				return file.match(/\.db$/);
-			});
-			databases.reduce(function(prev, curr) {
-				console.log(prev + '1 ' + curr);
-				return prev.then(function() {
-				console.log(prev + '2 ' + curr);
-					return new Promise(function(resolve, reject) {
-				console.log(prev + '3 ' + curr);
-						var date = new Date(curr.split('.')[0]);
-						var knex = require('knex')({
-							client: 'sqlite3',
-							connection: {
-								filename: helper.path.db() + curr
-							}
-						});
-						knex('tweet').count('id as num')
-						.then(function(rows) {
-							var num = rows[0]['num'];
-							if(num === 0) {
-								reject();
-							}
-							else {
-								res.write(num);
-								resolve();
-							}
-						});
-					});
-				});
-			}, Promise.resolve())
-			.then(function() {
-				res.write(']');
-				res.end();
-			});
-		}
-	});
+	res.write(fs.readFileSync(helper.path.data() + 'tweet_index.js'));
+	res.end();
 });
 
 router.get('/tweets', function(req, res) {

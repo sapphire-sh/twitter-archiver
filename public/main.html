@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Your Twitter archive</title>
+		<meta name="description" content="All of the Tweets.">
+
+		<meta http-equiv="MSThemeCompatible" Content="No">
+		<meta name="MSSmartTagsPreventParsing" content="true">
+		<meta http-equiv="imagetoolbar" content="no">
+
+		<link href="https://si0.twimg.com/favicons/favicon.ico" rel="shortcut icon" type="image/x-icon">
+		<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="lib/twt/twt.min.css" rel="stylesheet">
+		<link href="css/application.min.css" rel="stylesheet">
+
+		<style>
+			.just-padding {
+				padding: 15px;
+			}
+
+			.list-group.list-group-root {
+				padding: 0;
+				overflow: hidden;
+			}
+
+			.list-group.list-group-root .list-group {
+				margin-bottom: 0;
+			}
+
+			.list-group.list-group-root .list-group-item {
+				border-radius: 0;
+				border-width: 1px 0 0 0;
+			}
+
+			.list-group.list-group-root > .list-group-item:first-child {
+				border-top-width: 0;
+			}
+
+			.list-group.list-group-root > .list-group > .list-group-item {
+				padding-left: 30px;
+			}
+
+			.list-group.list-group-root > .list-group > .list-group > .list-group-item {
+				padding-left: 45px;
+			}
+
+			.list-group-item .glyphicon {
+				margin-right: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="tweets-header-container">
+					<div class="tweets-header">
+						<h2 class="tweets-header-title truncated"></h2>
+						<a class="nav-arrow nav-arrow-left" data-idx="" rel="tooltip" data-placement="top"> <span class="hidden-elements">Previous month</span> </a>
+						<a class="nav-arrow nav-arrow-right" data-idx="" rel="tooltip" data-placement="top"> <span class="hidden-elements">Next month</span> </a>
+						<a class="nav-clear" rel="tooltip" data-placement="top" data-original-title="Clear search"> <span class="hidden-elements">Clear search</span> </a>
+					</div>
+				</div>
+				<div class="contents col-md-8 col-xs-12">
+					<div class="tweets"></div>
+				</div>
+
+				<div class="sidebar col-md-4">
+					<div class="list-group list-group-root well" id="accordion"></div>
+				</div>
+
+			</div>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+		<script src="lib/underscore/underscore-min.js"></script>
+		<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+		<script src="lib/twt/twt.all.min.js"></script>
+		<script src="lib/hogan/hogan-2.0.0.min.js"></script>
+		<!--script src="js/application.js" charset="utf-8"></script-->
+		<!--script src="js/en.js" charset="utf-8"></script-->
+		<script src="js/script.js"></script>
+		<script src="data/js/payload_details.js" charset="utf-8"></script>
+		<!--script src="/data/js/tweet_index.js" charset="utf-8"></script-->
+		<script src="data/js/user_details.js" charset="utf-8"></script>
+
+		<script>
+			$(function() {
+				$('.list-group-item').on('click', function() {
+					$('.glyphicon', this).toggleClass('glyphicon-chevron-right').toggleClass('glyphicon-chevron-down');
+				});
+			});
+		</script>
+	</body>
+</html>

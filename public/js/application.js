@@ -252,26 +252,9 @@ var Grailbird = function(type, date, data) {
         // is called every time you click on a section nav element. If the DOM elements aren't flushed and
         // recreated, any click handlers bound to them will be bound to them again
 
-        // build nav for each year/month
-        var number_formatter = new TwitterCldr.DecimalFormatter();
-        var date_formatter = new TwitterCldr.DateTimeFormatter();
         var count, status_file;
         var temp_date = new Date();
-        var months = [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December'
-          ],
-          self = this,
+        var self = this,
           $year_chart = $('<div class="histogram"><h3></h3><ol class="months unstyled"></ol></div>'),
           $year_chart_clone,
           month_bar = [],
@@ -300,11 +283,8 @@ var Grailbird = function(type, date, data) {
         for (var i = 0, l = this.status_index.length; i < l; i++) {
           status_file = this.status_index[i];
           temp_date.setUTCFullYear(status_file.year, status_file.month - 1, 15);
-          var title_str = date_formatter.format(temp_date, {
-            "format": "additional",
-            "type": "yMMMdh"
-          });
-          count = number_formatter.format(status_file.tweet_count);
+          var title_str = temp_date;
+          count = status_file.tweet_count;
           var count_str = status_file.tweet_count > 1 ?
             templates.plural_tweet_count.render({
               "count": count
@@ -396,7 +376,7 @@ var Grailbird = function(type, date, data) {
           $('.months .with-tweets, .histogram').removeClass('active');
           $('.months .with-tweets[data-idx="' + tweet_index_id + '"]').addClass('active').parents('.histogram').addClass('active');
         }
-
+        
         prev_month = Number(tweet_index_id) + 1;
         next_month = Number(tweet_index_id) - 1;
         if (tweet_index_id === 0) {
