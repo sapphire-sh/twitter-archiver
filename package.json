@@ -2,28 +2,17 @@
   "name": "archive",
   "description": "archiver",
   "version": "0.0.1",
-  "author": "sapphire",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sapphiredev/twitter-archiver.git"
+  "scripts": {
+    "start": "pm2 start ./app.json",
+    "stop": "pm2 stop ./app.json"
   },
-  "keywords": [
-    "twitter"
-  ],
   "dependencies": {
+    "basic-auth": "^1.0.4",
+    "ejs": "^2.4.1",
     "express": "^4.13.3",
     "knex": "^0.9.0",
-    "morgan": "^1.7.0",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7",
     "sqlite3": "^3.1.1",
     "twit": "^2.1.1",
     "underscore": "^1.8.3"
-  },
-  "license": "MIT",
-  "main": "./src/archive.js",
-  "scripts": {
-    "start": "pm2 start ./src/archive.js --watch",
-    "stop": "pm2 delete archive"
   }
 }
