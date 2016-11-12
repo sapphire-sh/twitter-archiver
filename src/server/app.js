@@ -5,11 +5,7 @@ import Stream from './lib/stream';
 import Database from './lib/database';
 
 class App {
-	constructor() {
-		let self = this;
-
-		console.log('app started');
-
+	start() {
 		Promise.all([
 			Server.initialize(),
 			Stream.initialize(),
@@ -27,5 +23,6 @@ class App {
 }
 
 const app = new App();
+app.start();
 
 export default App;

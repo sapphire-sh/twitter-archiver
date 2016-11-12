@@ -9,4 +9,4 @@ export function dateToString(date) {
 	const seconds = `0${date.getSeconds()}`.substr(-2);
 
 	return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-};
+}

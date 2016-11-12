@@ -7,8 +7,6 @@ import Database from './database';
 import express from 'express';
 import auth from 'basic-auth';
 
-let isInitialized = false;
-
 class Server {
 	static initialize() {
 		let self = this;
@@ -17,22 +15,19 @@ class Server {
 
 		self.app.use(express.static(path.resolve(__dirname, '../../dist')));
 
-		// self.app.use((req, res, next) => {
-		// 	let credentials = auth(req);
-		//
-		// 	if(credentials === undefined || credentials.name !== 'sapphire' || credentials.pass !== 'sapphire') {
-		// 		res.setHeader('WWW-Authenticate', 'Basic realm=Authorization Required');
-		// 		res.sendStatus(401);
-		// 	}
-		// 	else {
-		// 		next();
-		// 	}
-		// });
+		self.app.use((req, res, next) => {
+			let credentials = auth(req);
 
-		return new Promise((resolve, reject) => {
-			isInitialized = true;
-			resolve();
+			if(credentials === undefined || credentials.name !== 'sapphire' || credentials.pass !== 'sapphire') {
+				res.setHeader('WWW-Authenticate', 'Basic realm=Authorization Required');
+				res.sendStatus(401);
+			}
+			else {
+				next();
+			}
 		});
+
+		return Promise.resolve();
 	}
 
 	static start() {
@@ -42,7 +37,6 @@ class Server {
 
 		self.app.get('/api/tweets/:date/:hour', (req, res) => {
 			let date = new Date(`${req.params.date} ${req.params.hour}:00:00`);
-			console.log(date.getTime());
 
 			self.database.tweet.findAll({
 				where: {

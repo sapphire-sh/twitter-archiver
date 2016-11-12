@@ -2,7 +2,7 @@
 
 import {
 	combineReducers
-} from 'redux'
+} from 'redux';
 import {
 	INVALIDATE_DATE,
 	UPDATE_DATE,
@@ -16,16 +16,16 @@ function date(state = {
 	date: new Date()
 }, action) {
 	switch(action.type) {
-		case INVALIDATE_DATE:
+	case INVALIDATE_DATE:
 		return Object.assign({}, state, {
 			didInvalidate: true
 		});
-		case UPDATE_DATE:
+	case UPDATE_DATE:
 		return Object.assign({}, state, {
 			didInvalidate: false,
 			date: action.date
 		});
-		default:
+	default:
 		return state;
 	}
 }
@@ -36,22 +36,22 @@ function tweets(state = {
 	tweets: []
 }, action) {
 	switch(action.type) {
-		case INVALIDATE_TWEETS:
+	case INVALIDATE_TWEETS:
 		return Object.assign({}, state, {
 			didInvalidate: true
 		});
-		case REQUEST_TWEETS:
+	case REQUEST_TWEETS:
 		return Object.assign({}, state, {
 			isFetching: true,
 			didInvalidate: false
 		});
-		case RECEIVE_TWEETS:
+	case RECEIVE_TWEETS:
 		return Object.assign({}, state, {
 			isFetching: false,
 			didInvalidate: false,
 			tweets: action.tweets
 		});
-		default:
+	default:
 		return state;
 	}
 }

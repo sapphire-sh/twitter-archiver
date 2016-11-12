@@ -35,9 +35,6 @@ class Database {
 		if(isInitialized) {
 			return self;
 		}
-		else {
-			console.error('not initialized');
-		}
 	}
 }
 

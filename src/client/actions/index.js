@@ -13,33 +13,33 @@ export const RECEIVE_TWEETS = 'RECEIVE_TWEETS';
 export function invalidateDate() {
 	return {
 		type: INVALIDATE_DATE
-	}
+	};
 }
 
 export function updateDate(date) {
 	return {
 		type: UPDATE_DATE,
 		date: date
-	}
+	};
 }
 
 export function invalidateTweets() {
 	return {
 		type: INVALIDATE_TWEETS
-	}
+	};
 }
 
 function requestTweets() {
 	return {
 		type: REQUEST_TWEETS
-	}
+	};
 }
 
-function receiveTweets(json) {
+function receiveTweets(date, json) {
 	return {
 		type: RECEIVE_TWEETS,
 		tweets: json.map((data) => JSON.parse(data.data))
-	}
+	};
 }
 
 function fetchTweets(date) {
@@ -49,9 +49,9 @@ function fetchTweets(date) {
 		return fetch(`/api/tweets/${dateToString(date).substr(0, 13).replace(/\ /, '/')}`)
 		.then(res => res.json())
 		.then(json => {
-			dispatch(receiveTweets(json));
+			dispatch(receiveTweets(date, json));
 		});
-	}
+	};
 }
 
 function shouldFetchTweets(state) {
@@ -63,5 +63,5 @@ export function fetchTweetsIfNeeded(date) {
 		if(shouldFetchTweets(getState())) {
 			return dispatch(fetchTweets(date));
 		}
-	}
+	};
 }

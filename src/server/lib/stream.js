@@ -3,11 +3,7 @@
 import Twit from 'twit';
 import CONFIG from '../../../config';
 
-import bigInt from 'big-integer';
-
 import Database from './database';
-
-let isInitialized = false;
 
 class Stream {
 	static initialize() {
@@ -15,10 +11,7 @@ class Stream {
 
 		self.twit = new Twit(CONFIG);
 
-		return new Promise((resolve, reject) => {
-			isInitialized = true;
-			resolve();
-		});
+		return Promise.resolve();
 	}
 
 	static start() {
