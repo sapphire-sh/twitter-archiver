@@ -38,7 +38,9 @@ function requestTweets() {
 function receiveTweets(date, json) {
 	return {
 		type: RECEIVE_TWEETS,
-		tweets: json.map((data) => JSON.parse(data.data))
+		tweets: {
+			[dateToString(date).substr(0, 13)]: json.map((data) => JSON.parse(data.data))
+		}
 	};
 }
 

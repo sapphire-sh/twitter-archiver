@@ -76,18 +76,15 @@ View.propTypes = {
 };
 
 function mapStateToProps(state) {
-	const {
-		date
-	} = state.date;
-
-	const {
-		isFetching,
-		tweets
-	} = state.tweets;
+	let tweets = state.tweets.tweets[dateToString(state.date.date).substr(0, 13)];
+	
+	if(tweets === undefined) {
+		tweets = [];
+	}
 
 	return {
-		date,
-		isFetching,
+		date: state.date.date,
+		isFetching: state.tweets.isFetching,
 		tweets
 	};
 }

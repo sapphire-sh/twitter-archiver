@@ -33,7 +33,7 @@ function date(state = {
 function tweets(state = {
 	isFetching: false,
 	didInvalidate: false,
-	tweets: []
+	tweets: {}
 }, action) {
 	switch(action.type) {
 	case INVALIDATE_TWEETS:

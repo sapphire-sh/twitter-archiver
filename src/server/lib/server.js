@@ -5,7 +5,6 @@ import path from 'path';
 import Database from './database';
 
 import express from 'express';
-import auth from 'basic-auth';
 
 class Server {
 	static initialize() {
@@ -14,18 +13,6 @@ class Server {
 		self.app = express();
 
 		self.app.use(express.static(path.resolve(__dirname, '../../dist')));
-
-		self.app.use((req, res, next) => {
-			let credentials = auth(req);
-
-			if(credentials === undefined || credentials.name !== 'sapphire' || credentials.pass !== 'sapphire') {
-				res.setHeader('WWW-Authenticate', 'Basic realm=Authorization Required');
-				res.sendStatus(401);
-			}
-			else {
-				next();
-			}
-		});
 
 		return Promise.resolve();
 	}

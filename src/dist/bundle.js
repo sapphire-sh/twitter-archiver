@@ -28364,7 +28364,7 @@
 		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
 			isFetching: false,
 			didInvalidate: false,
-			tweets: []
+			tweets: {}
 		};
 		var action = arguments[1];
 
@@ -28413,6 +28413,8 @@
 
 	var _utils = __webpack_require__(269);
 
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 	var INVALIDATE_DATE = exports.INVALIDATE_DATE = 'INVALIDATE_DATE';
 	var UPDATE_DATE = exports.UPDATE_DATE = 'UPDATE_DATE';
 	var INVALIDATE_TWEETS = exports.INVALIDATE_TWEETS = 'INVALIDATE_TWEETS';
@@ -28447,9 +28449,9 @@
 	function receiveTweets(date, json) {
 		return {
 			type: RECEIVE_TWEETS,
-			tweets: json.map(function (data) {
+			tweets: _defineProperty({}, (0, _utils.dateToString)(date).substr(0, 13), json.map(function (data) {
 				return JSON.parse(data.data);
-			})
+			}))
 		};
 	}
 
@@ -28665,15 +28667,15 @@
 	};
 
 	function mapStateToProps(state) {
-		var date = state.date.date;
-		var _state$tweets = state.tweets,
-		    isFetching = _state$tweets.isFetching,
-		    tweets = _state$tweets.tweets;
+		var tweets = state.tweets.tweets[(0, _utils.dateToString)(state.date.date).substr(0, 13)];
 
+		if (tweets === undefined) {
+			tweets = [];
+		}
 
 		return {
-			date: date,
-			isFetching: isFetching,
+			date: state.date.date,
+			isFetching: state.tweets.isFetching,
 			tweets: tweets
 		};
 	}
