@@ -28851,40 +28851,18 @@
 							var _user = tweet.user;
 
 							isRetweet = _react2.default.createElement(
-								'div',
-								null,
-								_react2.default.createElement(
-									'a',
-									{ style: {
-											color: '#fff',
-											backgroundColor: '#' + _user.profile_link_color
-										}, href: 'https://twitter.com/' + _user.screen_name, target: '_blank', className: 'ui ribbon image label' },
-									_react2.default.createElement('img', { src: _user.profile_image_url_https }),
-									_user.name,
-									_react2.default.createElement(
-										'div',
-										{ className: 'detail' },
-										'@',
-										_user.screen_name
-									)
-								),
+								'a',
+								{ style: {
+										color: '#fff',
+										backgroundColor: '#' + _user.profile_link_color
+									}, href: 'https://twitter.com/' + _user.screen_name, target: '_blank', className: 'ui ribbon image label' },
+								_react2.default.createElement('img', { src: _user.profile_image_url_https }),
+								_user.name,
 								_react2.default.createElement(
 									'div',
-									{ className: 'ui segment', style: {
-											marginBottom: '1rem',
-											display: 'flex',
-											justifyContent: 'space-between'
-										} },
-									_react2.default.createElement(
-										'div',
-										{ className: 'created_at' },
-										_react2.default.createElement(
-											'a',
-											{ href: 'https://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str, target: '_blank' },
-											(0, _utils.dateToString)(new Date(tweet.created_at))
-										)
-									),
-									_react2.default.createElement('div', { className: 'source', dangerouslySetInnerHTML: { __html: tweet.source.replace('<a ', '<a target="_blank" ') } })
+									{ className: 'detail' },
+									'@',
+									_user.screen_name
 								)
 							);
 							tweet = tweet.retweeted_status;
@@ -28894,7 +28872,7 @@
 						if (tweet.retweet_count > 0 || tweet.favorite_count > 0) {
 							status = _react2.default.createElement(
 								'div',
-								{ className: 'ui attached segment' },
+								{ className: 'ui bottom attached segment' },
 								_react2.default.createElement(
 									'div',
 									{ className: 'ui label' },
@@ -28913,8 +28891,8 @@
 						}
 
 						var media = void 0;
-						if (tweet.entities.media !== undefined) {
-							media = tweet.entities.media.map(function (medium) {
+						if (tweet.extended_entities !== undefined && tweet.extended_entities.media !== undefined) {
+							media = tweet.extended_entities.media.map(function (medium) {
 								return _react2.default.createElement(
 									'div',
 									{ key: medium.id_str, className: 'ui attached segment' },
@@ -28924,7 +28902,6 @@
 								);
 							});
 						}
-						console.log(tweet.entities.media);
 
 						var user = tweet.user;
 
@@ -28965,24 +28942,7 @@
 										)
 									),
 									media,
-									status,
-									_react2.default.createElement(
-										'div',
-										{ className: 'ui bottom attached segment', style: {
-												display: 'flex',
-												justifyContent: 'space-between'
-											} },
-										_react2.default.createElement(
-											'div',
-											{ className: 'created_at' },
-											_react2.default.createElement(
-												'a',
-												{ href: 'https://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str, target: '_blank' },
-												(0, _utils.dateToString)(new Date(tweet.created_at))
-											)
-										),
-										_react2.default.createElement('div', { className: 'source', dangerouslySetInnerHTML: { __html: tweet.source.replace('<a ', '<a target="_blank" ') } })
-									)
+									status
 								)
 							)
 						);

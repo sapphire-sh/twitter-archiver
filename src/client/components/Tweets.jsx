@@ -24,24 +24,14 @@ class Tweets extends Component {
 						const user = tweet.user;
 
 						isRetweet = (
-							<div>
-								<a style={{
-										color: '#fff',
-										backgroundColor: `#${user.profile_link_color}`
-									}} href={ `https://twitter.com/${user.screen_name}` } target="_blank" className="ui ribbon image label">
-									<img src={ user.profile_image_url_https } />
-									{ user.name }
-									<div className="detail">@{ user.screen_name }</div>
-								</a>
-								<div className="ui segment" style={{
-										marginBottom: '1rem',
-										display: 'flex',
-										justifyContent: 'space-between'
-									}}>
-									<div className="created_at"><a href={ `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}` } target="_blank">{ dateToString(new Date(tweet.created_at)) }</a></div>
-									<div className="source" dangerouslySetInnerHTML={{ __html: tweet.source.replace('<a ', '<a target="_blank" ') }} />
-								</div>
-							</div>
+							<a style={{
+									color: '#fff',
+									backgroundColor: `#${user.profile_link_color}`
+								}} href={ `https://twitter.com/${user.screen_name}` } target="_blank" className="ui ribbon image label">
+								<img src={ user.profile_image_url_https } />
+								{ user.name }
+								<div className="detail">@{ user.screen_name }</div>
+							</a>
 						)
 						tweet = tweet.retweeted_status;
 					}
@@ -49,7 +39,7 @@ class Tweets extends Component {
 					let status;
 					if(tweet.retweet_count > 0 || tweet.favorite_count > 0) {
 						status = (
-							<div className="ui attached segment">
+							<div className="ui bottom attached segment">
 								<div className="ui label">
 									<i className="retweet icon"></i> { tweet.retweet_count }
 									</div>
@@ -61,8 +51,8 @@ class Tweets extends Component {
 					}
 
 					let media;
-					if(tweet.entities.media !== undefined) {
-						media = tweet.entities.media.map((medium) => {
+					if(tweet.extended_entities !== undefined && tweet.extended_entities.media !== undefined) {
+						media = tweet.extended_entities.media.map((medium) => {
 							return (
 								<div key={medium.id_str} className="ui attached segment">
 									<img style={{
@@ -72,7 +62,6 @@ class Tweets extends Component {
 							);
 						});
 					}
-					console.log(tweet.entities.media);
 
 					const user = tweet.user;
 
@@ -98,13 +87,6 @@ class Tweets extends Component {
 										</div>
 										{ media }
 										{ status }
-										<div className="ui bottom attached segment" style={{
-											display: 'flex',
-											justifyContent: 'space-between'
-										}}>
-										<div className="created_at"><a href={ `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}` } target="_blank">{ dateToString(new Date(tweet.created_at)) }</a></div>
-										<div className="source" dangerouslySetInnerHTML={{ __html: tweet.source.replace('<a ', '<a target="_blank" ') }} />
-									</div>
 								</div>
 							</div>
 						</div>
