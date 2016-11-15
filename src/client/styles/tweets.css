@@ -1,33 +1,8 @@
-.tweet {
-	margin-left: 58px;
-}
-
-.tweet > div {
-	margin-top: 4px;
-}
-
-.user {
-	text-decoration: none !important;
-}
-
-.user-profile_image {
-	float: left;
-	margin-left: -58px;
+.tweet > a > img {
+	border-radius: 0 !important;
 }
 
 .entities-media > div > img {
 	max-width: 360px;
 	max-height: 240px;
-}
-
-.source {
-	float: right;
-}
-
-.created_at {
-	float: left;
-}
-
-.clear {
-	clear: both;
 }

@@ -1,8 +1,8 @@
 'use strict';
 
-import Server from './lib/server';
-import Stream from './lib/stream';
-import Database from './lib/database';
+import Server from './libs/server';
+import Stream from './libs/stream';
+import Database from './libs/database';
 
 class App {
 	start() {

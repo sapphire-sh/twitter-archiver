@@ -4,12 +4,13 @@ import React, {
 	Component,
 	PropTypes
 } from 'react';
+import twitterText from 'twitter-text';
 
 import {
 	dateToString
 } from '../utils';
 
-import '../styles/tweets.css';
+import '../styles/Tweets.css';
 
 class Tweets extends Component {
 	render() {
@@ -20,41 +21,91 @@ class Tweets extends Component {
 
 					let isRetweet;
 					if(tweet.retweeted_status) {
+						const user = tweet.user;
+
 						isRetweet = (
 							<div>
-								<div>RT by <a href={ `https://twitter.com/${tweet.user.screen_name}` } target="_blank"><strong>{ tweet.user.name }</strong> (@{ tweet.user.screen_name })</a></div>
-								<div style={{ margin: '2px 0' }}>
+								<a style={{
+										color: '#fff',
+										backgroundColor: `#${user.profile_link_color}`
+									}} href={ `https://twitter.com/${user.screen_name}` } target="_blank" className="ui ribbon image label">
+									<img src={ user.profile_image_url_https } />
+									{ user.name }
+									<div className="detail">@{ user.screen_name }</div>
+								</a>
+								<div className="ui segment" style={{
+										marginBottom: '1rem',
+										display: 'flex',
+										justifyContent: 'space-between'
+									}}>
 									<div className="created_at"><a href={ `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}` } target="_blank">{ dateToString(new Date(tweet.created_at)) }</a></div>
 									<div className="source" dangerouslySetInnerHTML={{ __html: tweet.source.replace('<a ', '<a target="_blank" ') }} />
-									<div className="clear"></div>
 								</div>
 							</div>
 						)
 						tweet = tweet.retweeted_status;
 					}
+
+					let status;
+					if(tweet.retweet_count > 0 || tweet.favorite_count > 0) {
+						status = (
+							<div className="ui attached segment">
+								<div className="ui label">
+									<i className="retweet icon"></i> { tweet.retweet_count }
+									</div>
+								<div className="ui label">
+									<i className="star icon"></i> { tweet.favorite_count }
+								</div>
+							</div>
+						)
+					}
+
+					let media;
+					if(tweet.entities.media !== undefined) {
+						media = tweet.entities.media.map((medium) => {
+							return (
+								<div key={medium.id_str} className="ui attached segment">
+									<img style={{
+										margin: '0 auto'
+									}} className="ui medium rounded image" src={medium.media_url_https} />
+								</div>
+							);
+						});
+					}
+					console.log(tweet.entities.media);
+
 					const user = tweet.user;
 
 					return (
 						<div className="attached ui segment" key={ tweetId }>
 							{ isRetweet }
 							<div className="tweet">
-								<a href={ `https://twitter.com/${user.screen_name}` } target="_blank" className="user">
-									<img src={ user.profile_image_url_https } className="user-profile_image" />
-									<strong>{user.name}</strong>
-									<span>@{user.screen_name}</span>
+								<a style={{
+										color: `#fff`,
+										backgroundColor: `#${user.profile_link_color}`
+									}} href={ `https://twitter.com/${user.screen_name}` } target="_blank" className="ui ribbon image label">
+									<img src={ user.profile_image_url_https } />
+									{ user.name }
+									<div className="detail">@{ user.screen_name }</div>
 								</a>
-								<div className="text">
-									<div dangerouslySetInnerHTML={{ __html: tweet.text.replace(/\n/g, '<br />') }} />
+								<div className="ui segments">
+									<div className="ui top attached segment">
+										<div className="text">
+											<div dangerouslySetInnerHTML={{ __html: twitterText.autoLink(tweet.text, {
+													urlEntities: tweet.entities.urls
+												}).replace(/<a /g, '<a target="_blank" ').replace(/\n/g, '<br />') }} />
+											</div>
+										</div>
+										{ media }
+										{ status }
+										<div className="ui bottom attached segment" style={{
+											display: 'flex',
+											justifyContent: 'space-between'
+										}}>
+										<div className="created_at"><a href={ `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}` } target="_blank">{ dateToString(new Date(tweet.created_at)) }</a></div>
+										<div className="source" dangerouslySetInnerHTML={{ __html: tweet.source.replace('<a ', '<a target="_blank" ') }} />
+									</div>
 								</div>
-								<div>
-									<div>RTs: { tweet.retweet_count }</div>
-									<div>Likes: { tweet.favorite_count }</div>
-								</div>
-							</div>
-							<div>
-								<div className="created_at"><a href={ `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}` } target="_blank">{ dateToString(new Date(tweet.created_at)) }</a></div>
-								<div className="source" dangerouslySetInnerHTML={{ __html: tweet.source.replace('<a ', '<a target="_blank" ') }} />
-								<div className="clear"></div>
 							</div>
 						</div>
 					);
