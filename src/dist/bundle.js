@@ -28853,6 +28853,7 @@
 							isRetweet = _react2.default.createElement(
 								'a',
 								{ style: {
+										marginBottom: '4px',
 										color: '#fff',
 										backgroundColor: '#' + _user.profile_link_color
 									}, href: 'https://twitter.com/' + _user.screen_name, target: '_blank', className: 'ui ribbon image label' },
@@ -28872,7 +28873,7 @@
 						if (tweet.retweet_count > 0 || tweet.favorite_count > 0) {
 							status = _react2.default.createElement(
 								'div',
-								{ className: 'ui bottom attached segment' },
+								{ className: 'ui attached segment' },
 								_react2.default.createElement(
 									'div',
 									{ className: 'ui label' },
@@ -28942,7 +28943,24 @@
 										)
 									),
 									media,
-									status
+									status,
+									_react2.default.createElement(
+										'div',
+										{ className: 'ui bottom attached segment', style: {
+												display: 'flex',
+												justifyContent: 'space-between'
+											} },
+										_react2.default.createElement(
+											'div',
+											{ className: 'created_at' },
+											_react2.default.createElement(
+												'a',
+												{ href: 'https://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str, target: '_blank' },
+												(0, _utils.dateToString)(new Date(tweet.created_at))
+											)
+										),
+										_react2.default.createElement('div', { className: 'source', dangerouslySetInnerHTML: { __html: tweet.source.replace('<a ', '<a target="_blank" ') } })
+									)
 								)
 							)
 						);

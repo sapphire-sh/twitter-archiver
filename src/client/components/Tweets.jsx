@@ -25,6 +25,7 @@ class Tweets extends Component {
 
 						isRetweet = (
 							<a style={{
+									marginBottom: '4px',
 									color: '#fff',
 									backgroundColor: `#${user.profile_link_color}`
 								}} href={ `https://twitter.com/${user.screen_name}` } target="_blank" className="ui ribbon image label">
@@ -39,7 +40,7 @@ class Tweets extends Component {
 					let status;
 					if(tweet.retweet_count > 0 || tweet.favorite_count > 0) {
 						status = (
-							<div className="ui bottom attached segment">
+							<div className="ui attached segment">
 								<div className="ui label">
 									<i className="retweet icon"></i> { tweet.retweet_count }
 									</div>
@@ -87,6 +88,13 @@ class Tweets extends Component {
 										</div>
 										{ media }
 										{ status }
+										<div className="ui bottom attached segment" style={{
+											display: 'flex',
+											justifyContent: 'space-between'
+										}}>
+										<div className="created_at"><a href={ `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}` } target="_blank">{ dateToString(new Date(tweet.created_at)) }</a></div>
+										<div className="source" dangerouslySetInnerHTML={{ __html: tweet.source.replace('<a ', '<a target="_blank" ') }} />
+									</div>
 								</div>
 							</div>
 						</div>
