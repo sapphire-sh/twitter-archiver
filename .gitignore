@@ -28,4 +28,3 @@ node_modules
 
 config.js
 database.sqlite
-/src/dist
