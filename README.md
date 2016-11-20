@@ -2,15 +2,9 @@
 twitter archiver
 
 ## Getting Started
+### Server
+1. Run `babel-node src/server/app.js`
+2. LogIn with Twitter account
 
-###Usage
-
-config.js
-```javascript
-module.exports = {
-  consumer_key: '',
-  consumer_secret: '',
-  access_token: '',
-  access_token_secret: ''
-}
-```
+### Client
+1. Run `webpack`
