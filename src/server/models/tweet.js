@@ -1,14 +1,23 @@
 'use strict';
 
-export default function(sequelize, DataTypes) {
-	let tweet = sequelize.define('tweet', {
-		id: {
-			type: DataTypes.STRING,
-			primaryKey: true
-		},
-		timestamp: DataTypes.BIGINT,
-		data: DataTypes.STRING
-	});
+import mongoose from 'mongoose';
 
-	return tweet;
-}
+let tweetSchema = new mongoose.Schema({
+	id: {
+		type: String,
+		required: true,
+		unique: true
+	},
+	data: {
+		type: mongoose.Schema.Types.Mixed,
+		required: true
+	},
+	created_at: {
+		type: Date,
+		required: true
+	}
+});
+
+let Tweet = mongoose.model('Tweet', tweetSchema);
+
+export default Tweet;

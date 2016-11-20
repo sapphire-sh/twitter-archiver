@@ -1,58 +1,45 @@
 'use strict';
 
-import Sequelize from 'sequelize';
-import Tweet from '../models/tweet';
+import mongoose from 'mongoose';
 
-let isInitialized = false;
+import Tweet from '../models/tweet';
 
 class Database {
 	static initialize(config) {
 		let self = this;
 
-		let sequelize = new Sequelize(config);
-
-		self.database = {};
-		self.database.tweet = sequelize.import('tweet', Tweet);
-
-		return new Promise((resolve, reject) => {
-			Promise.all(Object.keys(self.database).map((k) => {
-				return self.database[k].sync();
-			}))
-			.then(() => {
-				isInitialized = true;
-				resolve();
-			})
-			.catch((err) => {
-				reject(err);
-			});
-		});
+		mongoose.connect('mongodb://localhost/twitter-archiver');
 	}
 
 	static insertTweet(tweet) {
 		let self = this;
 
-		self.database.tweet.create({
+		let newTweet = Tweet({
 			id: tweet.id_str,
-			timestamp: new Date(tweet.created_at).getTime() / 1000,
-			data: JSON.stringify(tweet)
+			data: JSON.stringify(tweet),
+			created_at: new Date(tweet.created_at)
 		});
+
+		newTweet.save();
 	}
 
 	static fetchTweets(dateTime) {
 		let self = this;
 
-		return self.database.tweet.findAll({
-			where: {
-				timestamp: {
-					$and: {
-						$gte: dateTime,
-						$lt: dateTime + 3600
-					}
+		return new Promise((resolve, reject) => {
+			Tweet.find({
+				'created_at': {
+					$gte: dateTime,
+					$lt: dateTime + 3600 * 1000
 				}
-			},
-			order: [
-				['id', 'ASC']
-			]
+			}, (err, tweets) => {
+				if(err) {
+					reject(err);
+				}
+				else {
+					resolve(tweets);
+				}
+			});
 		});
 	}
 }

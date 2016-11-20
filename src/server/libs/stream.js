@@ -1,17 +1,14 @@
 'use strict';
 
 import Twit from 'twit';
-import CONFIG from '../../../config';
 
 import Database from './database';
 
 class Stream {
-	static initialize() {
+	static initialize(config) {
 		let self = this;
 
-		self.twit = new Twit(CONFIG);
-
-		return Promise.resolve();
+		self.twit = new Twit(config);
 	}
 
 	static start() {
@@ -21,6 +18,21 @@ class Stream {
 
 		self.stream.on('tweet', (tweet) => {
 			Database.insertTweet(tweet);
+		});
+
+		setInterval(self.fetchTimeline.bind(this), 10 * 60 * 1000);
+	}
+
+	static fetchTimeline() {
+		let self = this;
+
+		self.twit.get('statuses/home_timeline', {
+			count: 200
+		}, (err, res) => {
+			if(err) {
+				console.error(err);
+			}
+			res.map(tweet => Database.insertTweet(tweet));
 		});
 	}
 }

@@ -7,14 +7,14 @@ import Database from './database';
 import express from 'express';
 
 class Server {
-	static initialize() {
+	static initialize(config) {
 		let self = this;
 
 		self.app = express();
 
 		self.app.use(express.static(path.resolve(__dirname, '../../dist')));
 
-		return Promise.resolve();
+		self.app.listen(config.port);
 	}
 
 	static start() {
@@ -23,12 +23,10 @@ class Server {
 		self.app.get('/api/tweets/:date/:hour', (req, res) => {
 			let date = new Date(`${req.params.date} ${req.params.hour}:00:00`);
 
-			Database.fetchTweets(date.getTime() / 1000)
+			Database.fetchTweets(date.getTime())
 			.then(tweets => res.json(tweets))
 			.catch(err => res.json(err));
 		});
-
-		self.app.listen(8015);
 	}
 }
 

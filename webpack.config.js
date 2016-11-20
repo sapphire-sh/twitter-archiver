@@ -24,15 +24,15 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-				loader: 'style-loader!css-loader'
+				loader: 'style!css'
 			},
 			{
 				test: /\.png$/,
-				loader: 'url-loader?limit=100000'
+				loader: 'url?limit=100000'
 			},
 			{
 				test: /\.jpg$/,
-				loader: 'file-loader'
+				loader: 'file'
 			},
 			{
 				test: /\.svg$/,
