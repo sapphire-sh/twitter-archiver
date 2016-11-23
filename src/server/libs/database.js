@@ -32,7 +32,9 @@ class Database {
 					$gte: dateTime,
 					$lt: dateTime + 3600 * 1000
 				}
-			}, (err, tweets) => {
+			}).sort({
+				'date': -1
+			}).exec((err, tweets) => {
 				if(err) {
 					reject(err);
 				}
@@ -45,3 +47,4 @@ class Database {
 }
 
 export default Database;
+

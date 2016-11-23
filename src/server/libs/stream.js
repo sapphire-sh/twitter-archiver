@@ -32,7 +32,9 @@ class Stream {
 			if(err) {
 				console.error(err);
 			}
-			res.map(tweet => Database.insertTweet(tweet));
+			else {
+				res.map(tweet => Database.insertTweet(tweet));
+			}
 		});
 	}
 }
