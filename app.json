@@ -1,4 +1,6 @@
 {
 	"name": "twitter-archiver",
-	"script": "./app.js"
+	"script": "./src/server/app.js",
+	"interpreter": "babel-node"
 }
+
