@@ -5,13 +5,13 @@ import mongoose from 'mongoose';
 import Tweet from '../models/tweet';
 
 class Database {
-	static initialize(config) {
+	constructor(config) {
 		let self = this;
 
-		mongoose.connect('mongodb://localhost/twitter-archiver');
+		mongoose.connect(config.url);
 	}
 
-	static insertTweet(tweet) {
+	insertTweet(tweet) {
 		let self = this;
 
 		let newTweet = Tweet({
@@ -23,7 +23,7 @@ class Database {
 		newTweet.save();
 	}
 
-	static fetchTweets(dateTime) {
+	fetchTweets(dateTime) {
 		let self = this;
 
 		return new Promise((resolve, reject) => {
@@ -47,4 +47,3 @@ class Database {
 }
 
 export default Database;
-

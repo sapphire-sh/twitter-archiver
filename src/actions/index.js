@@ -1,8 +1,10 @@
 'use strict';
 
+import fetch from 'isomorphic-fetch';
+
 import {
 	dateToString
-} from '../utils';
+} from '../helpers';
 
 export const INVALIDATE_DATE = 'INVALIDATE_DATE';
 export const UPDATE_DATE = 'UPDATE_DATE';

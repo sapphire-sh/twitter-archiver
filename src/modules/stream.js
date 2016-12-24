@@ -1,29 +1,28 @@
 'use strict';
 
-import Twit from 'twit';
-
 import Database from './database';
 
 class Stream {
-	static initialize(config) {
+	constructor(modules) {
 		let self = this;
 
-		self.twit = new Twit(config);
+		self.twit = modules.twit;
+		self.database = modules.database;
 	}
 
-	static start() {
+	start() {
 		let self = this;
 
 		self.stream = self.twit.stream('user');
 
 		self.stream.on('tweet', (tweet) => {
-			Database.insertTweet(tweet);
+			self.database.insertTweet(tweet);
 		});
 
 		setInterval(self.fetchTimeline.bind(this), 10 * 60 * 1000);
 	}
 
-	static fetchTimeline() {
+	fetchTimeline() {
 		let self = this;
 
 		self.twit.get('statuses/home_timeline', {
@@ -33,7 +32,7 @@ class Stream {
 				console.error(err);
 			}
 			else {
-				res.map(tweet => Database.insertTweet(tweet));
+				res.map(tweet => self.database.insertTweet(tweet));
 			}
 		});
 	}

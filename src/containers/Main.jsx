@@ -1,13 +1,9 @@
 'use strict';
 
-import React, {
-	Component
-} from 'react';
-import {
-	Link
-} from 'react-router';
+import React from 'react';
+import { Link } from 'react-router';
 
-class App extends Component {
+class Main extends React.Component {
 	render() {
 		const d = new Date();
 		const date = d.toISOString().substr(0, 10);
@@ -19,4 +15,4 @@ class App extends Component {
 	}
 }
 
-export default App;
+export default Main;

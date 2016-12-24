@@ -19,7 +19,7 @@ import {
 
 import {
 	dateToString
-} from '../utils';
+} from '../helpers';
 
 class Navigation extends Component {
 	constructor(props) {

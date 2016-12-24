@@ -8,7 +8,7 @@ import twitterText from 'twitter-text';
 
 import {
 	dateToString
-} from '../utils';
+} from '../helpers';
 
 import '../styles/Tweets.css';
 

@@ -1,66 +1,57 @@
 'use strict';
 
-let path = require('path');
+const path = require('path');
+const webpack = require('webpack');
+
+const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
+const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
 
 module.exports = {
-	entry: [
-		'./src/client/index'
-	],
+	entry: path.resolve(__dirname, 'src', 'client.jsx'),
 	output: {
-		path: path.resolve(__dirname + '/src/dist'),
-		publicPath: '/',
-		filename: 'bundle.js'
+		path: path.resolve(__dirname, 'dist'),
+		filename: 'bundle-[hash].js'
 	},
 	module: {
 		loaders: [
 			{
-				loader: 'json',
-				test: /\.json$/,
-			},
-			{
-				exclude: /node_modules/,
+				include: path.resolve(__dirname, 'src'),
 				test: /\.jsx?$/,
-				loader: 'babel'
+				loader: 'babel-loader'
 			},
 			{
 				test: /\.css$/,
 				loader: 'style!css'
 			},
-			{
-				test: /\.png$/,
-				loader: 'url?limit=100000'
-			},
-			{
-				test: /\.jpg$/,
-				loader: 'file'
-			},
-			{
-				test: /\.svg$/,
-				loader: 'url?limit=65000&mimetype=image/svg+xml&name=public/fonts/[name].[ext]'
-			},
-			{
-				test: /\.woff$/,
-				loader: 'url?limit=65000&mimetype=application/font-woff&name=public/fonts/[name].[ext]'
-			},
-			{
-				test: /\.woff2$/,
-				loader: 'url?limit=65000&mimetype=application/font-woff2&name=public/fonts/[name].[ext]'
-			},
-			{
-				test: /\.[ot]tf$/,
-				loader: 'url?limit=65000&mimetype=application/octet-stream&name=public/fonts/[name].[ext]'
-			},
-			{
-				test: /\.eot$/,
-				loader: 'url?limit=65000&mimetype=application/vnd.ms-fontobject&name=public/fonts/[name].[ext]'
-			},
-		],
+			{ test: /\.json$/, loader: 'json-loader' },
+			{ test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
+			{ test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
+			{ test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
+			{ test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
+			{ test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
+			{ test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' }
+		]
 	},
+	plugins: [
+		/*new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: JSON.stringify('production')
+			}
+		}),
+		new webpack.optimize.DedupePlugin(),
+		new webpack.optimize.OccurenceOrderPlugin(),
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: false
+			}
+		}),*/
+		webpackIsomorphicToolsPlugin
+	],
 	resolve: {
 		extensions: [
 			'',
 			'.js',
-			'.jsx',
-		],
-	},
+			'.jsx'
+		]
+	}
 };
