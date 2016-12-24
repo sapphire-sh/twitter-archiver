@@ -28,4 +28,5 @@ node_modules
 
 # Compiled assets
 /webpack-assets.json
+/webpack-stats.json
 /dist

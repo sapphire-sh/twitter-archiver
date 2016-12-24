@@ -19,7 +19,7 @@ import './styles/index.css';
 
 render(
 	<Provider store={store}>
-		<Router history={history} routes={routes} onUpdate={() => window.scrollTo(0, 0)} />
+		<Router history={history} routes={routes} />
 	</Provider>,
 	document.getElementById('app')
 );

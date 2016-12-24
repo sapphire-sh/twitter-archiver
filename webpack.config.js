@@ -10,7 +10,8 @@ module.exports = {
 	entry: path.resolve(__dirname, 'src', 'client.jsx'),
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: 'bundle-[hash].js'
+		filename: 'bundle-[hash].js',
+		publicPath: '/'
 	},
 	module: {
 		loaders: [

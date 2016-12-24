@@ -54,7 +54,8 @@ function fetchTweets(date) {
 		.then(res => res.json())
 		.then(json => {
 			dispatch(receiveTweets(date, json));
-		});
+		})
+		.catch((err) => {});
 	};
 }
 
