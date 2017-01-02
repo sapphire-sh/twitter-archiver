@@ -12,6 +12,7 @@ class HTML extends React.Component {
 			<html>
 				<head>
 					<title>twitter-archiver</title>
+					<link rel="stylesheet" href={assets.styles.main} />
 				</head>
 				<body>
 					<div id="app" dangerouslySetInnerHTML={{__html: content}} />

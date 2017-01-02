@@ -6,6 +6,8 @@ const webpack = require('webpack');
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
 
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 module.exports = {
 	entry: path.resolve(__dirname, 'src', 'client.jsx'),
 	output: {
@@ -22,7 +24,7 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-				loader: 'style!css'
+				loader: ExtractTextPlugin.extract('style', 'css-loader'),
 			},
 			{ test: /\.json$/, loader: 'json-loader' },
 			{ test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
@@ -34,7 +36,7 @@ module.exports = {
 		]
 	},
 	plugins: [
-		/*new webpack.DefinePlugin({
+		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('production')
 			}
@@ -45,8 +47,9 @@ module.exports = {
 			compress: {
 				warnings: false
 			}
-		}),*/
-		webpackIsomorphicToolsPlugin
+		}),
+		webpackIsomorphicToolsPlugin,
+		new ExtractTextPlugin('styles-[hash].css'),
 	],
 	resolve: {
 		extensions: [
