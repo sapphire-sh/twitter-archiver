@@ -8,7 +8,7 @@ import twitterText from 'twitter-text';
 
 import {
 	dateToString
-} from '../utils';
+} from '../helpers';
 
 import '../styles/Tweets.css';
 
@@ -17,7 +17,7 @@ class Tweets extends Component {
 		return (
 			<div>
 				{this.props.tweets.map((tweet) => {
-					const tweetId = tweet.id;
+					const tweetId = tweet.id_str;
 
 					let isRetweet;
 					if(tweet.retweeted_status) {

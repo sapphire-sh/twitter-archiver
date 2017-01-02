@@ -1,8 +1,10 @@
 'use strict';
 
+import fetch from 'isomorphic-fetch';
+
 import {
 	dateToString
-} from '../utils';
+} from '../helpers';
 
 export const INVALIDATE_DATE = 'INVALIDATE_DATE';
 export const UPDATE_DATE = 'UPDATE_DATE';
@@ -39,7 +41,7 @@ function receiveTweets(date, json) {
 	return {
 		type: RECEIVE_TWEETS,
 		tweets: {
-			[dateToString(date).substr(0, 13)]: json.map((data) => JSON.parse(data.data))
+			[dateToString(date).substr(0, 13)]: json
 		}
 	};
 }
@@ -52,7 +54,8 @@ function fetchTweets(date) {
 		.then(res => res.json())
 		.then(json => {
 			dispatch(receiveTweets(date, json));
-		});
+		})
+		.catch((err) => {});
 	};
 }
 

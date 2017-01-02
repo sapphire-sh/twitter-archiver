@@ -14,12 +14,12 @@ import {
 	fetchTweetsIfNeeded
 } from '../actions';
 
-import Navigation from './Navigation';
-import Tweets from './Tweets';
+import Navigation from '../components/Navigation';
+import Tweets from '../components/Tweets';
 
 import {
 	dateToString
-} from '../utils';
+} from '../helpers';
 
 class View extends Component {
 	componentWillMount() {
@@ -77,7 +77,7 @@ View.propTypes = {
 
 function mapStateToProps(state) {
 	let tweets = state.tweets.tweets[dateToString(state.date.date).substr(0, 13)];
-	
+
 	if(tweets === undefined) {
 		tweets = [];
 	}
