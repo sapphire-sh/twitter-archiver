@@ -33,7 +33,7 @@ class Database {
 					$lt: dateTime + 3600 * 1000
 				}
 			}).sort({
-				'date': -1
+				'id': 'asc'
 			}).exec((err, tweets) => {
 				if(err) {
 					reject(err);
