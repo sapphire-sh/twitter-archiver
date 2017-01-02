@@ -13,7 +13,7 @@ export function dateToString(date) {
 
 export function hydrateTweet(tweet) {
 	tweet = JSON.parse(tweet.data);
-	
+
 	return {
 		id_str: tweet.id_str,
 		retweeted_status: tweet.retweeted_status,
@@ -27,3 +27,10 @@ export function hydrateTweet(tweet) {
 		created_at: tweet.created_at
 	};
 };
+
+export function filterTweet(tweet) {
+	if(tweet.user.screen_name === 'sapphire_dev' && tweet.retweeted_status !== undefined) {
+		return false;
+	}
+	return true;
+}

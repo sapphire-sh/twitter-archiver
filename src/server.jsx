@@ -24,7 +24,10 @@ import Twit from 'twit';
 import Stream from './modules/stream';
 import Database from './modules/database';
 
-import { hydrateTweet } from './helpers';
+import {
+	hydrateTweet,
+	filterTweet
+} from './helpers';
 
 import CONFIG from '../config';
 
@@ -50,7 +53,7 @@ app.get('/api/tweets/:date/:hour', (req, res) => {
 
 	database.fetchTweets(date.getTime())
 	.then((tweets) => {
-		res.json(tweets.map(hydrateTweet));
+		res.json(tweets.map(hydrateTweet).filter(filterTweet));
 	})
 	.catch(err => res.json(err));
 });
