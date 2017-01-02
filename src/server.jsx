@@ -24,6 +24,8 @@ import Twit from 'twit';
 import Stream from './modules/stream';
 import Database from './modules/database';
 
+import { hydrateTweet } from './helpers';
+
 import CONFIG from '../config';
 
 const twit = new Twit(CONFIG);
@@ -47,7 +49,9 @@ app.get('/api/tweets/:date/:hour', (req, res) => {
 	let date = new Date(`${req.params.date} ${req.params.hour}:00:00`);
 
 	database.fetchTweets(date.getTime())
-	.then(tweets => res.json(tweets))
+	.then((tweets) => {
+		res.json(tweets.map(hydrateTweet));
+	})
 	.catch(err => res.json(err));
 });
 
