@@ -2,7 +2,7 @@
   "name": "twitter-archiver",
   "version": "1.0.0",
   "description": "twitter archiver",
-  "main": "./src/server/app.js",
+  "main": "./src/main.js",
   "dependencies": {
     "babel-register": "^6.18.0",
     "express": "^4.13.3",
