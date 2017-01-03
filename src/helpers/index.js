@@ -12,12 +12,14 @@ export function dateToString(date) {
 };
 
 export function hydrateTweet(tweet) {
-	tweet = JSON.parse(tweet.data);
+	if(tweet === undefined) {
+		return undefined;
+	}
 
 	return {
 		id_str: tweet.id_str,
-		retweeted_status: tweet.retweeted_status,
-		user: tweet.user,
+		retweeted_status: hydrateTweet(tweet.retweeted_status),
+		user: hydrateUser(tweet.user),
 		retweet_count: tweet.retweet_count,
 		favorite_count: tweet.favorite_count,
 		extended_entities: tweet.extended_entities,
@@ -28,8 +30,21 @@ export function hydrateTweet(tweet) {
 	};
 };
 
+export function hydrateUser(user) {
+	if(user === undefined) {
+		return undefined;
+	}
+
+	return {
+		profile_link_color: user.profile_link_color,
+		screen_name: user.screen_name,
+		profile_image_url_https: user.profile_image_url_https,
+		name: user.name
+	};
+}
+
 export function filterTweet(tweet) {
-	if(tweet.user.screen_name === 'sapphire_dev' && tweet.retweeted_status !== undefined) {
+	if(tweet.retweeted_status !== undefined && tweet.retweeted_status.user.screen_name === 'sapphire_dev') {
 		return false;
 	}
 	return true;

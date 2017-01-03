@@ -53,7 +53,7 @@ app.get('/api/tweets/:date/:hour', (req, res) => {
 
 	database.fetchTweets(date.getTime())
 	.then((tweets) => {
-		res.json(tweets.map(hydrateTweet).filter(filterTweet));
+		res.json(tweets.map(tweet => JSON.parse(tweet.data)).map(hydrateTweet).filter(filterTweet));
 	})
 	.catch(err => res.json(err));
 });
