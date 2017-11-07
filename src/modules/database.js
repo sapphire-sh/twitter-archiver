@@ -21,7 +21,7 @@ class Database {
 			created_at: new Date(tweet.created_at)
 		});
 
-		newTweet.save();
+		newTweet.save((err) => {});
 	}
 
 	fetchTweets(dateTime) {
