@@ -1,9 +1,9 @@
 language: node_js
 
 node_js:
-	- "node"
+  - "node"
 
 sudo: false
 
 notifications:
-	email: false
+  email: false
