@@ -1,9 +1,7 @@
-'use strict';
-
 import fetch from 'isomorphic-fetch';
 
 import {
-	dateToString
+	dateToString,
 } from '../helpers';
 
 export const INVALIDATE_DATE = 'INVALIDATE_DATE';
@@ -14,35 +12,36 @@ export const RECEIVE_TWEETS = 'RECEIVE_TWEETS';
 
 export function invalidateDate() {
 	return {
-		type: INVALIDATE_DATE
+		'type': INVALIDATE_DATE,
 	};
 }
 
 export function updateDate(date) {
 	return {
-		type: UPDATE_DATE,
-		date: date
+		'type': UPDATE_DATE,
+		'date': date,
 	};
 }
 
 export function invalidateTweets() {
 	return {
-		type: INVALIDATE_TWEETS
+		'type': INVALIDATE_TWEETS,
 	};
 }
 
 function requestTweets() {
 	return {
-		type: REQUEST_TWEETS
+		'type': REQUEST_TWEETS,
 	};
 }
 
 function receiveTweets(date, json) {
 	return {
-		type: RECEIVE_TWEETS,
-		tweets: {
-			[dateToString(date).substr(0, 13)]: json
-		}
+		'type': RECEIVE_TWEETS,
+		'tweets': {
+			[dateToString(date)
+			.substr(0, 13)]: json,
+		},
 	};
 }
 
@@ -50,9 +49,13 @@ function fetchTweets(date) {
 	return (dispatch) => {
 		dispatch(requestTweets());
 
-		return fetch(`/api/tweets/${dateToString(date).substr(0, 13).replace(/\ /, '/')}`)
-		.then(res => res.json())
-		.then(json => {
+		return fetch(`/api/tweets/${dateToString(date)
+		.substr(0, 13)
+		.replace(/ /, '/')}`)
+		.then((res) => {
+			return res.json();
+		})
+		.then((json) => {
 			dispatch(receiveTweets(date, json));
 		})
 		.catch((err) => {});

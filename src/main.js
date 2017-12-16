@@ -1,5 +1,3 @@
-'use strict';
-
 require('babel-register');
 
 const path = require('path');

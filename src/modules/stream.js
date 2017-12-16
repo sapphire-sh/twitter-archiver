@@ -1,5 +1,3 @@
-'use strict';
-
 import Database from './database';
 
 class Stream {
@@ -26,13 +24,15 @@ class Stream {
 		let self = this;
 
 		self.twit.get('statuses/home_timeline', {
-			count: 200
+			'count': 200,
 		}, (err, res) => {
 			if(err) {
 				console.error(err);
 			}
 			else {
-				res.map(tweet => self.database.insertTweet(tweet));
+				res.map((tweet) => {
+					return self.database.insertTweet(tweet);
+				});
 			}
 		});
 	}

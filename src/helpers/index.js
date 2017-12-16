@@ -1,5 +1,3 @@
-'use strict';
-
 export function dateToString(date) {
 	const year = date.getFullYear();
 	const month = `0${date.getMonth() + 1}`.substr(-2);
@@ -9,7 +7,7 @@ export function dateToString(date) {
 	const seconds = `0${date.getSeconds()}`.substr(-2);
 
 	return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-};
+}
 
 export function hydrateTweet(tweet) {
 	if(tweet === undefined) {
@@ -17,18 +15,18 @@ export function hydrateTweet(tweet) {
 	}
 
 	return {
-		id_str: tweet.id_str,
-		retweeted_status: hydrateTweet(tweet.retweeted_status),
-		user: hydrateUser(tweet.user),
-		retweet_count: tweet.retweet_count,
-		favorite_count: tweet.favorite_count,
-		extended_entities: tweet.extended_entities,
-		text: tweet.text,
-		entities: tweet.entities,
-		source: tweet.source,
-		created_at: tweet.created_at
+		'id_str': tweet.id_str,
+		'retweeted_status': hydrateTweet(tweet.retweeted_status),
+		'user': hydrateUser(tweet.user),
+		'retweet_count': tweet.retweet_count,
+		'favorite_count': tweet.favorite_count,
+		'extended_entities': tweet.extended_entities,
+		'text': tweet.text,
+		'entities': tweet.entities,
+		'source': tweet.source,
+		'created_at': tweet.created_at,
 	};
-};
+}
 
 export function hydrateUser(user) {
 	if(user === undefined) {
@@ -36,10 +34,10 @@ export function hydrateUser(user) {
 	}
 
 	return {
-		profile_link_color: user.profile_link_color,
-		screen_name: user.screen_name,
-		profile_image_url_https: user.profile_image_url_https,
-		name: user.name
+		'profile_link_color': user.profile_link_color,
+		'screen_name': user.screen_name,
+		'profile_image_url_https': user.profile_image_url_https,
+		'name': user.name,
 	};
 }
 

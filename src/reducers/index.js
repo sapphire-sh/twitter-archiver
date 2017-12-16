@@ -1,7 +1,5 @@
-'use strict';
-
-import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
+import { combineReducers, } from 'redux';
+import { routerReducer, } from 'react-router-redux';
 import {
 	INVALIDATE_DATE,
 	UPDATE_DATE,
@@ -11,18 +9,18 @@ import {
 } from '../actions';
 
 function date(state = {
-	didInvalidate: false,
-	date: new Date()
+	'didInvalidate': false,
+	'date': new Date(),
 }, action) {
 	switch(action.type) {
 	case INVALIDATE_DATE:
 		return Object.assign({}, state, {
-			didInvalidate: true
+			'didInvalidate': true,
 		});
 	case UPDATE_DATE:
 		return Object.assign({}, state, {
-			didInvalidate: false,
-			date: action.date
+			'didInvalidate': false,
+			'date': action.date,
 		});
 	default:
 		return state;
@@ -30,25 +28,25 @@ function date(state = {
 }
 
 function tweets(state = {
-	isFetching: false,
-	didInvalidate: false,
-	tweets: {}
+	'isFetching': false,
+	'didInvalidate': false,
+	'tweets': {},
 }, action) {
 	switch(action.type) {
 	case INVALIDATE_TWEETS:
 		return Object.assign({}, state, {
-			didInvalidate: true
+			'didInvalidate': true,
 		});
 	case REQUEST_TWEETS:
 		return Object.assign({}, state, {
-			isFetching: true,
-			didInvalidate: false
+			'isFetching': true,
+			'didInvalidate': false,
 		});
 	case RECEIVE_TWEETS:
 		return Object.assign({}, state, {
-			isFetching: false,
-			didInvalidate: false,
-			tweets: action.tweets
+			'isFetching': false,
+			'didInvalidate': false,
+			'tweets': action.tweets,
 		});
 	default:
 		return state;
@@ -58,7 +56,7 @@ function tweets(state = {
 const reducers = combineReducers({
 	date,
 	tweets,
-	routing: routerReducer
+	'routing': routerReducer,
 });
 
 export default reducers;
