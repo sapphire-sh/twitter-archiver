@@ -11,7 +11,9 @@ class Stream {
 	start() {
 		let self = this;
 
-		self.stream = self.twit.stream('user');
+		self.stream = self.twit.stream('user', {
+			'tweet_mode': 'extended',
+		});
 
 		self.stream.on('tweet', (tweet) => {
 			self.database.insertTweet(tweet);

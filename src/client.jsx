@@ -1,25 +1,48 @@
-'use strict';
-
 import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux';
-import { Router, browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import {
+	render,
+} from 'react-dom';
+import {
+	createStore,
+	combineReducers,
+	applyMiddleware,
+} from 'redux';
+import {
+	Provider,
+} from 'react-redux';
+import {
+	createBrowserHistory,
+} from 'history';
+import {
+	ConnectedRouter,
+	routerReducer,
+	routerMiddleware,
+} from 'react-router-redux';
 import thunk from 'redux-thunk';
 
 import reducers from './reducers';
-import routes from './routes';
 
-let store = createStore(reducers, applyMiddleware(thunk));
-const history = syncHistoryWithStore(browserHistory, store);
+import App from './containers/App';
 
-import 'semantic-ui-css/semantic.min.css';
-import './styles/index.css';
+const history = createBrowserHistory();
+const middleware = routerMiddleware(history);
+const store = createStore(combineReducers({
+	...reducers,
+	'router': routerReducer,
+}), applyMiddleware(middleware, thunk));
 
-render(
-	<Provider store={store}>
-		<Router history={history} routes={routes} />
-	</Provider>,
-	document.getElementById('app')
-);
+if(module.hot) {
+	module.hot.accept();
+}
+
+const AppRouter = () => {
+	return (
+		<Provider store={store}>
+			<ConnectedRouter history={history}>
+				<App />
+			</ConnectedRouter>
+		</Provider>
+	);
+};
+
+render(<AppRouter />, document.querySelector('#app'));

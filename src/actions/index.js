@@ -1,8 +1,6 @@
-import fetch from 'isomorphic-fetch';
-
 import {
 	dateToString,
-} from '../helpers';
+} from '../utils';
 
 export const INVALIDATE_DATE = 'INVALIDATE_DATE';
 export const UPDATE_DATE = 'UPDATE_DATE';

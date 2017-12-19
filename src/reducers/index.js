@@ -1,5 +1,3 @@
-import { combineReducers, } from 'redux';
-import { routerReducer, } from 'react-router-redux';
 import {
 	INVALIDATE_DATE,
 	UPDATE_DATE,
@@ -53,10 +51,9 @@ function tweets(state = {
 	}
 }
 
-const reducers = combineReducers({
-	date,
-	tweets,
-	'routing': routerReducer,
-});
+const reducers = {
+	'date': date,
+	'tweets': tweets,
+};
 
 export default reducers;

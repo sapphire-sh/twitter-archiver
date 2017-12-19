@@ -1,7 +1,7 @@
-'use strict';
-
 import React from 'react';
-import { Link } from 'react-router';
+import {
+	Link,
+} from 'react-router-dom';
 
 class Main extends React.Component {
 	render() {
@@ -11,7 +11,7 @@ class Main extends React.Component {
 
 		return (
 			<Link to={ `/v/${date}/${hour}` }>{ `${date}/${hour}` }</Link>
-		)
+		);
 	}
 }
 

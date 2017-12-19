@@ -1,4 +1,4 @@
 {
 	"name": "twitter-archiver",
-	"script": "./src/main.js"
+	"script": "./dist/main.js"
 }

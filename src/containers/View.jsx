@@ -1,32 +1,31 @@
-'use strict';
-
-import React, {
-	Component,
-	PropTypes
-} from 'react';
+import React from 'react';
 import {
-	connect
+	connect,
 } from 'react-redux';
+import {
+	PropTypes,
+} from 'prop-types';
+
 import {
 	invalidateDate,
 	updateDate,
 	invalidateTweets,
-	fetchTweetsIfNeeded
+	fetchTweetsIfNeeded,
 } from '../actions';
 
 import Navigation from '../components/Navigation';
 import Tweets from '../components/Tweets';
 
 import {
-	dateToString
-} from '../helpers';
+	dateToString,
+} from '../utils';
 
-class View extends Component {
+class View extends React.Component {
 	componentWillMount() {
-		const date = new Date(`${this.props.params.date} ${this.props.params.hour}:00:00`);
+		const date = new Date(`${this.props.match.params.date} ${this.props.match.params.hour}:00:00`);
 
 		const {
-			dispatch
+			dispatch,
 		} = this.props;
 
 		dispatch(invalidateDate());
@@ -51,7 +50,9 @@ class View extends Component {
 		}
 		else {
 			tweets = (
-				<Tweets style={{ opacity: this.props.isFetching ? 0.5 : 1 }} tweets={this.props.tweets} />
+				<Tweets style={{
+					'opacity': this.props.isFetching ? 0.5 : 1,
+				}} tweets={this.props.tweets} />
 			);
 		}
 
@@ -70,9 +71,11 @@ class View extends Component {
 }
 
 View.propTypes = {
-	tweets: PropTypes.array.isRequired,
-	isFetching: PropTypes.bool.isRequired,
-	dispatch: PropTypes.func.isRequired
+	'match': PropTypes.object.isRequired,
+	'dispatch': PropTypes.func.isRequired,
+	'tweets': PropTypes.array.isRequired,
+	'isFetching': PropTypes.bool.isRequired,
+	'date': PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -83,9 +86,9 @@ function mapStateToProps(state) {
 	}
 
 	return {
-		date: state.date.date,
-		isFetching: state.tweets.isFetching,
-		tweets
+		'date': state.date.date,
+		'isFetching': state.tweets.isFetching,
+		'tweets': tweets,
 	};
 }
 

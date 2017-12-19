@@ -1,13 +1,18 @@
-'use strict';
-
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import {
-	Link
-} from 'react-router';
+	Switch,
+	Route,
+} from 'react-router-dom';
 
-class App extends Component {
+import Main from './Main';
+import View from './View';
+
+import NotFound from './errors/NotFound';
+
+import 'semantic-ui-css/semantic.min.css';
+import '../styles/index.css';
+
+class App extends React.Component {
 	render() {
 		const d = new Date();
 		const date = d.toISOString().substr(0, 10);
@@ -15,9 +20,14 @@ class App extends Component {
 
 		return (
 			<div className="ui container">
-				{this.props.children}
+				<Switch>
+					<Route exact path="/" component={Main} />
+					<Route exact path="/v/:date/:hour" component={View} />
+
+					<Route path="*" component={NotFound} />
+				</Switch>
 			</div>
-		)
+		);
 	}
 }
 

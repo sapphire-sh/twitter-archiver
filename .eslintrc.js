@@ -1,14 +1,12 @@
 module.exports = {
 	'extends': [
 		'eslint:recommended',
+		'plugin:react/recommended',
 	],
 	'root': true,
+	'parser': 'babel-eslint',
 	'parserOptions': {
-		'parser': 'babel-eslint',
-		'ecmaVersion': 6,
-		'sourceType': 'module',
 		'ecmaFeatures': {
-			'experimentalObjectRestSpread': true,
 			'jsx': true,
 		},
 	},
@@ -16,6 +14,7 @@ module.exports = {
 		'es6': true,
 		'node': true,
 		'browser': true,
+		'jest': true,
 	},
 	'plugins': [
 		'react',
@@ -62,7 +61,9 @@ module.exports = {
 		],
 		'array-bracket-newline': [
 			'error',
-			'always',
+			{
+				'minItems': 1,
+			},
 		],
 		'array-element-newline': [
 			'error',
@@ -99,7 +100,7 @@ module.exports = {
 		'newline-per-chained-call': [
 			'error',
 			{
-				'ignoreChainWithDepth': 1,
+				'ignoreChainWithDepth': 2,
 			},
 		],
 		'no-multiple-empty-lines': [
@@ -140,6 +141,18 @@ module.exports = {
 					'try': {
 						'after': true,
 					},
+					'throw': {
+						'after': true,
+					},
+					'as': {
+						'before': true,
+					},
+					'case': {
+						'after': true,
+					},
+					'export': {
+						'after': true,
+					},
 				},
 			},
 		],
@@ -155,6 +168,9 @@ module.exports = {
 			'off',
 		],
 		'no-unused-vars': [
+			'off',
+		],
+		'no-case-declarations': [
 			'off',
 		],
 	},

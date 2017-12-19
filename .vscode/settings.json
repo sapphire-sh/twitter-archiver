@@ -1,9 +1,2 @@
 {
-	"editor.insertSpaces": false,
-	"eslint.validate": [
-		{
-			"language": "javascript",
-			"autoFix": true
-		}
-	]
 }
