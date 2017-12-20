@@ -4,12 +4,7 @@ import Express from 'express';
 
 import HTML from './utils/HTML';
 
-import Twit from 'twit';
-
-import Stream from './modules/stream';
-import Database from './modules/database';
-
-import CONFIG from '../config';
+import oauth from './modules/oauth';
 
 import webpack from 'webpack';
 
@@ -17,18 +12,6 @@ import WebpackDevMiddleware from 'webpack-dev-middleware';
 import WebpackHotMiddleware from 'webpack-hot-middleware';
 
 import config from '../build/webpack.config.client.dev';
-
-const twit = new Twit(CONFIG);
-
-const database = new Database({
-	'url': 'mongodb://localhost/twitter-archiver',
-});
-const stream = new Stream({
-	twit,
-	database,
-});
-
-stream.start();
 
 const app = new Express();
 
@@ -43,6 +26,8 @@ if(process.env.NODE_ENV === 'dev') {
 }
 
 app.use('/', Express.static(path.resolve(__dirname, '../dist')));
+
+app.use('/oauth', oauth);
 
 app.get('/api/tweets/:date/:hour', (req, res) => {
 	let date = new Date(`${req.params.date} ${req.params.hour}:00:00`);

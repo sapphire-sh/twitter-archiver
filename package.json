@@ -31,9 +31,11 @@
   "dependencies": {
     "bluebird": "^3.5.1",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
     "history": "^4.7.2",
     "mongodb": "^3.0.0-rc0",
     "mongoose": "^4.13.7",
+    "oauth": "^0.9.15",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
