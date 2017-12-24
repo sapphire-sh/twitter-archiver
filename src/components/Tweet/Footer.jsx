@@ -5,7 +5,7 @@ import {
 
 import {
 	dateToString,
-} from '../../utils';
+} from '../../utils/date';
 
 class Footer extends React.Component {
 	render() {

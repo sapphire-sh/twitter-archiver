@@ -5,10 +5,6 @@ import {
 
 import Tweet from './Tweet';
 
-import {
-	dateToString,
-} from '../../utils';
-
 class Retweet extends React.Component {
 	render() {
 		const tweet = this.props.tweet;

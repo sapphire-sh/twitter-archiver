@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import Promise from 'bluebird';
 
 import Twit from 'twit';

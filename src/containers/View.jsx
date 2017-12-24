@@ -18,7 +18,7 @@ import Tweets from '../components/Tweets';
 
 import {
 	dateToString,
-} from '../utils';
+} from '../utils/date';
 
 class View extends React.Component {
 	componentWillMount() {

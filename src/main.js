@@ -13,4 +13,6 @@ const token = {
 OAuth.initialize(token);
 Twitter.initialize(token);
 
-const app = new Server();
+const port = process.env.PORT;
+
+const app = new Server(port);

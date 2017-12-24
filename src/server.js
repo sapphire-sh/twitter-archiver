@@ -10,7 +10,7 @@ import routers from './routers';
 import HTML from './utils/HTML';
 
 class Server {
-	constructor() {
+	constructor(port) {
 		let self = this;
 
 		const app = Express();
@@ -36,8 +36,10 @@ class Server {
 			res.send(HTML());
 		});
 
-		self.server = app.listen(process.env.PORT, () => {
-			console.log(`http://localhost:${process.env.PORT}`);
+		self.server = app.listen(port, () => {
+			if(process.env.NODE_ENV !== 'test') {
+				console.log(`http://localhost:${port}`);
+			}
 		});
 	}
 }

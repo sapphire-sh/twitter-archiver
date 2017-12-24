@@ -8,7 +8,6 @@
     "dev": "cross-env `babel-node ./scripts/env.js` NODE_ENV=dev babel-node ./src/main.js",
     "prestart": "cross-env `babel-node ./scripts/env.js` NODE_ENV=prod npm run build",
     "start": "cross-env `babel-node ./scripts/env.js` NODE_ENV=prod pm2 start ./app.json",
-    "start1": "cross-env `babel-node ./scripts/env.js` NODE_ENV=prod node ./dist/main.js",
     "stop": "pm2 stop ./app.json",
     "test": "jest",
     "coverage": "jest --coverage",
@@ -72,5 +71,12 @@
     "webpack-dev-middleware": "^2.0.2",
     "webpack-hot-middleware": "^2.21.0",
     "webpack-node-externals": "^1.6.0"
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+	  "/node_modules/",
+	  "/configs",
+	  "/scripts"
+	]
   }
 }

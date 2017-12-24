@@ -5,10 +5,11 @@ import prodConfig from './webpack.client.prod';
 
 function getConfig(env) {
 	switch(process.env.NODE_ENV) {
-	case 'dev':
-		return devConfig;
 	case 'prod':
 		return prodConfig;
+	case 'dev':
+	default:
+		return devConfig;
 	}
 }
 

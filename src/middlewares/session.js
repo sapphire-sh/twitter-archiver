@@ -13,6 +13,8 @@ const router = Express.Router();
 
 const ttl = 7 * 24 * 3600;
 
+const secret = process.env.NODE_ENV === 'test' ? 'test': process.env.consumer_key;
+
 router.use(session({
 	'store': new RedisStore({
 		'client': client,
@@ -25,7 +27,7 @@ router.use(session({
 		'secure': 'auto',
 		'maxAge': ttl * 1000,
 	},
-	'secret': process.env.consumer_key,
+	'secret': secret,
 	'saveUninitialized': true,
 	'resave': false,
 }));

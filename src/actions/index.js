@@ -1,6 +1,6 @@
 import {
 	dateToString,
-} from '../utils';
+} from '../utils/date';
 
 import fetch from '../utils/fetch';
 

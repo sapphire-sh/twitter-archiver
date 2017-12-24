@@ -18,7 +18,7 @@ import {
 
 import {
 	dateToString,
-} from '../utils';
+} from '../utils/date';
 
 class Navigation extends React.Component {
 	constructor(props) {

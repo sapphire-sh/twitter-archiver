@@ -6,15 +6,12 @@ import zlib from '../utils/zlib';
 
 const client = redis.createClient();
 
+/* istanbul ignore next */
 client.on('error', (err) => {
 	console.log(`redis-error: ${err}`);
 });
 
 class Database {
-	static initialize() {
-		let self = this;
-	}
-
 	static client() {
 		return client;
 	}
