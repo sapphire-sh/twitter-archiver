@@ -1,17 +1,10 @@
-import Database from './database';
+import Twitter from './twitter';
 
 class Stream {
-	constructor(modules) {
-		let self = this;
-
-		self.twit = modules.twit;
-		self.database = modules.database;
-	}
-
 	start() {
 		let self = this;
 
-		self.stream = self.twit.stream('user', {
+		self.stream = Twitter.twit.stream('user', {
 			'tweet_mode': 'extended',
 		});
 
