@@ -32,6 +32,19 @@ class View extends React.Component {
 		dispatch(updateDate(date));
 		dispatch(invalidateTweets());
 		dispatch(fetchTweetsIfNeeded(date));
+
+		this.refreshTweets = this.refreshTweets.bind(this);
+	}
+
+	refreshTweets() {
+		const date = new Date(`${this.props.match.params.date} ${this.props.match.params.hour}:00:00`);
+
+		const {
+			dispatch,
+		} = this.props;
+
+		dispatch(invalidateTweets());
+		dispatch(fetchTweetsIfNeeded(date));
 	}
 
 	render() {
@@ -62,6 +75,7 @@ class View extends React.Component {
 
 				<h4 className="ui top attached block header">{ dateToString(this.props.date) }</h4>
 				{ tweets }
+				<div onClick={ this.refreshTweets } className="ui attached button">refresh</div>
 				<h4 className="ui bottom attached block header">{ dateToString(new Date(this.props.date.getTime() + 3600 * 1000)) }</h4>
 
 				<Navigation />
