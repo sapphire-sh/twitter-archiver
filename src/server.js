@@ -15,6 +15,10 @@ class Server {
 
 		const app = Express();
 
+		if(process.env.NODE_ENV === 'prod') {
+			app.set('trust proxy', 1);
+		}
+
 		middlewares.forEach((middleware) => {
 			app.use(middleware);
 		});
