@@ -1,7 +1,7 @@
 import webpack from 'webpack';
 
-import devConfig from './webpack.config.client.dev';
-import prodConfig from './webpack.config.client.prod';
+import devConfig from './webpack.client.dev';
+import prodConfig from './webpack.client.prod';
 
 function getConfig(env) {
 	switch(process.env.NODE_ENV) {

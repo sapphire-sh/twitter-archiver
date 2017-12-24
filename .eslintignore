@@ -1,5 +1,2 @@
 !.eslintrc.js
-.nyc_output
-coverage
 dist
-static

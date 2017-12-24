@@ -1,6 +1,6 @@
 import webpack from 'webpack';
 
-import baseConfig from './webpack.config.client.base';
+import baseConfig from './webpack.client.prod';
 
 const config = {
 	...baseConfig,
