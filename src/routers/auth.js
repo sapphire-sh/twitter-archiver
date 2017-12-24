@@ -7,7 +7,6 @@ import Twitter from '../libs/twitter';
 const router = Express.Router();
 
 router.get('/', (req, res) => {
-	OAuth.initialize();
 	OAuth.getRequestToken()
 	.then((token) => {
 		req.session.oauth = token;

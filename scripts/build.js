@@ -1,29 +1,39 @@
+import Promise from 'bluebird';
+
 import webpack from 'webpack';
 
-import configClient from '../configs/webpack.client';
 import configServer from '../configs/webpack.server';
+import configClient from '../configs/webpack.client';
 
 const configs = [
-	configClient,
 	configServer,
+	configClient,
 ];
 
-function build() {
-	webpack(configs, (err, stats) => {
-		console.log(stats.hasErrors());
-		if(err || stats.hasErrors()) {
-			console.log(err);
-		}
-		else {
-			process.stdout.write(`${stats.toString({
-				'colors': true,
-				'modules': true,
-				'children': false,
-				'chunks': false,
-				'chunkModules': false,
-			})}\n`);
-		}
+function build(config) {
+	return new Promise((resolve, reject) => {
+		webpack(config, (err, stats) => {
+			if(err || stats.hasErrors()) {
+				reject(err);
+			}
+			else {
+				process.stdout.write(`${stats.toString({
+					'colors': true,
+					'modules': true,
+					'children': false,
+					'chunks': false,
+					'chunkModules': false,
+				})}\n`);
+
+				resolve();
+			}
+		});
 	});
 }
 
-build();
+Promise.each(configs, (config) => {
+	return build(config);
+})
+.catch((err) => {
+	console.log(err);
+});

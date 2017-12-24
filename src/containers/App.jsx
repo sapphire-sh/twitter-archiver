@@ -22,7 +22,7 @@ class App extends React.Component {
 			<div className="ui container">
 				<Switch>
 					<Route exact path="/" component={Main} />
-					<Route exact path="/v/:date/:hour" component={View} />
+					<Route exact path="/i/:date/:hour" component={View} />
 
 					<Route path="*" component={NotFound} />
 				</Switch>

@@ -10,7 +10,7 @@ class Main extends React.Component {
 		const hour = d.getHours();
 
 		return (
-			<Link to={ `/v/${date}/${hour}` }>{ `${date}/${hour}` }</Link>
+			<Link to={ `/i/${date}/${hour}` }>{ `${date}/${hour}` }</Link>
 		);
 	}
 }

@@ -2,6 +2,8 @@ import {
 	dateToString,
 } from '../utils';
 
+import fetch from '../utils/fetch';
+
 export const INVALIDATE_DATE = 'INVALIDATE_DATE';
 export const UPDATE_DATE = 'UPDATE_DATE';
 export const INVALIDATE_TWEETS = 'INVALIDATE_TWEETS';
@@ -37,8 +39,7 @@ function receiveTweets(date, json) {
 	return {
 		'type': RECEIVE_TWEETS,
 		'tweets': {
-			[dateToString(date)
-			.substr(0, 13)]: json,
+			[dateToString(date).substr(0, 13)]: json,
 		},
 	};
 }
@@ -47,16 +48,13 @@ function fetchTweets(date) {
 	return (dispatch) => {
 		dispatch(requestTweets());
 
-		return fetch(`/api/tweets/${dateToString(date)
-		.substr(0, 13)
-		.replace(/ /, '/')}`)
-		.then((res) => {
-			return res.json();
+		return fetch.get(`/api/tweets/${dateToString(date).substr(0, 13).replace(/ /, '/')}`)
+		.then((tweets) => {
+			dispatch(receiveTweets(date, tweets));
 		})
-		.then((json) => {
-			dispatch(receiveTweets(date, json));
-		})
-		.catch((err) => {});
+		.catch((err) => {
+			console.log(err);
+		});
 	};
 }
 

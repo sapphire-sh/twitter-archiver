@@ -1,10 +1,8 @@
 import React from 'react';
-import {
-	Link,
-} from 'react-router-dom';
 
 class NotFound extends React.Component {
 	render() {
+		console.log(1234);
 		return (
 			<span>404</span>
 		);

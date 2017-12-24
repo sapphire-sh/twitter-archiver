@@ -6,13 +6,11 @@ class OAuth {
 	static oauth_token;
 	static oauth_token_secret;
 
-	static initialize() {
+	static initialize({
+		consumer_key,
+		consumer_secret,
+	}) {
 		let self = this;
-
-		const {
-			consumer_key,
-			consumer_secret,
-		} = process.env;
 
 		self.oauth = new _OAuth(
 			'https://api.twitter.com/oauth/request_token',

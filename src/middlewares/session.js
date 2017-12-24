@@ -11,17 +11,19 @@ const client = Database.client();
 
 const router = Express.Router();
 
+const ttl = 7 * 24 * 3600;
+
 router.use(session({
 	'store': new RedisStore({
 		'client': client,
-		'ttl': 7 * 24 * 3600,
-		'prefix': 'ta:sess:',
+		'ttl': ttl,
+		'prefix': 'ta:ss:',
 	}),
 	'cookie': {
 		'path': '/',
 		'httpOnly': true,
-		'secure': true,
-		'maxAge': 7 * 24 * 3600,
+		'secure': process.env.NODE_ENV === 'prod',
+		'maxAge': ttl * 1000,
 	},
 	'secret': process.env.consumer_key,
 	'saveUninitialized': true,

@@ -1,122 +1,82 @@
 import Promise from 'bluebird';
-import _redis from 'redis';
+
+import redis from 'redis';
 
 import zlib from '../utils/zlib';
 
-const redis = _redis.createClient();
+const client = redis.createClient();
 
-redis.on('error', (err) => {
+client.on('error', (err) => {
 	console.log(`redis-error: ${err}`);
 });
 
 class Database {
-	static client() {
-		return redis;
+	static initialize() {
+		let self = this;
 	}
 
-	static _set(type, key, value, expire) {
+	static client() {
+		return client;
+	}
+
+	static insertTweet(tweet) {
 		let self = this;
 
-		let args = [
-			key,
-			value,
+		const date = new Date(tweet.created_at);
+
+		const timestamp = date.getTime() / 1000;
+
+		return self.getTweets(timestamp)
+		.then((tweets) => {
+			if(tweets.length > 0) {
+				return Promise.resolve();
+			}
+			else {
+				return zlib.deflate(tweet).then((data) => {
+					const args = [
+						process.env.key,
+						timestamp,
+						data,
+					];
+
+					return new Promise((resolve, reject) => {
+						client.zadd(args, (err, reply) => {
+							if(err) {
+								reject(err);
+							}
+							else {
+								resolve(reply);
+							}
+						});
+					});
+				});
+			}
+		});
+	}
+
+	static getTweets(min, max) {
+		let self = this;
+
+		const args = [
+			process.env.key,
+			min,
+			max === undefined ? min : `(${max}`,
 		];
 
-		if(expire !== undefined) {
-			args.concat([
-				'EX',
-				expire,
-			]);
-		}
-
-		let fn;
-		switch(type) {
-		case 'set':
-			fn = redis.set;
-			break;
-		case 'hset':
-			fn = redis.hset;
-			break;
-		default:
-			return Promise.reject('invalid query type');
-		}
-
 		return new Promise((resolve, reject) => {
-			fn(...args, (err, reply) => {
+			client.zrangebyscore(args, (err, reply) => {
 				if(err) {
 					reject(err);
 				}
 				else {
-					resolve(reply);
+					Promise.all(reply.map((e) => {
+						return zlib.inflate(e);
+					}))
+					.then((data) => {
+						resolve(data);
+					});
 				}
 			});
-		});
-	}
-
-	static _get(type, key) {
-		let self = this;
-
-		let fn;
-		switch(type) {
-		case 'get':
-			fn = redis.get;
-			break;
-		case 'hget':
-			fn = redis.hget;
-			break;
-		default:
-			return Promise.reject('invalid query type');
-		}
-
-		return new Promise((resolve, reject) => {
-			redis.get(key, (err, reply) => {
-				if(err) {
-					reject(err);
-				}
-				else {
-					resolve(reply);
-				}
-			});
-		});
-	}
-
-	static set(key, value, expire) {
-		let self = this;
-
-		return self._set('set', key, value, expire);
-	}
-
-	static hset(key, value, expire) {
-		let self = this;
-
-		return self._set('hset', key, value, expire);
-	}
-
-	static get(key) {
-		let self = this;
-
-		return self._get('get', key);
-	}
-
-	static hget(key) {
-		let self = this;
-
-		return self._get('hset', key);
-	}
-
-	static setOAuthToken(token) {
-		let self = this;
-
-		return zlib.deflate(token).then((data) => {
-			return self.set('oauth', data.toString('base64'));
-		});
-	}
-
-	static getOAuthToken() {
-		let self = this;
-
-		return self.get('oauth').then((data) => {
-			return zlib.inflate(new Buffer(data, 'base64'));
 		});
 	}
 }

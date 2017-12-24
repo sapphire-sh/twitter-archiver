@@ -2,23 +2,50 @@ import Promise from 'bluebird';
 
 import Twit from 'twit';
 
-class Twitter {
-	static isInitialized;
+import Database from './database';
 
+class Twitter {
 	static initialize(token) {
 		let self = this;
 
 		self.twit = new Twit(token);
 
-		self.isInitialized = true;
+		self.stream = self.twit.stream('user', {
+			'tweet_mode': 'extended',
+		});
+
+		self.stream.on('tweet', (tweet) => {
+			Database.insertTweet(tweet)
+			.catch((err) => {
+				console.log(err);
+			});
+		});
+
+		setInterval(self.fetchTimeline.bind(this), 10 * 60 * 1000);
+	}
+
+	static fetchTimeline() {
+		let self = this;
+
+		self.twit.get('statuses/home_timeline', {
+			'count': 200,
+		}, (err, res) => {
+			if(err) {
+				console.error(err);
+			}
+			else {
+				res.forEach((tweet) => {
+					return Database.insertTweet(tweet)
+					.catch((err) => {
+						console.log(err);
+					});
+				});
+			}
+		});
 	}
 
 	static _request(type, url, params) {
 		let self = this;
-
-		if(self.isInitialized === false) {
-			return Promise.reject('twit is not initialized');
-		}
 
 		if(params === undefined) {
 			params = {};

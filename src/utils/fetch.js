@@ -1,5 +1,7 @@
 export function fetchGet(url) {
-	return fetch(url)
+	return fetch(url, {
+		'credentials': 'include',
+	})
 	.then((res) => {
 		return res.json();
 	});

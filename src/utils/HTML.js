@@ -8,7 +8,7 @@ class HTML extends React.Component {
 		return (
 			<html>
 				<head>
-					<title>sapphire.bot</title>
+					<title>twitter-archiver</title>
 					<link rel="stylesheet" href="/styles.css" />
 				</head>
 				<body>

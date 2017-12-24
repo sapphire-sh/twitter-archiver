@@ -15,8 +15,6 @@ class Server {
 
 		const app = Express();
 
-		app.use('/', Express.static(config.output.path));
-
 		middlewares.forEach((middleware) => {
 			app.use(middleware);
 		});
@@ -27,6 +25,8 @@ class Server {
 		}) => {
 			app.use(path, router);
 		});
+
+		app.use('/', Express.static(config.output.path));
 
 		app.get('/', (req, res) => {
 			res.redirect('/i');
