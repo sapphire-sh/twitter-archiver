@@ -22,7 +22,7 @@ router.use(session({
 	'cookie': {
 		'path': '/',
 		'httpOnly': true,
-		'secure': process.env.NODE_ENV === 'prod',
+		'secure': 'auto',
 		'maxAge': ttl * 1000,
 	},
 	'secret': process.env.consumer_key,
