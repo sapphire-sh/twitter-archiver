@@ -48,33 +48,12 @@ class View extends React.Component {
 	}
 
 	render() {
-		let tweets;
-		if(this.props.tweets.length === 0) {
-			if(this.props.isFetching) {
-				tweets = (
-					<div className="attached ui segment">loading...</div>
-				);
-			}
-			else {
-				tweets = (
-					<div className="attached ui segment">none</div>
-				);
-			}
-		}
-		else {
-			tweets = (
-				<Tweets style={{
-					'opacity': this.props.isFetching ? 0.5 : 1,
-				}} tweets={this.props.tweets} />
-			);
-		}
-
 		return (
 			<div className="container">
 				<Navigation />
 
 				<h4 className="ui top attached block header">{ dateToString(this.props.date) }</h4>
-				{ tweets }
+				<Tweets />
 				<div onClick={ this.refreshTweets } className="ui attached button">refresh</div>
 				<h4 className="ui bottom attached block header">{ dateToString(new Date(this.props.date.getTime() + 3600 * 1000)) }</h4>
 
@@ -87,22 +66,12 @@ class View extends React.Component {
 View.propTypes = {
 	'match': PropTypes.object.isRequired,
 	'dispatch': PropTypes.func.isRequired,
-	'tweets': PropTypes.array.isRequired,
-	'isFetching': PropTypes.bool.isRequired,
 	'date': PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
-	let tweets = state.tweets.tweets[dateToString(state.date.date).substr(0, 13)];
-
-	if(tweets === undefined) {
-		tweets = [];
-	}
-
 	return {
 		'date': state.date.date,
-		'isFetching': state.tweets.isFetching,
-		'tweets': tweets,
 	};
 }
 

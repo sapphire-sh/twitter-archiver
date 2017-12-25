@@ -10,6 +10,7 @@ class HTML extends React.Component {
 				<head>
 					<title>twitter-archiver</title>
 					<link rel="stylesheet" href="/styles.css" />
+					<base target="_blank" />
 				</head>
 				<body>
 					<div id="app"></div>
