@@ -21,28 +21,31 @@ import {
 } from '../utils/date';
 
 class View extends React.Component {
-	componentWillMount() {
-		const date = new Date(`${this.props.match.params.date} ${this.props.match.params.hour}:00:00`);
+	constructor(props) {
+		super(props);
 
 		const {
-			dispatch,
-		} = this.props;
+			date,
+			hour,
+		} = this.props.match.params;
 
-		dispatch(invalidateDate());
-		dispatch(updateDate(date));
-		dispatch(invalidateTweets());
-		dispatch(fetchTweetsIfNeeded(date));
+		this.state = {
+			'date': new Date(`${date} ${hour}:00:00`),
+		};
 
 		this.refreshTweets = this.refreshTweets.bind(this);
 	}
 
+	componentWillMount() {
+		this.refreshTweets();
+	}
+
 	refreshTweets() {
-		const date = new Date(`${this.props.match.params.date} ${this.props.match.params.hour}:00:00`);
+		const dispatch = this.props.dispatch;
+		const date = this.state.date;
 
-		const {
-			dispatch,
-		} = this.props;
-
+		dispatch(invalidateDate());
+		dispatch(updateDate(date));
 		dispatch(invalidateTweets());
 		dispatch(fetchTweetsIfNeeded(date));
 	}
@@ -52,10 +55,10 @@ class View extends React.Component {
 			<div className="container">
 				<Navigation />
 
-				<h4 className="ui top attached block header">{ dateToString(this.props.date) }</h4>
+				<h4 className="ui top attached block header">{ dateToString(this.state.date) }</h4>
 				<Tweets />
 				<div onClick={ this.refreshTweets } className="ui attached button">refresh</div>
-				<h4 className="ui bottom attached block header">{ dateToString(new Date(this.props.date.getTime() + 3600 * 1000)) }</h4>
+				<h4 className="ui bottom attached block header">{ dateToString(new Date(this.state.date.getTime() + 3600 * 1000)) }</h4>
 
 				<Navigation />
 			</div>
@@ -66,7 +69,6 @@ class View extends React.Component {
 View.propTypes = {
 	'match': PropTypes.object.isRequired,
 	'dispatch': PropTypes.func.isRequired,
-	'date': PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {

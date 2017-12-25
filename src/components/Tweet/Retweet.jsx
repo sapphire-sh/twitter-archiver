@@ -3,25 +3,17 @@ import {
 	PropTypes,
 } from 'prop-types';
 
+import Profile from './Profile';
 import Tweet from './Tweet';
 
 class Retweet extends React.Component {
 	render() {
 		const tweet = this.props.tweet;
-		const user = tweet.user;
 
 		return (
 			<div>
 				<div>
-					<a style={{
-						'marginBottom': '4px',
-						'color': '#fff',
-						'backgroundColor': `#${user.profile_link_color}`,
-					}} href={ `https://twitter.com/${user.screen_name}` } target="_blank" className="ui ribbon image label">
-						<img src={ user.profile_image_url_https } />
-						{ user.name }
-						<div className="detail">@{ user.screen_name }</div>
-					</a>
+					<Profile user={ tweet.user } isRetweet={ true } />
 				</div>
 				<Tweet tweet={ tweet.retweeted_status } />
 			</div>

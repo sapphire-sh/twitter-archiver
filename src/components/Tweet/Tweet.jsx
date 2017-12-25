@@ -5,16 +5,14 @@ import {
 
 import twitter from 'twitter-text';
 
+import Profile from './Profile';
 import Text from './Text';
 import Count from './Count';
 import Media from './Media';
 import Footer from './Footer';
 
 class Tweet extends React.Component {
-	render() {
-		const tweet = this.props.tweet;
-		const user = tweet.user;
-
+	getEntities(tweet) {
 		const extendedTweet = tweet.extended_tweet;
 		if(extendedTweet !== undefined) {
 			tweet.text = extendedTweet.full_text;
@@ -22,18 +20,17 @@ class Tweet extends React.Component {
 			tweet.extended_entities = extendedTweet.extended_entities;
 		}
 
-		const entities = Object.assign({}, tweet.entities, tweet.extended_entities);
+		return Object.assign({}, tweet.entities, tweet.extended_entities);
+	}
+
+	render() {
+		const tweet = this.props.tweet;
+
+		const entities = this.getEntities(tweet);
 
 		return (
 			<div className="tweet">
-				<a style={{
-					'color': '#ffffff',
-					'backgroundColor': `#${user.profile_link_color}`,
-				}} href={ `https://twitter.com/${user.screen_name}` } target="_blank" className="ui ribbon image label">
-					<img src={ user.profile_image_url_https } />
-					{ user.name }
-					<div className="detail">@{ user.screen_name }</div>
-				</a>
+				<Profile user={ tweet.user } isRetweet={ false } />
 				<div className="ui segments">
 					<div className="ui top attached segment">
 						<Text text={ tweet.text } entities={ entities } />

@@ -29,37 +29,36 @@ class Navigation extends React.Component {
 	}
 
 	handleClickPrev(e) {
-		const {
-			date,
-			dispatch,
-		} = this.props;
-
-		const prev = new Date(date.getTime() - 3600 * 1000);
-
-		this.handleClick(prev);
+		this.handleClick('prev');
 	}
 
 	handleClickNext(e) {
-		const {
-			date,
-			dispatch,
-		} = this.props;
-
-		const next = new Date(date.getTime() + 3600 * 1000);
-
-		this.handleClick(next);
+		this.handleClick('next');
 	}
 
-	handleClick(e) {
-		const {
-			date,
-			dispatch,
-		} = this.props;
+	handleClick(type) {
+		const dispatch = this.props.dispatch;
+
+		let timestamp = this.props.date.getTime();
+
+		switch(type) {
+		case 'prev':
+			timestamp -= 3600 * 1000;
+			break;
+		case 'next':
+			timestamp += 3600 * 1000;
+			break;
+		default:
+			console.log('invalid type');
+			return;
+		}
+
+		const date = new Date(timestamp);
 
 		dispatch(invalidateDate());
-		dispatch(updateDate(e));
+		dispatch(updateDate(date));
 		dispatch(invalidateTweets());
-		dispatch(fetchTweetsIfNeeded(e));
+		dispatch(fetchTweetsIfNeeded(date));
 
 		window.scroll(0, 0);
 	}

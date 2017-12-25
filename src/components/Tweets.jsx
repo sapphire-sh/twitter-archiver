@@ -9,6 +9,8 @@ import {
 import Tweet from './Tweet/Tweet';
 import Retweet from './Tweet/Retweet';
 
+import Indicator from './Indicator';
+
 import {
 	dateToString,
 } from '../utils/date';
@@ -19,35 +21,26 @@ class Tweets extends React.Component {
 	render() {
 		const tweets = this.props.tweets;
 
-		let indicator = null;
-		if(this.props.tweets.length === 0) {
-			if(this.props.isFetching) {
-				indicator = (
-					<div className="ui segment attached">loading...</div>
-				);
-			}
-			else {
-				indicator = (
-					<div className="ui segment attached">none</div>
-				);
-			}
-		}
-
 		return (
 			<div>
-				{ indicator }
+				<Indicator />
 				{
 					tweets.map((tweet, i) => {
+						let component;
 						if(tweet.retweeted_status === undefined) {
-							return (
-								<div key={tweet.id_str} className="ui segment attached">
-									<Tweet tweet={tweet} />
-								</div>
+							component = (
+								<Tweet tweet={tweet} />
 							);
 						}
+						else {
+							component = (
+								<Retweet tweet={tweet} />
+							);
+						}
+
 						return (
 							<div key={tweet.id_str} className="ui segment attached">
-								<Retweet tweet={tweet} />
+								{ component }
 							</div>
 						);
 					})
@@ -59,7 +52,6 @@ class Tweets extends React.Component {
 
 Tweets.propTypes = {
 	'tweets': PropTypes.array.isRequired,
-	'isFetching': PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -70,8 +62,6 @@ function mapStateToProps(state) {
 	}
 
 	return {
-		'date': state.date.date,
-		'isFetching': state.tweets.isFetching,
 		'tweets': tweets,
 	};
 }
