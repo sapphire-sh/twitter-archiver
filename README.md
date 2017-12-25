@@ -9,16 +9,16 @@
 
 Automatically backups your timeline
 
-## Prerequisites
+## Installation
 
-`redis`
+### Prerequisites
 
-`pm2`
+* Install `redis` and `pm2`
 
-And, create a `.env` file on your project root directory
+* Create a `.env` file on your project root directory
 
 ```sh
-PORT={{port}
+PORT={{port}}
 key={{key}}
 consumer_key={{consumer_key}}
 consumer_secret={{consumer_secet}}
@@ -26,7 +26,7 @@ access_token={{access_token}}
 access_token_secret={{access_token_secert}}
 ```
 
-## Installation
+### Start
 
 ```sh
 $ npm i
