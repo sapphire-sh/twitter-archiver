@@ -62,9 +62,10 @@ function shouldFetchTweets(state) {
 	return state.tweets.didInvalidate;
 }
 
-export function fetchTweetsIfNeeded(date) {
+export function fetchTweetsIfNeeded() {
 	return (dispatch, getState) => {
 		if(shouldFetchTweets(getState())) {
+			const date = getState().date.date;
 			return dispatch(fetchTweets(date));
 		}
 	};

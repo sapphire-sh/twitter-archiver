@@ -55,10 +55,12 @@ class Navigation extends React.Component {
 
 		const date = new Date(timestamp);
 
+		console.log(date);
+
 		dispatch(invalidateDate());
 		dispatch(updateDate(date));
 		dispatch(invalidateTweets());
-		dispatch(fetchTweetsIfNeeded(date));
+		dispatch(fetchTweetsIfNeeded());
 
 		window.scroll(0, 0);
 	}

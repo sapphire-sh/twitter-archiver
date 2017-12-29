@@ -74,9 +74,9 @@
   },
   "jest": {
     "coveragePathIgnorePatterns": [
-	  "/node_modules/",
-	  "/configs",
-	  "/scripts"
-	]
+      "/node_modules/",
+      "/configs",
+      "/scripts"
+    ]
   }
 }

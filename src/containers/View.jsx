@@ -29,9 +29,10 @@ class View extends React.Component {
 			hour,
 		} = this.props.match.params;
 
-		this.state = {
-			'date': new Date(`${date} ${hour}:00:00`),
-		};
+		const dispatch = this.props.dispatch;
+
+		dispatch(invalidateDate());
+		dispatch(updateDate(new Date(`${date} ${hour}:00:00`)));
 
 		this.refreshTweets = this.refreshTweets.bind(this);
 	}
@@ -42,12 +43,9 @@ class View extends React.Component {
 
 	refreshTweets() {
 		const dispatch = this.props.dispatch;
-		const date = this.state.date;
 
-		dispatch(invalidateDate());
-		dispatch(updateDate(date));
 		dispatch(invalidateTweets());
-		dispatch(fetchTweetsIfNeeded(date));
+		dispatch(fetchTweetsIfNeeded());
 	}
 
 	render() {
@@ -55,10 +53,10 @@ class View extends React.Component {
 			<div className="container">
 				<Navigation />
 
-				<h4 className="ui top attached block header">{ dateToString(this.state.date) }</h4>
+				<h4 className="ui top attached block header">{ dateToString(this.props.date) }</h4>
 				<Tweets />
 				<div onClick={ this.refreshTweets } className="ui attached button">refresh</div>
-				<h4 className="ui bottom attached block header">{ dateToString(new Date(this.state.date.getTime() + 3600 * 1000)) }</h4>
+				<h4 className="ui bottom attached block header">{ dateToString(new Date(this.props.date.getTime() + 3600 * 1000)) }</h4>
 
 				<Navigation />
 			</div>
@@ -69,6 +67,7 @@ class View extends React.Component {
 View.propTypes = {
 	'match': PropTypes.object.isRequired,
 	'dispatch': PropTypes.func.isRequired,
+	'date': PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
