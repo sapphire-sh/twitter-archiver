@@ -4,7 +4,7 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const config = {
-	'entry': path.resolve(__dirname, '../src', 'client.jsx'),
+	'entry': path.resolve(__dirname, '../src', 'client.tsx'),
 	'output': {
 		'path': path.resolve(__dirname, '../dist'),
 		'filename': 'bundle.js',
@@ -17,6 +17,12 @@ const config = {
 				'use': {
 					'loader': 'babel-loader',
 				},
+			},
+			{
+				'test': /\.tsx?$/,
+				'use': [
+					'ts-loader',
+				],
 			},
 			{
 				'test': /\.css$/,
@@ -61,10 +67,12 @@ const config = {
 		}),
 		new ExtractTextPlugin('styles.css'),
 	],
+	'devtool': '#source-map',
 	'resolve': {
 		'extensions': [
+			'.ts',
+			'.tsx',
 			'.js',
-			'.jsx',
 			'.json',
 		],
 	},
