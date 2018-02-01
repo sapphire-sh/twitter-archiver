@@ -1,4 +1,6 @@
-import Express from 'express';
+import * as http from 'http';
+
+import * as Express from 'express';
 
 import config from '../configs/webpack.client';
 
@@ -8,7 +10,11 @@ import routers from './routers';
 import HTML from './utils/HTML';
 
 class Server {
+	public server: http.Server;
+
 	constructor(port: number) {
+		let self = this;
+
 		const app = Express();
 
 		middlewares.forEach((middleware) => {
@@ -32,7 +38,7 @@ class Server {
 			res.send(HTML());
 		});
 
-		app.listen(port, () => {
+		self.server = app.listen(port, () => {
 			if(process.env.NODE_ENV !== 'test') {
 				console.log(`http://localhost:${port}`);
 			}

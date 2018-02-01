@@ -2,7 +2,7 @@ import zlib from 'zlib';
 
 import Promise from 'bluebird';
 
-export function deflate(data: object) {
+export function deflate(data: any) {
 	const jsonStr = JSON.stringify(data);
 	const buffer = new Buffer(jsonStr);
 

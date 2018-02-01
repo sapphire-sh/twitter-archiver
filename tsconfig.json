@@ -30,6 +30,6 @@
 	"noFallthroughCasesInSwitch": false,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-	"experimentalDecorators": true,
-  },
+	"experimentalDecorators": true
+  }
 }

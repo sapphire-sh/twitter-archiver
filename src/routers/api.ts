@@ -1,4 +1,4 @@
-import Express from 'express';
+import * as Express from 'express';
 
 import Database from '../libs/database';
 

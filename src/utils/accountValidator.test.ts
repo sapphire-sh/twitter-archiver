@@ -1,6 +1,6 @@
-import request from 'supertest';
+import * as request from 'supertest';
 
-import Express from 'express';
+import * as Express from 'express';
 
 import accountValidator from './accountValidator';
 
@@ -13,8 +13,8 @@ describe('./utils/accountValidator.js', () => {
 		};
 
 		beforeAll(() => {
-			app.use((req, res, next) => {
-				req.session = session;
+			app.use((req, _, next) => {
+				req.session!.isValid = session.isValid;
 
 				next();
 			});
@@ -26,7 +26,7 @@ describe('./utils/accountValidator.js', () => {
 				'/auth/callback',
 				'*',
 			].forEach((e) => {
-				app.get(e, (req, res) => {
+				app.get(e, (_, res) => {
 					res.json({
 						'path': e,
 					});
