@@ -1,6 +1,6 @@
 import Database from './database';
 
-describe('./libs/database.js', () => {
+describe('./libs/database.ts', () => {
 	test('test', () => {
 	});
 

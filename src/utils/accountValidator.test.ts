@@ -4,7 +4,7 @@ import * as Express from 'express';
 
 import accountValidator from './accountValidator';
 
-describe('./utils/accountValidator.js', () => {
+describe('./utils/accountValidator.ts', () => {
 	describe('account validator', () => {
 		const app = Express();
 

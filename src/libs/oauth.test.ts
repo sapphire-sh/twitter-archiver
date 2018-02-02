@@ -5,7 +5,7 @@ import OAuth, {
 
 jest.mock('../../__mocks__/oauth.js');
 
-describe('./libs/oauth.js', () => {
+describe('./libs/oauth.ts', () => {
 	beforeAll(() => {
 		OAuth.initialize('consumer_key', 'consumer_secret');
 	});

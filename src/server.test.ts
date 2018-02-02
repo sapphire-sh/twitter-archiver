@@ -4,7 +4,7 @@ import Server from './server';
 
 import Database from './libs/database';
 
-describe('./server.js', () => {
+describe('./server.ts', () => {
 	const {
 		server,
 	} = new Server(0);

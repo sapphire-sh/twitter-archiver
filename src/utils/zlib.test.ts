@@ -3,7 +3,7 @@ import {
 	inflate,
 } from './zlib';
 
-describe('./utils/zlib.js', () => {
+describe('./utils/zlib.ts', () => {
 	const original = 'sapphire';
 	const deflated = 'eJxTKk4sKMjILEpVAgAUDwOh';
 
