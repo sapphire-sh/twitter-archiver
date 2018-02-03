@@ -37,7 +37,7 @@ class Twitter {
 		self.twit = new Twit(token);
 
 		self.stream = self.twit.stream('user', {
-			'tweet_mode': 'extended',
+			// 'tweet_mode': 'extended',
 		});
 
 		self.stream.on('tweet', (tweet) => {

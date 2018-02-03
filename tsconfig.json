@@ -11,7 +11,7 @@
 	  "es2017",
 	  "dom"
     ],
-    "outDir": "./out",
+    "outDir": "build",
 	"rootDir": "./src",
 	"jsx": "react",
     "removeComments": true,

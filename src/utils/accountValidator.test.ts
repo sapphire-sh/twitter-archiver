@@ -1,6 +1,10 @@
 import * as request from 'supertest';
 
-import * as Express from 'express';
+import {
+	expect,
+} from 'chai';
+
+import Express from 'express';
 
 import accountValidator from './accountValidator';
 
@@ -12,7 +16,7 @@ describe('./utils/accountValidator.ts', () => {
 			'isValid': false,
 		};
 
-		beforeAll(() => {
+		before(() => {
 			app.use((req, _, next) => {
 				req.session!.isValid = session.isValid;
 
@@ -34,43 +38,43 @@ describe('./utils/accountValidator.ts', () => {
 			});
 		});
 
-		test('invalid session at /', () => {
+		it('invalid session at /', () => {
 			session.isValid = false;
 
 			return request(app).get('/')
 			.then((res) => {
-				expect(res.status).toBe(302);
+				expect(res.status).to.equal(302);
 			});
 		});
 
-		test('invalid session at /auth', () => {
+		it('invalid session at /auth', () => {
 			session.isValid = false;
 
 			return request(app).get('/auth')
 			.then((res) => {
-				expect(res.body).toEqual({
+				expect(res.body).to.equal({
 					'path': '/auth',
 				});
 			});
 		});
 
-		test('invalid session at /auth/callback', () => {
+		it('invalid session at /auth/callback', () => {
 			session.isValid = false;
 
 			return request(app).get('/auth/callback')
 			.then((res) => {
-				expect(res.body).toEqual({
+				expect(res.body).to.equal({
 					'path': '/auth/callback',
 				});
 			});
 		});
 
-		test('valid session at /', () => {
+		it('valid session at /', () => {
 			session.isValid = true;
 
 			return request(app).get('/')
 			.then((res) => {
-				expect(res.body).toEqual({
+				expect(res.body).to.equal({
 					'path': '*',
 				});
 			});

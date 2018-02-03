@@ -16,14 +16,14 @@ interface TweetProps {
 
 class Tweet extends React.Component<TweetProps> {
 	getEntities(tweet: _Tweet) {
-		const extendedTweet = tweet.extended_tweet;
+		const extendedTweet = (tweet as any).extended_tweet;
 		if(extendedTweet !== undefined) {
 			tweet.text = extendedTweet.full_text;
 			tweet.entities = extendedTweet.entities;
-			tweet.extended_entities = extendedTweet.extended_entities;
+			(tweet as any).extended_entities = extendedTweet.extended_entities;
 		}
 
-		return Object.assign({}, tweet.entities, tweet.extended_entities);
+		return Object.assign({}, tweet.entities, (tweet as any).extended_entities);
 	}
 
 	render() {
@@ -41,8 +41,8 @@ class Tweet extends React.Component<TweetProps> {
 					<Media entities={entities} />
 					<Count counts={{
 						'reply': 0,
-						'retweet': tweet.retweet_count,
-						'favorite': tweet.favorite_count,
+						'retweet': (tweet as any).retweet_count,
+						'favorite': (tweet as any).favorite_count,
 					}} />
 					<Footer tweet={tweet} />
 				</div>

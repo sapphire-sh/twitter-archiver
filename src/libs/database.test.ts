@@ -1,10 +1,10 @@
 import Database from './database';
 
 describe('./libs/database.ts', () => {
-	test('test', () => {
+	it('test', () => {
 	});
 
-	afterAll(() => {
+	after(() => {
 		Database.client().quit();
 	});
 });

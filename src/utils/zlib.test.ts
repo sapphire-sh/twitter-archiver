@@ -1,4 +1,8 @@
 import {
+	expect,
+} from 'chai';
+
+import {
 	deflate,
 	inflate,
 } from './zlib';
@@ -7,15 +11,21 @@ describe('./utils/zlib.ts', () => {
 	const original = 'sapphire';
 	const deflated = 'eJxTKk4sKMjILEpVAgAUDwOh';
 
-	test('deflate', () => {
-		return expect(deflate(original)).resolves.toEqual(deflated);
+	it('deflate', () => {
+		return deflate(original).then((res) => {
+			expect(res).to.equal(deflated);
+		});
 	});
 
-	test('valid inflate', () => {
-		return expect(inflate(deflated)).resolves.toEqual(original);
+	it('valid inflate', () => {
+		return inflate(deflated).then((res) => {
+			expect(res).to.equal(original);
+		});
 	});
 
-	test('invalid inflate', () => {
-		return expect(inflate(original)).rejects.toThrow('a');
+	it('invalid inflate', () => {
+		return inflate(original).then(() => {
+			expect(true).to.be.false;
+		}).catch(() => {});
 	});
 });

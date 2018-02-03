@@ -59,7 +59,7 @@ class Database {
 
 		return self.checkUnique(tweet).then((isUnique) => {
 			if(isUnique === false) {
-				return Promise.resolve();
+				return Promise.resolve({});
 			}
 
 			return zlib.deflate(tweet).then((data) => {

@@ -1,5 +1,9 @@
 import request from 'supertest';
 
+import {
+	expect,
+} from 'chai';
+
 import Server from './server';
 
 import Database from './libs/database';
@@ -9,14 +13,14 @@ describe('./server.ts', () => {
 		server,
 	} = new Server(0);
 
-	test('server', () => {
+	it('server', () => {
 		return request(server).get('/')
 		.then((res) => {
-			expect(res.body).toEqual({});
+			expect(res.body).to.equal({});
 		});
 	});
 
-	afterAll(() => {
+	after(() => {
 		Database.client().quit();
 		server.close();
 	});
