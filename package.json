@@ -10,7 +10,7 @@
     "start": "cross-env `babel-node ./scripts/env.js` NODE_ENV=prod pm2 start ./app.json",
     "stop": "pm2 stop ./app.json",
     "transpile": "tsc",
-    "preset": "npm run transpile",
+    "pretest": "npm run transpile",
     "test": "mocha --require babel-register ./build/**/*.test.js",
     "coverage": "jest --coverage",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls",

@@ -17,6 +17,7 @@ describe('./libs/oauth.ts', () => {
 			done();
 		}).catch((err: Error) => {
 			expect(err).to.be.null;
+			done();
 		});
 	});
 
@@ -27,6 +28,7 @@ describe('./libs/oauth.ts', () => {
 			done();
 		}).catch((err: Error) => {
 			expect(err).to.be.null;
+			done();
 		});
 	});
 });

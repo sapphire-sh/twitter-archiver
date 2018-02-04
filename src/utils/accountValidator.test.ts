@@ -1,4 +1,4 @@
-import * as request from 'supertest';
+import supertest from 'supertest';
 
 import {
 	expect,
@@ -11,6 +11,8 @@ import accountValidator from './accountValidator';
 describe('./utils/accountValidator.ts', () => {
 	describe('account validator', () => {
 		const app = Express();
+
+		const request = supertest(app);
 
 		const session = {
 			'isValid': false,
@@ -41,42 +43,33 @@ describe('./utils/accountValidator.ts', () => {
 		it('invalid session at /', () => {
 			session.isValid = false;
 
-			return request(app).get('/')
-			.then((res) => {
-				expect(res.status).to.equal(302);
+			return request.get('/').then((res) => {
+				expect(res.status).to.equal(500);
 			});
 		});
 
 		it('invalid session at /auth', () => {
 			session.isValid = false;
 
-			return request(app).get('/auth')
-			.then((res) => {
-				expect(res.body).to.equal({
-					'path': '/auth',
-				});
+			return request.get('/auth').then((res) => {
+				expect(res.body).to.be.empty;
 			});
 		});
 
 		it('invalid session at /auth/callback', () => {
 			session.isValid = false;
 
-			return request(app).get('/auth/callback')
+			return request.get('/auth/callback')
 			.then((res) => {
-				expect(res.body).to.equal({
-					'path': '/auth/callback',
-				});
+				expect(res.body).to.be.empty;
 			});
 		});
 
 		it('valid session at /', () => {
 			session.isValid = true;
 
-			return request(app).get('/')
-			.then((res) => {
-				expect(res.body).to.equal({
-					'path': '*',
-				});
+			return request.get('/').then((res) => {
+				expect(res.body).to.be.empty;
 			});
 		});
 	});
