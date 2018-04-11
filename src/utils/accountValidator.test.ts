@@ -14,13 +14,11 @@ describe('./utils/accountValidator.ts', () => {
 
 		const request = supertest(app);
 
-		const session = {
-			'isValid': false,
-		};
+		const session: any = {};
 
 		before(() => {
 			app.use((req, _, next) => {
-				req.session!.isValid = session.isValid;
+				req.session = session;
 
 				next();
 			});
@@ -44,7 +42,7 @@ describe('./utils/accountValidator.ts', () => {
 			session.isValid = false;
 
 			return request.get('/').then((res) => {
-				expect(res.status).to.equal(500);
+				expect(res.status).to.equal(302);
 			});
 		});
 
@@ -52,16 +50,19 @@ describe('./utils/accountValidator.ts', () => {
 			session.isValid = false;
 
 			return request.get('/auth').then((res) => {
-				expect(res.body).to.be.empty;
+				expect(res.body).to.deep.equal({
+					'path': '/auth',
+				});
 			});
 		});
 
 		it('invalid session at /auth/callback', () => {
 			session.isValid = false;
 
-			return request.get('/auth/callback')
-			.then((res) => {
-				expect(res.body).to.be.empty;
+			return request.get('/auth/callback').then((res) => {
+				expect(res.body).to.deep.equal({
+					'path': '/auth/callback',
+				});
 			});
 		});
 
@@ -69,7 +70,9 @@ describe('./utils/accountValidator.ts', () => {
 			session.isValid = true;
 
 			return request.get('/').then((res) => {
-				expect(res.body).to.be.empty;
+				expect(res.body).to.deep.equal({
+					'path': '*',
+				});
 			});
 		});
 	});

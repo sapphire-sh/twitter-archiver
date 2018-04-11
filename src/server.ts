@@ -1,20 +1,20 @@
-import * as http from 'http';
+import http from 'http';
 
-import * as Express from 'express';
+import Express from 'express';
 
-import config from '../configs/webpack.client';
+import {
+	serverConfig as config,
+} from '../webpack.config';
 
 import middlewares from './middlewares';
 import routers from './routers';
 
 import HTML from './utils/HTML';
 
-class Server {
+export class Server {
 	public server: http.Server;
 
 	constructor(port: number) {
-		let self = this;
-
 		const app = Express();
 
 		middlewares.forEach((middleware) => {
@@ -38,12 +38,10 @@ class Server {
 			res.send(HTML());
 		});
 
-		self.server = app.listen(port, () => {
+		this.server = app.listen(port, () => {
 			if(process.env.NODE_ENV !== 'test') {
 				console.log(`http://localhost:${port}`);
 			}
 		});
 	}
 }
-
-export default Server;

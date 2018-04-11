@@ -1,7 +1,11 @@
-import Server from './server';
+import {
+	Server,
+} from './server';
 
-import OAuth from './libs/oauth';
-import Twitter from './libs/twitter';
+import {
+	OAuth,
+	Twitter,
+} from './libs';
 
 const token = {
 	'consumer_key': process.env.consumer_key!,
@@ -15,4 +19,4 @@ Twitter.initialize(token);
 
 const port = process.env.PORT === undefined ? 8015 : parseInt(process.env.PORT!);
 
-new Server(port);
+const server = new Server(port);

@@ -1,18 +1,17 @@
 import * as Express from 'express';
 
-import OAuth, {
+import {
+	OAuth,
 	RequestToken,
 	AccessToken,
-} from '../libs/oauth';
+} from '../libs';
 
 const router = Express.Router();
 
 router.get('/', (req, res) => {
-	const session = req.session!;
-
 	OAuth.getRequestToken()
 	.then((token) => {
-		session.oauth = token;
+		req.session.oauth = token;
 
 		res.redirect(`https://twitter.com/oauth/authenticate?oauth_token=${token.oauth_token}`);
 	})
@@ -52,13 +51,11 @@ function validateAccessToken({
 }
 
 router.get('/callback', (req, res) => {
-	const session = req.session!;
-
 	const oauth_verifier = req.query.oauth_verifier;
 
 	if(validateOAuthToken({
-		'oauth_token': session.oauth_token,
-		'oauth_token_secret': session.oauth_token_secret,
+		'oauth_token': req.session.oauth_token,
+		'oauth_token_secret': req.session.oauth_token_secret,
 	}, oauth_verifier)) {
 		res.redirect('/');
 	}
@@ -67,9 +64,9 @@ router.get('/callback', (req, res) => {
 			'oauth_verifier': oauth_verifier,
 		})
 		.then((token) => {
-			session.isValid = validateAccessToken(token);
+			req.session.isValid = validateAccessToken(token);
 
-			delete session.oauth;
+			delete req.session.oauth;
 
 			res.redirect('/i');
 		})

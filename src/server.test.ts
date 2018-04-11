@@ -4,9 +4,9 @@ import {
 	expect,
 } from 'chai';
 
-import Server from './server';
-
-import Database from './libs/database';
+import {
+	Server,
+} from './server';
 
 describe('./server.ts', () => {
 	const {
@@ -21,7 +21,6 @@ describe('./server.ts', () => {
 	});
 
 	after(() => {
-		Database.client().quit();
 		server.close();
 	});
 });

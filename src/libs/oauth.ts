@@ -12,7 +12,7 @@ export interface AccessToken {
 	access_token_secret: string;
 };
 
-class OAuth {
+export class OAuth {
 	static oauth_token: string;
 	static oauth_token_secret: string;
 
@@ -77,5 +77,3 @@ class OAuth {
 		});
 	}
 };
-
-export default OAuth;

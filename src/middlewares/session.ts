@@ -1,35 +1,13 @@
-import * as Express from 'express';
-
-import Database from '../libs/database';
-
-import session from 'express-session';
-import connectRedis from 'connect-redis';
-
-const RedisStore = connectRedis(session);
-
-const client = Database.client();
+import Express from 'express';
 
 const router = Express.Router();
 
-const ttl = 7 * 24 * 3600;
+const session: any = {};
 
-const secret = process.env.NODE_ENV === 'test' ? 'test': process.env.consumer_key!;
+router.use((req, _, next) => {
+	req.session = session;
 
-router.use(session({
-	'store': new RedisStore({
-		'client': client,
-		'ttl': ttl,
-		'prefix': 'ta:ss:',
-	}),
-	'cookie': {
-		'path': '/',
-		'httpOnly': true,
-		'secure': 'auto',
-		'maxAge': ttl * 1000,
-	},
-	'secret': secret,
-	'saveUninitialized': true,
-	'resave': false,
-}));
+	next();
+});
 
 export default router;

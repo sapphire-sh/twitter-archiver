@@ -11,7 +11,7 @@
 	  "es2017",
 	  "dom"
     ],
-    "outDir": "build",
+    "outDir": "./build",
 	"rootDir": "./src",
 	"jsx": "react",
     "removeComments": true,
@@ -24,8 +24,6 @@
     "strictFunctionTypes": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "noImplicitReturns": true,
 	"noFallthroughCasesInSwitch": false,
     "moduleResolution": "node",

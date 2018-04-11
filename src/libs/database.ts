@@ -1,6 +1,5 @@
 import Promise from 'bluebird';
-
-import redis from 'redis';
+import Knex from 'knex';
 
 import {
 	Tweet,
@@ -8,94 +7,82 @@ import {
 
 import zlib from '../utils/zlib';
 
-const client = redis.createClient();
+interface DataRow {
+	id: string;
+	data: string;
+}
 
-/* istanbul ignore next */
-client.on('error', (err) => {
-	console.log(`redis-error: ${err}`);
+const knex = Knex({
+	'client': 'sqlite3',
+	'connection': {
+		'filename': './tweets.sqlite',
+	},
+	'useNullAsDefault': true,
 });
 
-class Database {
-	static client() {
-		return client;
+knex.schema.hasTable('tweets').then((exists) => {
+	if(exists) {
+		return Promise.resolve();
 	}
+	return knex.schema.createTable('tweets', (table) => {
+		table.bigInteger('id').primary().unique().notNullable();
+		table.string('data').notNullable();
 
-	static zadd(args: any) {
+		table.timestamps(true, true);
+	});
+})
+
+export class Database {
+	private static knex: Knex = knex;
+
+	private static checkUnique(tweet: Tweet) {
 		return new Promise((resolve, reject) => {
-			client.zadd(args, (err, reply) => {
-				if(err) {
-					reject(err);
+			return this.knex('tweets').where({
+				'id': tweet.id_str,
+			}).then((data: string[]) => {
+				if(data.length === 1) {
+					resolve(false);
+					return;
 				}
-				else {
-					resolve(reply);
-				}
+				resolve(true);
+			}).catch((err) => {
+				reject(err);
 			});
 		});
 	}
 
-	static checkUnique(tweet: Tweet) {
-		let self = this;
-
-		const date = new Date(tweet.created_at);
-		const timestamp = date.getTime() / 1000;
-
-		return self.getTweets(timestamp).then((tweets) => {
-			let isUnique = true;
-			if(tweets.length > 0) {
-				isUnique = tweets.filter((e) => {
-					console.log(e.id_str);
-					return e.id_str === tweet.id_str;
-				}).length === 0;
-			}
-			return Promise.resolve(isUnique);
-		});
-	}
-
-	static insertTweet(tweet: Tweet) {
-		let self = this;
-
-		const date = new Date(tweet.created_at);
-		const timestamp = date.getTime() / 1000;
-
-		return self.checkUnique(tweet).then((isUnique) => {
+	public static insertTweet(tweet: Tweet) {
+		return this.checkUnique(tweet).then((isUnique) => {
 			if(isUnique === false) {
-				return Promise.resolve({});
+				return Promise.resolve();
 			}
 
 			return zlib.deflate(tweet).then((data) => {
-				const args = [
-					process.env.key,
-					timestamp,
-					data,
-				];
-
-				return self.zadd(args);
+				return this.knex('tweets').insert({
+					'id': tweet.id_str,
+					'data': data,
+				});
 			});
+		}).catch((err) => {
+			console.error(err);
 		});
 	}
 
-	static getTweets(min: number, max?: number) {
-		const _key = process.env.key!;
-		const _min = min;
-		const _max = max === undefined ? min : `(${max}`;
-
-		return new Promise<Tweet[]>((resolve, reject) => {
-			client.zrangebyscore(_key, _min, _max, (err, reply) => {
-				if(err) {
-					reject(err);
-				}
-				else {
-					Promise.all(reply.map((e) => {
-						return zlib.inflate(e);
-					}))
-					.then((data) => {
-						const tweets = data as Tweet[];
-						resolve(tweets);
-					});
-				}
+	public static getTweets(min: string, max: string) {
+		return new Promise((resolve, reject) => {
+			return this.knex('tweets').whereBetween('id', [
+				min,
+				max,
+			]).then((rows: DataRow[]) => {
+				return Promise.all(rows.map((row) => {
+					return zlib.inflate(row.data);
+				}));
+			}).then((data) => {
+				const tweets = <Tweet[]>data;
+				resolve(tweets);
+			}).catch((err) => {
+				reject(err);
 			});
 		});
 	}
 }
-
-export default Database;

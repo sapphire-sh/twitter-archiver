@@ -1,12 +1,7 @@
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path');
 
-function env() {
-	const envPath = path.resolve(__dirname, '../.env');
+const envPath = path.resolve(__dirname, '../.env');
+const data = fs.readFileSync(envPath).toString();
 
-	const data = fs.readFileSync(envPath).toString();
-
-	return data.replace(/\n/g, ' ');
-}
-
-console.log(env());
+console.log(data.replace(/\n/g, ' '));

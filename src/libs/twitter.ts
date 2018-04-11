@@ -7,7 +7,9 @@ import Twit, {
 	Stream,
 } from 'twit';
 
-import Database from './database';
+import {
+	Database,
+} from './database';
 
 import {
 	Tweet,
@@ -27,7 +29,7 @@ enum RequestType {
 	POST = 'POST',
 };
 
-class Twitter {
+export class Twitter {
 	private static twit: Twit;
 	private static stream: Stream;
 
@@ -126,5 +128,3 @@ class Twitter {
 		return self.get('account/verify_credentials', {});
 	}
 }
-
-export default Twitter;

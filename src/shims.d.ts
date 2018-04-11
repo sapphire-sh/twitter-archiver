@@ -1,4 +1,7 @@
-declare module '*/webpack.client.dev';
-declare module '*/webpack.client.prod';
-declare module '*/webpack.client';
-declare module '*/webpack.server';
+declare module '*/webpack.config';
+
+declare namespace Express {
+	interface Request {
+		session: any;
+	}
+}
