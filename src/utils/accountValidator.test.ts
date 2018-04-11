@@ -16,7 +16,7 @@ describe('./utils/accountValidator.ts', () => {
 
 		const session: any = {};
 
-		before(() => {
+		beforeEach(() => {
 			app.use((req, _, next) => {
 				req.session = session;
 

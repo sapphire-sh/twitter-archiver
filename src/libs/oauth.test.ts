@@ -9,7 +9,7 @@ import {
 } from './oauth';
 
 describe('./libs/oauth.ts', () => {
-	before(() => {
+	beforeEach(() => {
 		OAuth.initialize('consumer_key', 'consumer_secret');
 	});
 

@@ -16,12 +16,6 @@ const clientConfig = {
 	'module': {
 		'rules': [
 			{
-				'test': /\.jsx?$/,
-				'use': {
-					'loader': 'babel-loader',
-				},
-			},
-			{
 				'test': /\.tsx?$/,
 				'use': [
 					'ts-loader',

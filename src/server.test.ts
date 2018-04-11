@@ -16,11 +16,11 @@ describe('./server.ts', () => {
 	it('server', () => {
 		return request(server).get('/')
 		.then((res) => {
-			expect(res.body).to.equal({});
+			expect(res.body).to.deep.equal({});
 		});
 	});
 
-	after(() => {
+	afterEach(() => {
 		server.close();
 	});
 });
