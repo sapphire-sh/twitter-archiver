@@ -60,3 +60,4 @@ typings/
 build
 dist
 *.sqlite
+configs/*.js

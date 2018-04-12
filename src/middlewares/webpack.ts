@@ -7,16 +7,17 @@ import WebpackHotMiddleware from 'webpack-hot-middleware';
 
 import {
 	clientConfig as config,
-} from '../../webpack.config';
+} from '../../configs';
 
 const router = Express.Router();
 
 /* istanbul ignore if */
-if(process.env.NODE_ENV === 'development') {
+if(__dev) {
 	const compiler = webpack(config);
 	router.use(WebpackDevMiddleware(compiler, {
 		'logLevel': 'silent',
-		'publicPath': config.output.publicPath,
+		'publicPath': config.output!.publicPath!,
+		'serverSideRender': true,
 	}));
 	router.use(WebpackHotMiddleware(compiler));
 }

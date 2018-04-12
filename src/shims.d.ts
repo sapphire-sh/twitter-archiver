@@ -1,4 +1,4 @@
-declare module '*/webpack.config';
+declare const __dev: boolean;
 
 declare namespace Express {
 	interface Request {

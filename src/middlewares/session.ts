@@ -1,11 +1,11 @@
 import Express from 'express';
 
+import localforage from 'localforage';
+
 const router = Express.Router();
 
-const session: any = {};
-
 router.use((req, _, next) => {
-	req.session = session;
+	req.session = localforage;
 
 	next();
 });

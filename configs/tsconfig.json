@@ -1,19 +1,18 @@
 {
 	"compilerOptions": {
-		"target": "esnext",
-		"module": "esnext",
+		"target": "es5",
+		"module": "commonjs",
 		"allowJs": false,
 		"declaration": false,
-		"sourceMap": true,
+		"sourceMap": false,
 		"lib": [
 			"es2015",
 			"es2016",
 			"es2017",
 			"dom"
 		],
-		"outDir": "./build",
+		"outDir": ".",
 		"rootDir": ".",
-		"jsx": "react",
 		"removeComments": true,
 		"noEmit": false,
 		"downlevelIteration": true,
@@ -27,8 +26,10 @@
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": false,
 		"moduleResolution": "node",
-		"allowSyntheticDefaultImports": true,
-		"experimentalDecorators": true,
-		"noErrorTruncation": true
-	}
+		"experimentalDecorators": true
+	},
+	"include": [
+		"./*.ts"
+	],
+	"exclude": []
 }
