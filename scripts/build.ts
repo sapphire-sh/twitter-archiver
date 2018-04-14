@@ -11,14 +11,6 @@ import {
 
 const mode = process.env.NODE_ENV!;
 
-function importConfigs() {
-	return Promise.all([
-		getDllConfig(mode),
-		getClientConfig(mode),
-		getServerConfig(mode),
-	]);
-}
-
 function webpackCompile(configs: webpack.Configuration[]) {
 	return new Promise((resolve, reject) => {
 		const compiler = webpack(configs);
@@ -35,7 +27,16 @@ function webpackCompile(configs: webpack.Configuration[]) {
 	});
 }
 
-importConfigs().then((configs) => {
+getDllConfig(mode).then((config) => {
+	return webpackCompile([
+		config,
+	]);
+}).then(() => {
+	return Promise.all([
+		getClientConfig(mode),
+		getServerConfig(mode),
+	]);
+}).then((configs) => {
 	return webpackCompile(configs);
 }).then(() => {
 	console.log('done');

@@ -4,7 +4,8 @@
   "description": "twitter archiver",
   "main": "./src/main.ts",
   "scripts": {
-    "prebuild": "tsc ./scripts/build.ts --lib dom,es6",
+    "clean": "rm -rf ./dist ./coverage ./scripts/*.js ./configs/*.js",
+    "prebuild": "npm run clean && tsc ./scripts/build.ts --lib dom,es6",
     "build": "node ./scripts/build.js",
     "build:prod": "NODE_ENV=prod npm run build",
     "build:dev": "NODE_ENV=dev npm run build",
@@ -12,7 +13,9 @@
     "start:prod": "npm run start",
     "start:dev": "npm run build:dev && node ./dist/main.js",
     "stop": "pm2 stop ./app.json",
+    "pretest": "npm run clean && npm run prebuild",
     "test": "jest --no-cache",
+    "precoverage": "npm run clean && npm run prebuild",
     "coverage": "jest --coverage --no-cache",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls"
   },
@@ -56,6 +59,7 @@
     "@types/express": "^4.11.1",
     "@types/extract-text-webpack-plugin": "^3.0.2",
     "@types/history": "^4.6.2",
+    "@types/jest": "^22.2.3",
     "@types/knex": "^0.14.9",
     "@types/morgan": "^1.7.35",
     "@types/react": "^16.3.8",
