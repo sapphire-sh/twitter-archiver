@@ -3,8 +3,8 @@ import http from 'http';
 import Express from 'express';
 
 import {
-	serverConfig as config,
-} from '../configs';
+	outputPath,
+} from '../configs/webpack.config.server';
 
 import middlewares from './middlewares';
 import routers from './routers';
@@ -28,7 +28,7 @@ export class Server {
 			app.use(path, router);
 		});
 
-		app.use('/', Express.static(config.output!.path!));
+		app.use('/', Express.static(outputPath));
 
 		app.get('/', (_, res) => {
 			res.redirect('/i');

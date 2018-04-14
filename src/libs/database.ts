@@ -78,7 +78,7 @@ export class Database {
 					return zlib.inflate(row.data);
 				}));
 			}).then((data) => {
-				const tweets = <Tweet[]>data;
+				const tweets = data as Tweet[];
 				resolve(tweets);
 			}).catch((err) => {
 				reject(err);

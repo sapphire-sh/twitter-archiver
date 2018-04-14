@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {
 	render,
 } from 'react-dom';
@@ -31,7 +31,7 @@ const store = createStore(combineReducers({
 	'router': routerReducer,
 }), applyMiddleware(middleware, thunk));
 
-if(module.hot) {
+if(__dev && module.hot) {
 	module.hot.accept();
 }
 

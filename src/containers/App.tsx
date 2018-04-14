@@ -17,8 +17,7 @@ class App extends React.Component {
 		return (
 			<div className="ui container">
 				<Switch>
-					<Route exact path="/" component={Main} />
-					<Route exact path="/i/:date/:hour" component={View} />
+					<Route exact path="/i" component={View} />
 
 					<Route path="*" component={NotFound} />
 				</Switch>
