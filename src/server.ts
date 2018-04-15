@@ -30,10 +30,6 @@ export class Server {
 
 		app.use('/', Express.static(outputPath));
 
-		app.get('/', (_, res) => {
-			res.redirect('/i');
-		});
-
 		app.get('*', (_, res) => {
 			res.send(HTML());
 		});

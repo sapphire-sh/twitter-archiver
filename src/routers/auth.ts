@@ -1,4 +1,4 @@
-import * as Express from 'express';
+import Express from 'express';
 
 import {
 	OAuth,
@@ -9,13 +9,11 @@ import {
 const router = Express.Router();
 
 router.get('/', (req, res) => {
-	OAuth.getRequestToken()
-	.then((token) => {
+	OAuth.getRequestToken().then((token) => {
 		req.session.oauth = token;
 
 		res.redirect(`https://twitter.com/oauth/authenticate?oauth_token=${token.oauth_token}`);
-	})
-	.catch((err) => {
+	}).catch((err) => {
 		console.log(err);
 		res.status(500).json(err);
 	});
@@ -41,10 +39,10 @@ function validateAccessToken({
 	access_token,
 	access_token_secret,
 }: AccessToken) {
-	if(process.env.access_token !== access_token) {
+	if(__env.access_token !== access_token) {
 		return false;
 	}
-	if(process.env.access_token_secret !== access_token_secret) {
+	if(__env.access_token_secret !== access_token_secret) {
 		return false;
 	}
 	return true;
@@ -62,15 +60,13 @@ router.get('/callback', (req, res) => {
 	else {
 		OAuth.getAccessToken({
 			'oauth_verifier': oauth_verifier,
-		})
-		.then((token) => {
+		}).then((token) => {
 			req.session.isValid = validateAccessToken(token);
 
 			delete req.session.oauth;
 
-			res.redirect('/i');
-		})
-		.catch((err) => {
+			res.redirect('/');
+		}).catch((err) => {
 			console.error(err);
 			res.redirect('/auth');
 		});

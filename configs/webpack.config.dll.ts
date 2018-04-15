@@ -20,8 +20,6 @@ export function getDllConfig(mode: string) {
 					'react',
 					'react-dom',
 					'react-redux',
-					'react-router-dom',
-					'react-router-redux',
 					'redux',
 					'redux-thunk',
 				],

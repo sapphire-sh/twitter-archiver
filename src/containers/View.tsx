@@ -3,10 +3,6 @@ import {
 	Dispatch,
 	connect,
 } from 'react-redux';
-import {
-	withRouter,
-	RouteComponentProps,
-} from 'react-router-dom';
 
 import {
 	invalidateDate,
@@ -26,10 +22,7 @@ import {
 	dateToString,
 } from '../utils/date';
 
-interface ViewProps extends RouteComponentProps<{
-	date: string;
-	hour: string;
-}> {
+interface ViewProps {
 	dispatch: Dispatch<State>;
 	date: Date;
 }
@@ -38,15 +31,9 @@ class View extends React.Component<ViewProps> {
 	constructor(props: ViewProps) {
 		super(props);
 
-		const {
-			date,
-			hour,
-		} = this.props.match.params;
-
 		const dispatch = this.props.dispatch;
 
 		dispatch(invalidateDate());
-		dispatch(updateDate(new Date(`${date} ${hour}:00:00`)));
 
 		this.refreshTweets = this.refreshTweets.bind(this);
 	}
@@ -90,4 +77,4 @@ function mapDispatchToProps(dispatch: Dispatch<State>) {
 	};
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(View));
+export default connect(mapStateToProps, mapDispatchToProps)(View);

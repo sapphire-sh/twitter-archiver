@@ -1,8 +1,5 @@
 import * as React from 'react';
 import {
-	Link,
-} from 'react-router-dom';
-import {
 	Dispatch,
 } from 'redux';
 import {
@@ -80,14 +77,14 @@ class Navigation extends React.Component<NavigationProps> {
 	render() {
 		return (
 			<div className="ui two buttons">
-				<Link to={ `/i/${dateToString(new Date(this.props.date.getTime() - 3600 * 1000)).replace(/ /g, '/').substr(0, 13)}` } onClick={ this.handleClickPrev } className="ui labeled icon button">
+				<div onClick={ this.handleClickPrev } className="ui labeled icon button">
 					<i className="left chevron icon"></i>
 					Prev
-				</Link>
-				<Link to={ `/i/${dateToString(new Date(this.props.date.getTime() + 3600 * 1000)).replace(/ /g, '/').substr(0, 13)}` } onClick={ this.handleClickNext } className="ui right labeled icon button">
+				</div>
+				<div onClick={ this.handleClickNext } className="ui right labeled icon button">
 					Next
 					<i className="right chevron icon"></i>
-				</Link>
+				</div>
 			</div>
 		);
 	}

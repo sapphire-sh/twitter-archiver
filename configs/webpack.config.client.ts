@@ -17,7 +17,7 @@ export function getClientConfig(mode: string) {
 		return Promise.all([
 			'react',
 		].map((dllName) => {
-			return path.resolve(__dirname, '../dist', dllName);
+			return path.resolve(__dirname, '../dist', `${dllName}.json`);
 		}).map((dllPath) => {
 			return import(dllPath);
 		})).then((results) => {

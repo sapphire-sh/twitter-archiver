@@ -17,6 +17,6 @@ const token = {
 OAuth.initialize(token.consumer_key, token.consumer_secret);
 Twitter.initialize(token);
 
-const port = process.env.PORT === undefined ? 8015 : parseInt(process.env.PORT!);
+const port = __env.PORT === undefined ? 8015 : parseInt(__env.PORT!);
 
 const server = new Server(port);
