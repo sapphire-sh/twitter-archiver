@@ -1,4 +1,8 @@
-import * as React from 'react';
+import React from 'react';
+
+import {
+	bindActionCreators,
+} from 'redux';
 import {
 	Dispatch,
 	connect,
@@ -23,17 +27,19 @@ import {
 } from '../utils/date';
 
 interface ViewProps {
-	dispatch: Dispatch<State>;
 	date: Date;
+
+	invalidateDate: typeof invalidateDate;
+	updateDate: typeof updateDate;
+	invalidateTweets: typeof invalidateTweets;
+	fetchTweetsIfNeeded: typeof fetchTweetsIfNeeded;
 }
 
 class View extends React.Component<ViewProps> {
 	constructor(props: ViewProps) {
 		super(props);
 
-		const dispatch = this.props.dispatch;
-
-		dispatch(invalidateDate());
+		this.props.invalidateDate();
 
 		this.refreshTweets = this.refreshTweets.bind(this);
 	}
@@ -43,10 +49,8 @@ class View extends React.Component<ViewProps> {
 	}
 
 	refreshTweets() {
-		const dispatch = this.props.dispatch;
-
-		dispatch(invalidateTweets());
-		dispatch(fetchTweetsIfNeeded());
+		this.props.invalidateTweets();
+		this.props.fetchTweetsIfNeeded();
 	}
 
 	render() {
@@ -71,10 +75,13 @@ function mapStateToProps(state: State) {
 	};
 }
 
-function mapDispatchToProps(dispatch: Dispatch<State>) {
-	return {
-		'dispatch': dispatch,
-	};
+function mapDispatchToProps(dispatch: Dispatch) {
+	return bindActionCreators({
+		invalidateDate,
+		updateDate,
+		invalidateTweets,
+		fetchTweetsIfNeeded,
+	}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(View);

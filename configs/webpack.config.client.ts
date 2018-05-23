@@ -80,6 +80,7 @@ export function getClientConfig(mode: string) {
 					],
 				},
 				'plugins': [
+					...baseConfig.plugins!,
 					new ExtractTextPlugin('styles.css'),
 					...results.map((dll) => {
 						return new webpack.DllReferencePlugin({

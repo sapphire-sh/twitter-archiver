@@ -37,6 +37,7 @@ getDllConfig(mode).then((config) => {
 		getServerConfig(mode),
 	]);
 }).then((configs) => {
+	console.log(configs[0]);
 	return webpackCompile(configs);
 }).then(() => {
 	console.log('done');
