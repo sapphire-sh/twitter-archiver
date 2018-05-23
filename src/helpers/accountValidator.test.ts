@@ -6,7 +6,9 @@ import {
 
 import Express from 'express';
 
-import accountValidator from './accountValidator';
+import {
+	accountValidator,
+} from './accountValidator';
 
 describe('./utils/accountValidator.ts', () => {
 	describe('account validator', () => {

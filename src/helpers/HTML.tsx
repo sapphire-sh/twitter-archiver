@@ -1,9 +1,10 @@
-import * as React from 'react';
+import React from 'react';
+
 import {
 	renderToString,
 } from 'react-dom/server';
 
-class HTML extends React.Component {
+class HTMLTemplate extends React.Component {
 	render() {
 		return (
 			<html>
@@ -22,6 +23,4 @@ class HTML extends React.Component {
 	}
 }
 
-export default () => {
-	return `<!DOCTYPE html>${renderToString(<HTML />)}`;
-};
+export const HTML = `<!DOCTYPE html>${renderToString(<HTMLTemplate />)}`;

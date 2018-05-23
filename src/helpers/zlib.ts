@@ -33,8 +33,3 @@ export function inflate(data: string) {
 		});
 	});
 }
-
-export default {
-	'deflate': deflate,
-	'inflate': inflate,
-};

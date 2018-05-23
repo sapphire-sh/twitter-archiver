@@ -9,7 +9,9 @@ import {
 import middlewares from './middlewares';
 import routers from './routers';
 
-import HTML from './utils/HTML';
+import {
+	HTML,
+} from './helpers';
 
 export class Server {
 	public server: http.Server;
@@ -31,7 +33,7 @@ export class Server {
 		app.use('/', Express.static(outputPath));
 
 		app.get('*', (_, res) => {
-			res.send(HTML());
+			res.send(HTML);
 		});
 
 		this.server = app.listen(port, () => {

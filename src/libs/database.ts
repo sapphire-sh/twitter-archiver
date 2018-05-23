@@ -5,7 +5,10 @@ import {
 	Tweet,
 } from '../models';
 
-import zlib from '../utils/zlib';
+import {
+	deflate,
+	inflate,
+} from '../helpers';
 
 interface DataRow {
 	id: string;
@@ -57,7 +60,7 @@ export class Database {
 				return Promise.resolve();
 			}
 
-			return zlib.deflate(tweet).then((data) => {
+			return deflate(tweet).then((data) => {
 				return this.knex('tweets').insert({
 					'id': tweet.id_str,
 					'data': data,
@@ -75,7 +78,7 @@ export class Database {
 				max,
 			]).then((rows: DataRow[]) => {
 				return Promise.all(rows.map((row) => {
-					return zlib.inflate(row.data);
+					return inflate(row.data);
 				}));
 			}).then((data) => {
 				const tweets = data as Tweet[];

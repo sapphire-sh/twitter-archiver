@@ -1,6 +1,8 @@
 import * as Express from 'express';
 
-import accountValidator from '../utils/accountValidator';
+import {
+	accountValidator,
+} from '../helpers';
 
 const router = Express.Router();
 

@@ -20,8 +20,3 @@ export function fetchPost(url: string, body: object) {
 		return res.json();
 	});
 }
-
-export default {
-	'get': fetchGet,
-	'post': fetchPost,
-};
