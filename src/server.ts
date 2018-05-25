@@ -3,8 +3,9 @@ import http from 'http';
 import Express from 'express';
 
 import {
-	outputPath,
-} from '../configs/webpack.config.server';
+	distPath,
+	dllPath,
+} from '../configs';
 
 import middlewares from './middlewares';
 import routers from './routers';
@@ -30,7 +31,8 @@ export class Server {
 			app.use(path, router);
 		});
 
-		app.use('/', Express.static(outputPath));
+		app.use('/', Express.static(distPath));
+		app.use('/', Express.static(dllPath));
 
 		app.get('*', (_, res) => {
 			res.send(HTML);

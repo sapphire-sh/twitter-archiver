@@ -7,8 +7,6 @@ import {
 } from 'react-redux';
 
 import {
-	invalidateDate,
-	updateDate,
 	invalidateTweets,
 	fetchTweetsIfNeeded,
 } from '../actions';
@@ -17,10 +15,6 @@ import {
 	State,
 } from '../reducers';
 
-import {
-	dateToString,
-} from '../utils/date';
-
 enum NavigationTypes {
 	PREV = 'prev',
 	NEXT = 'next',
@@ -28,7 +22,6 @@ enum NavigationTypes {
 
 interface NavigationProps {
 	dispatch: Dispatch<State>;
-	date: Date;
 }
 
 class Navigation extends React.Component<NavigationProps> {
@@ -50,24 +43,6 @@ class Navigation extends React.Component<NavigationProps> {
 	handleClick(type: NavigationTypes) {
 		const dispatch = this.props.dispatch;
 
-		let timestamp = this.props.date.getTime();
-
-		switch(type) {
-		case NavigationTypes.PREV:
-			timestamp -= 3600 * 1000;
-			break;
-		case NavigationTypes.NEXT:
-			timestamp += 3600 * 1000;
-			break;
-		default:
-			console.log('invalid type');
-			return;
-		}
-
-		const date = new Date(timestamp);
-
-		dispatch(invalidateDate());
-		dispatch(updateDate(date));
 		dispatch(invalidateTweets());
 		dispatch(fetchTweetsIfNeeded());
 
@@ -91,9 +66,7 @@ class Navigation extends React.Component<NavigationProps> {
 }
 
 function mapStateToProps(state: State) {
-	return {
-		'date': state.date.date,
-	};
+	return {};
 }
 
 function mapDispatchToProps(dispatch: Dispatch<State>) {

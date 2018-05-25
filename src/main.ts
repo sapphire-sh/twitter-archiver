@@ -19,4 +19,4 @@ Twitter.initialize(token);
 
 const port = __env.PORT === undefined ? 8015 : parseInt(__env.PORT!);
 
-const server = new Server(port);
+new Server(port);

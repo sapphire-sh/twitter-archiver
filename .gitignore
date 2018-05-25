@@ -59,6 +59,7 @@ typings/
 
 build
 dist
+dll
 *.sqlite
 configs/*.js
 scripts/*.js

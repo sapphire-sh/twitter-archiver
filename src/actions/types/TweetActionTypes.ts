@@ -22,7 +22,6 @@ export interface TweetRequestAction extends Action {
 
 export interface TweetReceiveAction extends Action {
 	type: TweetKeys.RECEIVE_TWEETS;
-	date: Date;
 	tweets: Tweet[];
 }
 

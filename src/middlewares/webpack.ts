@@ -6,22 +6,20 @@ import WebpackDevMiddleware from 'webpack-dev-middleware';
 import WebpackHotMiddleware from 'webpack-hot-middleware';
 
 import {
-	getClientConfig,
-} from '../../configs/webpack.config.client';
+	clientConfig,
+} from '../../configs';
 
 const router = Express.Router();
 
 /* istanbul ignore if */
 if(__dev) {
-	getClientConfig('dev').then((config) => {
-		const compiler = webpack(config);
-		router.use(WebpackDevMiddleware(compiler, {
-			'logLevel': 'silent',
-			'publicPath': config.output!.publicPath!,
-			'serverSideRender': true,
-		}));
-		router.use(WebpackHotMiddleware(compiler));
-	});
+	const compiler = webpack(clientConfig);
+	router.use(WebpackDevMiddleware(compiler, {
+		'logLevel': 'silent',
+		'publicPath': clientConfig.output!.publicPath!,
+		'serverSideRender': true,
+	}));
+	router.use(WebpackHotMiddleware(compiler));
 }
 
 export default router;

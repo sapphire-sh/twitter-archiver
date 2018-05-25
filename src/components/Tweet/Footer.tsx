@@ -6,7 +6,7 @@ import {
 
 import {
 	dateToString,
-} from '../../utils/date';
+} from '../../helpers';
 
 interface FooterProps {
 	tweet: Tweet;

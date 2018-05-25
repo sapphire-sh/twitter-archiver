@@ -29,6 +29,7 @@
 		"moduleResolution": "node",
 		"allowSyntheticDefaultImports": true,
 		"experimentalDecorators": true,
-		"noErrorTruncation": true
+		"noErrorTruncation": true,
+		"noUnusedLocals": true
 	}
 }

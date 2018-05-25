@@ -1,11 +1,11 @@
-import {
-	expect,
-} from 'chai';
+// import {
+// 	expect,
+// } from 'chai';
 
 import {
 	OAuth,
-	RequestToken,
-	AccessToken,
+	// RequestToken,
+	// AccessToken,
 } from './oauth';
 
 describe('./libs/oauth.ts', () => {

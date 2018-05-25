@@ -1,5 +1,4 @@
 import {
-	Action,
 	Dispatch,
 } from 'redux';
 
@@ -19,7 +18,6 @@ import {
 } from '../models';
 
 import {
-	dateToString,
 	fetchGet,
 } from '../helpers';
 
@@ -35,22 +33,19 @@ function requestTweets(): TweetRequestAction {
 	};
 }
 
-function receiveTweets(date: Date, tweets: Tweet[]): TweetReceiveAction {
+function receiveTweets(tweets: Tweet[]): TweetReceiveAction {
 	return {
 		'type': TweetKeys.RECEIVE_TWEETS,
-		'date': date,
 		'tweets': tweets,
 	};
 }
 
-function fetchTweets(date: Date) {
+function fetchTweets() {
 	return (dispatch: Dispatch<any>) => {
 		dispatch(requestTweets());
 
-		const dateTime = dateToString(date).substr(0, 13).replace(/ /, '/');
-
-		return fetchGet(`/api/tweets/${dateTime}`).then((tweets: Tweet[]) => {
-			return dispatch(receiveTweets(date, tweets));
+		return fetchGet(`/api/tweets`).then((tweets: Tweet[]) => {
+			return dispatch(receiveTweets(tweets));
 		}).catch((err) => {
 			console.log(err);
 		});
@@ -64,8 +59,7 @@ function shouldFetchTweets(state: State) {
 export function fetchTweetsIfNeeded() {
 	return (dispatch: Dispatch<State>, getState: () => State) => {
 		if(shouldFetchTweets(getState())) {
-			const date = getState().date.date;
-			dispatch(fetchTweets(date));
+			dispatch(fetchTweets());
 		}
 	};
 }
