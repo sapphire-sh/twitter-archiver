@@ -6,6 +6,7 @@ node_js:
 sudo: false
 
 script:
+  - npm run build:dll
   - npm test
 
 notifications:
@@ -18,5 +19,7 @@ before_install:
 addons:
   - mariadb: '10.3'
 
-# after_success:
+after_success:
+  - npm run clean
+  - npm run clean:dll
 #   - npm run coveralls
