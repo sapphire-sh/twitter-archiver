@@ -4,8 +4,10 @@ import {
 
 import {
 	clientConfig,
+} from '../configs/webpack.config.client';
+import {
 	serverConfig,
-} from '../configs';
+} from '../configs/webpack.config.server';
 
 webpackCompile([
 	clientConfig,
