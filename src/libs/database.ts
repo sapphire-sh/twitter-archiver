@@ -12,13 +12,30 @@ import {
 
 interface DataRow {
 	id: string;
-	data: string;
+	data: Buffer;
 }
 
 const knex = Knex({
-	'client': 'sqlite3',
+	'client': 'mysql',
 	'connection': {
-		'filename': './tweets.sqlite',
+		'host': 'localhost',
+		...(() => {
+			const t = process.env.TRAVIS;
+			console.log(t);
+			console.log(typeof t);
+			if(t) {
+				return {
+					'user': 'root',
+					'password': 'test',
+					'database': 'test',
+				};
+			}
+			return {
+				'user': __env.database_user,
+				'password': __env.database_password,
+				'database': __env.database_name,
+			};
+		})(),
 	},
 	'useNullAsDefault': true,
 });
@@ -29,7 +46,7 @@ knex.schema.hasTable('tweets').then((exists) => {
 	}
 	return knex.schema.createTable('tweets', (table) => {
 		table.bigInteger('id').primary().unique().notNullable();
-		table.string('data').notNullable();
+		table.binary('data').notNullable();
 
 		table.timestamps(true, true);
 	});
@@ -73,10 +90,7 @@ export class Database {
 
 	public static getTweets(min: string, max: string) {
 		return new Promise((resolve, reject) => {
-			return this.knex('tweets').whereBetween('id', [
-				min,
-				max,
-			]).then((rows: DataRow[]) => {
+			return this.knex('tweets').then((rows: DataRow[]) => {
 				return Promise.all(rows.map((row) => {
 					return inflate(row.data);
 				}));
@@ -87,5 +101,23 @@ export class Database {
 				reject(err);
 			});
 		});
+	}
+
+	public static getLatestTweet() {
+		return new Promise((resolve, reject) => {
+			return this.knex('tweets').orderBy('id').limit(1).then((rows: DataRow[]) => {
+				return Promise.all(rows.map((row) => {
+					return inflate(row.data);
+				}));
+			}).then((data) => {
+				const tweets = data as Tweet[];
+				if(tweets.length === 1) {
+					resolve(tweets[0]);
+				}
+				resolve(undefined);
+			}).catch((err) => {
+				reject(err);
+			});
+		})
 	}
 }

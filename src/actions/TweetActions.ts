@@ -44,7 +44,7 @@ function fetchTweets() {
 	return (dispatch: Dispatch<any>) => {
 		dispatch(requestTweets());
 
-		return fetchGet(`/api/tweets`).then((tweets: Tweet[]) => {
+		return fetchGet(`/api/tweets/1`).then((tweets: Tweet[]) => {
 			return dispatch(receiveTweets(tweets));
 		}).catch((err) => {
 			console.log(err);

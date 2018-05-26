@@ -4,7 +4,7 @@ import Promise from 'bluebird';
 
 export function deflate(data: any) {
 	const jsonStr = JSON.stringify(data);
-	const buffer = new Buffer(jsonStr);
+	const buffer = Buffer.from(jsonStr);
 
 	return new Promise((resolve, reject) => {
 		zlib.deflate(buffer, (err, result) => {
@@ -13,17 +13,15 @@ export function deflate(data: any) {
 				reject(err);
 			}
 			else {
-				resolve(result.toString('base64'));
+				resolve(result);
 			}
 		});
 	});
 }
 
-export function inflate(data: string) {
-	const buffer = new Buffer(data, 'base64');
-
+export function inflate(data: Buffer) {
 	return new Promise((resolve, reject) => {
-		zlib.inflate(buffer, (err, result) => {
+		zlib.inflate(data, (err, result) => {
 			if(err) {
 				reject(err);
 			}

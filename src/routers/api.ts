@@ -6,7 +6,7 @@ import {
 
 const router = Express.Router();
 
-router.get('/tweets/:date/:hour', (_, res) => {
+router.get('/tweets/:id', (req, res) => {
 	const min = '0';
 	const max = '994086115152900096';
 
@@ -17,6 +17,11 @@ router.get('/tweets/:date/:hour', (_, res) => {
 	.catch((err) => {
 		res.status(500).json(err);
 	});
+});
+
+router.get('/check/:id', (req, res) => {
+	Database.getLatestTweet();
+	res.json(1);
 });
 
 export default router;

@@ -4,10 +4,6 @@ import * as webpack from 'webpack';
 import * as ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 import {
-	BundleAnalyzerPlugin,
-} from 'webpack-bundle-analyzer';
-
-import {
 	env,
 	baseConfig,
 	distPath,
@@ -91,7 +87,6 @@ export const clientConfig: webpack.Configuration = {
 				return [
 					new webpack.HotModuleReplacementPlugin(),
 					new webpack.NoEmitOnErrorsPlugin(),
-					new BundleAnalyzerPlugin(),
 				];
 			}
 			if(env === 'production') {
