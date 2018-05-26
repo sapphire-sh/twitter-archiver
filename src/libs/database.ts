@@ -19,23 +19,9 @@ const knex = Knex({
 	'client': 'mysql',
 	'connection': {
 		'host': 'localhost',
-		...(() => {
-			const t = process.env.TRAVIS;
-			console.log(t);
-			console.log(typeof t);
-			if(t) {
-				return {
-					'user': 'root',
-					'password': 'test',
-					'database': 'test',
-				};
-			}
-			return {
-				'user': __env.database_user,
-				'password': __env.database_password,
-				'database': __env.database_name,
-			};
-		})(),
+		'user': __env.database_user,
+		'password': __env.database_password,
+		'database': __env.database_name,
 	},
 	'useNullAsDefault': true,
 });
