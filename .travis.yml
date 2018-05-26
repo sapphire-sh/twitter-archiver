@@ -17,7 +17,7 @@ before_install:
   - sudo mysql_upgrade
 
 addons:
-	mariadb: '10.3'
+  - mariadb: '10.3'
 
 # after_success:
 #   - npm run coveralls
