@@ -23,10 +23,7 @@ export const baseConfig: webpack.Configuration = {
 		new webpack.DefinePlugin({
 			'__dev': (process.env.NODE_ENV === 'development'),
 			'__env': (() => {
-				const t = process.env.TRAVIS;
-				console.log(t);
-				console.log(typeof t);
-				if(t) {
+				if(process.env.TRAVIS === 'true') {
 					return {
 						'database_user': 'root',
 						'database_password': 'test',
