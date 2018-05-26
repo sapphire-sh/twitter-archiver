@@ -14,7 +14,6 @@ notifications:
 before_install:
   - sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('test') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
   - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
-  - sudo mysql_upgrade
 
 addons:
   - mariadb: '10.3'
