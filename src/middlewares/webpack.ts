@@ -7,7 +7,7 @@ import WebpackHotMiddleware from 'webpack-hot-middleware';
 
 import {
 	clientConfig,
-} from '../../configs';
+} from '../../configs/webpack.config.client';
 
 const router = Express.Router();
 

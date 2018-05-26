@@ -9,7 +9,6 @@ export const env = process.env.NODE_ENV === 'development' ? 'development' : 'pro
 
 const envPath = path.resolve(__dirname, '../.env');
 
-
 export const baseConfig: webpack.Configuration = {
 	'devtool': '#source-map',
 	'resolve': {

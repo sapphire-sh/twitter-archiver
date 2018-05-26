@@ -7,7 +7,7 @@ import {
 	env,
 	baseConfig,
 	distPath,
-} from '../configs';
+} from '../configs/webpack.config.base';
 
 export const serverConfig: webpack.Configuration = {
 	...baseConfig,

@@ -4,8 +4,10 @@ import Express from 'express';
 
 import {
 	distPath,
+} from '../configs/webpack.config.base';
+import {
 	dllPath,
-} from '../configs';
+} from '../configs/webpack.config.dll';
 
 import middlewares from './middlewares';
 import routers from './routers';
