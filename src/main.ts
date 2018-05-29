@@ -3,6 +3,7 @@ import {
 } from './server';
 
 import {
+	Database,
 	OAuth,
 	Twitter,
 } from './libs';
@@ -14,6 +15,7 @@ const token = {
 	'access_token_secret': __env.access_token_secret,
 };
 
+Database.initialize();
 OAuth.initialize(token.consumer_key, token.consumer_secret);
 Twitter.initialize(token);
 

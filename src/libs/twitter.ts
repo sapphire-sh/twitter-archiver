@@ -34,43 +34,42 @@ export class Twitter {
 	private static stream: Stream;
 
 	static initialize(token: OAuthToken) {
-		let self = this;
+		this.twit = new Twit(token);
 
-		self.twit = new Twit(token);
-
-		self.stream = self.twit.stream('user', {
+		this.stream = this.twit.stream('user', {
 			// 'tweet_mode': 'extended',
 		});
 
-		self.stream.on('tweet', (tweet) => {
-			Database.insertTweet(tweet)
-			.catch((err) => {
-				console.error(err);
-			});
+		this.stream.on('tweet', (tweet) => {
+			Database.addQueue(tweet);
 		});
 
-		setInterval(self.fetchTimeline.bind(this), 10 * 60 * 1000);
+		Promise.resolve().then(function loop() {
+			Twitter.fetchTimeline().then((tweets) => {
+				tweets.forEach((tweet) => {
+					Database.addQueue(tweet);
+				});
+			}).catch((err) => {
+				console.log(err);
+			}).then(() => {
+				setTimeout(loop, 2 * 60 * 1000);
+			});
+		});
 	}
 
 	static fetchTimeline() {
-		let self = this;
-
-		self.twit.get('statuses/home_timeline', {
-			'count': 200,
-		}, (err, res) => {
-			if(err) {
-				console.error(err);
-				return;
-			}
-			const tweets = res as Tweet[];
-			if(tweets === null) {
-				console.error(err);
-				return;
-			}
-			tweets.forEach((tweet) => {
-				return Database.insertTweet(tweet).catch((err) => {
-					console.error(err);
-				});
+		return new Promise<Tweet[]>((resolve, reject) => {
+			this.twit.get('statuses/home_timeline', {
+				'count': 200,
+			}, (err, res) => {
+				if(err) {
+					reject(err);
+				}
+				const tweets = res as Tweet[];
+				if(tweets === null) {
+					reject('invalid response');
+				}
+				resolve(tweets);
 			});
 		});
 	}

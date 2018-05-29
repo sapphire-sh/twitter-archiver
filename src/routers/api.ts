@@ -7,10 +7,7 @@ import {
 const router = Express.Router();
 
 router.get('/tweets/:id', (req, res) => {
-	const min = '0';
-	const max = '994086115152900096';
-
-	Database.getTweets(min, max)
+	Database.getTweets('1')
 	.then((tweets) => {
 		res.json(tweets);
 	})

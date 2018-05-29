@@ -17,7 +17,6 @@ import {
 	State,
 } from '../reducers';
 
-import Navigation from '../components/Navigation';
 import Tweets from '../components/Tweets';
 
 interface ViewProps {
@@ -44,14 +43,8 @@ class View extends React.Component<ViewProps> {
 	render() {
 		return (
 			<div className="container">
-				<Navigation />
-
-				<h4 className="ui top attached block header">{3}</h4>
 				<Tweets />
 				<div onClick={ this.refreshTweets } className="ui attached button">refresh</div>
-				<h4 className="ui bottom attached block header">{2}</h4>
-
-				<Navigation />
 			</div>
 		);
 	}

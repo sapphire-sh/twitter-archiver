@@ -38,8 +38,39 @@ knex.schema.hasTable('tweets').then((exists) => {
 	});
 })
 
+knex.schema.hasTable('history').then((exists) => {
+	if(exists) {
+		return Promise.resolve();
+	}
+	return knex.schema.createTable('history', (table) => {
+		table.bigInteger('id').primary().notNullable();
+
+		table.timestamps(true, true);
+	});
+});
+
 export class Database {
 	private static knex: Knex = knex;
+
+	private static queue: Tweet[] = [];
+
+	public static initialize() {
+		Promise.resolve().then(function loop(): Promise<any> {
+			return Promise.resolve().then(() => {
+				const tweet = Database.queue.shift();
+				if(tweet !== undefined) {
+					return Database.insertTweet(tweet);
+				}
+				return Promise.resolve();
+			}).catch((err) => {
+				console.log(err);
+			}).then(() => {
+				setTimeout(loop, 100);
+			});
+		}).catch((err) => {
+			console.log(err);
+		});
+	}
 
 	private static checkUnique(tweet: Tweet) {
 		return new Promise((resolve, reject) => {
@@ -57,7 +88,11 @@ export class Database {
 		});
 	}
 
-	public static insertTweet(tweet: Tweet) {
+	public static addQueue(tweet: Tweet) {
+		this.queue.push(tweet);
+	}
+
+	private static insertTweet(tweet: Tweet) {
 		return this.checkUnique(tweet).then((isUnique) => {
 			if(isUnique === false) {
 				return Promise.resolve();
@@ -74,7 +109,7 @@ export class Database {
 		});
 	}
 
-	public static getTweets(min: string, max: string) {
+	public static getTweets(id: string) {
 		return new Promise((resolve, reject) => {
 			return this.knex('tweets').then((rows: DataRow[]) => {
 				return Promise.all(rows.map((row) => {
