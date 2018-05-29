@@ -6,6 +6,8 @@ import {
 
 import {
 	dllPath,
+} from '../configs/webpack.config.base';
+import {
 	dllConfig,
 } from '../configs/webpack.config.dll';
 

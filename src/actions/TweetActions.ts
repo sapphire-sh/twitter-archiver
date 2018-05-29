@@ -57,7 +57,7 @@ function shouldFetchTweets(state: State) {
 }
 
 export function fetchTweetsIfNeeded() {
-	return (dispatch: Dispatch<State>, getState: () => State) => {
+	return (dispatch: Dispatch<any>, getState: () => State) => {
 		if(shouldFetchTweets(getState())) {
 			dispatch(fetchTweets());
 		}

@@ -111,7 +111,7 @@ export class Database {
 
 	public static getTweets(id: string) {
 		return new Promise((resolve, reject) => {
-			return this.knex('tweets').then((rows: DataRow[]) => {
+			return this.knex('tweets').where('id', '>=', id).orderBy('id', 'asc').limit(100).then((rows: DataRow[]) => {
 				return Promise.all(rows.map((row) => {
 					return inflate(row.data);
 				}));

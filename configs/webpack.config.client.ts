@@ -11,17 +11,7 @@ import {
 
 export const clientConfig: webpack.Configuration = {
 	...baseConfig,
-	'entry': [
-		path.resolve(__dirname, '../src', 'client.tsx'),
-		...(() => {
-			if(env === 'development') {
-				return [
-					'webpack-hot-middleware/client',
-				];
-			}
-			return [];
-		})(),
-	],
+	'entry': path.resolve(__dirname, '../src', 'client.tsx'),
 	'output': {
 		'path': distPath,
 		'filename': 'bundle.js',
@@ -99,4 +89,10 @@ export const clientConfig: webpack.Configuration = {
 			return [];
 		})(),
 	],
+	'devServer': {
+		'contentBase': distPath,
+		'port': 8016,
+		'open': true,
+		'hot': true,
+	},
 };

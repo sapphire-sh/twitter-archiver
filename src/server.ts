@@ -2,13 +2,6 @@ import http from 'http';
 
 import Express from 'express';
 
-import {
-	distPath,
-} from '../configs/webpack.config.base';
-import {
-	dllPath,
-} from '../configs/webpack.config.dll';
-
 import middlewares from './middlewares';
 import routers from './routers';
 
@@ -33,8 +26,10 @@ export class Server {
 			app.use(path, router);
 		});
 
-		app.use('/', Express.static(distPath));
-		app.use('/', Express.static(dllPath));
+		if(process.env.NODE_ENV !== 'test') {
+			app.use('/', Express.static(__path.dist));
+			app.use('/', Express.static(__path.dll));
+		}
 
 		app.get('*', (_, res) => {
 			res.send(HTML);

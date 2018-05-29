@@ -4,9 +4,8 @@ import * as webpack from 'webpack';
 
 import {
 	baseConfig,
+	dllPath,
 } from '../configs/webpack.config.base';
-
-export const dllPath = path.resolve(__dirname, '../dll');
 
 export const dllConfig: webpack.Configuration = {
 	...baseConfig,

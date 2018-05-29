@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
 	bindActionCreators,
+	AnyAction,
 } from 'redux';
 import {
 	Dispatch,
@@ -54,7 +55,7 @@ function mapStateToProps(state: State) {
 	return {};
 }
 
-function mapDispatchToProps(dispatch: Dispatch<any>) {
+function mapDispatchToProps(dispatch: Dispatch<AnyAction>) {
 	return bindActionCreators({
 		invalidateTweets,
 		fetchTweetsIfNeeded,

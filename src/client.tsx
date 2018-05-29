@@ -19,10 +19,6 @@ import App from './containers/App';
 
 const store = createStore(reducers, applyMiddleware(thunk));
 
-if(__dev && module.hot) {
-	module.hot.accept();
-}
-
 const AppRouter = () => {
 	return (
 		<Provider store={store}>
