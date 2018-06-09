@@ -5,7 +5,7 @@ import {
 
 import {
 	Tweet,
-} from '../models';
+} from '../../shared/models';
 
 export interface TweetState {
 	isFetching: boolean;

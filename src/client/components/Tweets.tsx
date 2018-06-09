@@ -10,7 +10,7 @@ import Indicator from './Indicator';
 
 import {
 	Tweet as _Tweet,
-} from '../models';
+} from '../../shared/models';
 
 import {
 	State,

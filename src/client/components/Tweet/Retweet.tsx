@@ -5,7 +5,7 @@ import Tweet from './Tweet';
 
 import {
 	Tweet as _Tweet,
-} from '../../models';
+} from '../../../shared/models';
 
 interface RetweetProps {
 	tweet: _Tweet;

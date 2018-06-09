@@ -3,12 +3,12 @@ import Knex from 'knex';
 
 import {
 	Tweet,
-} from '../models';
+} from '../../shared/models';
 
 import {
 	deflate,
 	inflate,
-} from '../helpers';
+} from '../../shared/helpers';
 
 interface DataRow {
 	id: string;

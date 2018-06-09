@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import {
 	Tweet,
-} from '../../models';
+} from '../../../shared/models';
 
 import {
 	dateToString,
-} from '../../helpers';
+} from '../../../shared/helpers';
 
 interface FooterProps {
 	tweet: Tweet;

@@ -7,7 +7,7 @@ import routers from './routers';
 
 import {
 	HTML,
-} from './helpers';
+} from '../shared/helpers';
 
 export class Server {
 	public server: http.Server;

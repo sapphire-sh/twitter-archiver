@@ -13,7 +13,7 @@ import {
 
 import {
 	Tweet,
-} from '../models';
+} from '../../shared/models';
 
 import {
 	AccessToken,

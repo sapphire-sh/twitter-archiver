@@ -11,7 +11,7 @@ import {
 
 export const serverConfig: webpack.Configuration = {
 	...baseConfig,
-	'entry': path.resolve(__dirname, '../src', 'main.ts'),
+	'entry': path.resolve(__dirname, '../src/server', 'index.ts'),
 	'output': {
 		'path': distPath,
 		'filename': 'main.js',

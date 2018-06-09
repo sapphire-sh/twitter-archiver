@@ -4,7 +4,7 @@ import twitter from 'twitter-text';
 
 import {
 	Entities,
-} from '../../models';
+} from '../../../shared/models';
 
 interface TextProps {
 	text: string;

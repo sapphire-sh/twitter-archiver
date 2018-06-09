@@ -15,11 +15,11 @@ import {
 
 import {
 	Tweet,
-} from '../models';
+} from '../../shared/models';
 
 import {
 	fetchGet,
-} from '../helpers';
+} from '../../shared/helpers';
 
 export function invalidateTweets(): TweetInvalidateAction {
 	return {

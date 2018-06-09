@@ -11,7 +11,7 @@ import {
 
 export const clientConfig: webpack.Configuration = {
 	...baseConfig,
-	'entry': path.resolve(__dirname, '../src', 'client.tsx'),
+	'entry': path.resolve(__dirname, '../src/client', 'index.tsx'),
 	'output': {
 		'path': distPath,
 		'filename': 'bundle.js',

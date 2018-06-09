@@ -8,7 +8,7 @@ import Footer from './Footer';
 
 import {
 	Tweet as _Tweet,
-} from '../../models';
+} from '../../../shared/models';
 
 interface TweetProps {
 	tweet: _Tweet;

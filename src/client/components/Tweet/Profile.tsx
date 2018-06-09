@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import {
 	User,
-} from '../../models';
+} from '../../../shared/models';
 
 interface ProfileProps {
 	user: User;

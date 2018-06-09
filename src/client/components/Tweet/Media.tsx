@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import {
 	Entities,
-} from '../../models';
+} from '../../../shared/models';
 
 interface MediaProps {
 	entities: Entities;
