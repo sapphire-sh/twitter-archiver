@@ -15,7 +15,7 @@ export interface TweetState {
 
 const initialState: TweetState = {
 	'isFetching': false,
-	'didInvalidate': false,
+	'didInvalidate': true,
 	'tweets': [],
 };
 
@@ -23,21 +23,23 @@ export function tweet(state = initialState, action: TweetAction): TweetState {
 	switch(action.type) {
 	case TweetKeys.INVALIDATE_TWEETS:
 		return {
-			'isFetching': false,
-			'didInvalidate': true,
-			'tweets': [],
+			...initialState,
 		};
 	case TweetKeys.REQUEST_TWEETS:
 		return {
+			...state,
 			'isFetching': true,
 			'didInvalidate': false,
-			'tweets': [],
 		};
 	case TweetKeys.RECEIVE_TWEETS:
 		return {
+			...state,
 			'isFetching': false,
 			'didInvalidate': false,
-			'tweets': action.tweets,
+			'tweets': [
+				...state.tweets,
+				...action.tweets,
+			],
 		};
 	default:
 		return state;

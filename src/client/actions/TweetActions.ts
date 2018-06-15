@@ -14,11 +14,18 @@ import {
 } from '../reducers';
 
 import {
+	getTweetsDidInvalidate,
+	getTweetsIsFetching,
+	getLastTweetID,
+} from '../selectors';
+
+import {
 	Tweet,
 } from '../../shared/models';
 
 import {
-	fetchGet,
+	sendRequest,
+	RequestType,
 } from '../../shared/helpers';
 
 export function invalidateTweets(): TweetInvalidateAction {
@@ -40,11 +47,13 @@ function receiveTweets(tweets: Tweet[]): TweetReceiveAction {
 	};
 }
 
-function fetchTweets() {
+function fetchTweets(lastTweetID: string | null) {
 	return (dispatch: Dispatch<any>) => {
 		dispatch(requestTweets());
 
-		return fetchGet(`/api/tweets/1`).then((tweets: Tweet[]) => {
+		return sendRequest(RequestType.FETCH_TWEET, {
+			lastTweetID,
+		}).then((tweets: Tweet[]) => {
 			return dispatch(receiveTweets(tweets));
 		}).catch((err) => {
 			console.log(err);
@@ -53,13 +62,20 @@ function fetchTweets() {
 }
 
 function shouldFetchTweets(state: State) {
-	return state.tweet.didInvalidate;
+	const didInvalidate = getTweetsDidInvalidate(state);
+	const isFetching = getTweetsIsFetching(state);
+
+	return didInvalidate === true && isFetching === false;
 }
 
 export function fetchTweetsIfNeeded() {
 	return (dispatch: Dispatch<any>, getState: () => State) => {
-		if(shouldFetchTweets(getState())) {
-			dispatch(fetchTweets());
+		const state: State = getState();
+
+		if(shouldFetchTweets(state)) {
+			const lastTweetID = getLastTweetID(state);
+
+			dispatch(fetchTweets(lastTweetID));
 		}
 	};
 }
