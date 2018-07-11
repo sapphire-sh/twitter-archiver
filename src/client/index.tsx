@@ -17,6 +17,8 @@ import {
 
 import App from './containers/App';
 
+import './index.html';
+
 const store = createStore(reducers, applyMiddleware(thunk));
 
 const AppRouter = () => {

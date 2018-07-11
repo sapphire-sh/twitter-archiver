@@ -1,15 +1,16 @@
-import * as React from 'react';
+import React from 'react';
+
 import {
 	connect,
 } from 'react-redux';
 
-import Tweet from './Tweet/Tweet';
+import TweetComponent from './Tweet/Tweet';
 import Retweet from './Tweet/Retweet';
 
 import Indicator from './Indicator';
 
 import {
-	Tweet as _Tweet,
+	Tweet,
 } from '../../shared/models';
 
 import {
@@ -18,11 +19,11 @@ import {
 
 import '../styles/Tweets.css';
 
-interface TweetsProps {
-	tweets: _Tweet[];
+interface ComponentProps {
+	tweets: Tweet[];
 };
 
-class Tweets extends React.Component<TweetsProps> {
+class Tweets extends React.Component<ComponentProps> {
 	render() {
 		const tweets = this.props.tweets;
 
@@ -34,7 +35,7 @@ class Tweets extends React.Component<TweetsProps> {
 						let component;
 						if(tweet.retweeted_status === undefined) {
 							component = (
-								<Tweet tweet={tweet} />
+								<TweetComponent tweet={tweet} />
 							);
 						}
 						else {

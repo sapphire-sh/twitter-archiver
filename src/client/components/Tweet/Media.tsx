@@ -1,14 +1,14 @@
-import * as React from 'react';
+import React from 'react';
 
 import {
 	Entities,
 } from '../../../shared/models';
 
-interface MediaProps {
+interface ComponentProps {
 	entities: Entities;
 };
 
-class Media extends React.Component<MediaProps> {
+class Media extends React.Component<ComponentProps> {
 	render() {
 		const entities = this.props.entities;
 

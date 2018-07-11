@@ -1,15 +1,15 @@
-import * as React from 'react';
+import React from 'react';
 
 import {
 	User,
 } from '../../../shared/models';
 
-interface ProfileProps {
+interface ComponentProps {
 	user: User;
 	isRetweet: boolean;
 };
 
-class Profile extends React.Component<ProfileProps> {
+class Profile extends React.Component<ComponentProps> {
 	render() {
 		const user = this.props.user;
 

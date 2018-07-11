@@ -7,7 +7,9 @@ import {
 	env,
 	baseConfig,
 	distPath,
+	dllPath,
 } from '../configs/webpack.config.base';
+console.log(distPath);
 
 export const clientConfig: webpack.Configuration = {
 	...baseConfig,
@@ -45,6 +47,15 @@ export const clientConfig: webpack.Configuration = {
 					'loader': 'url-loader',
 					'options': {
 						'limit': 8192,
+					},
+				},
+			},
+			{
+				'test': /\.html$/,
+				'use': {
+					'loader': 'file-loader',
+					'options': {
+						'name': '[name].[ext]',
 					},
 				},
 			},
@@ -90,7 +101,29 @@ export const clientConfig: webpack.Configuration = {
 		})(),
 	],
 	'devServer': {
-		'contentBase': distPath,
+		'contentBase': [
+			distPath,
+			dllPath,
+		],
+		'watchContentBase': true,
+		'proxy': {
+			'/api': {
+				'target': {
+					'host': '0.0.0.0',
+					'protocol': 'http',
+					'port': 8015,
+				},
+			},
+			'/auth': {
+				'target': {
+					'host': '0.0.0.0',
+					'protocol': 'http',
+					'port': 8015,
+				},
+			},
+		},
+		'host': '0.0.0.0',
+		'disableHostCheck': true,
 		'port': 8016,
 		'open': true,
 		'hot': true,

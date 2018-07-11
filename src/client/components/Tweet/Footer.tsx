@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import {
 	Tweet,
@@ -8,11 +8,11 @@ import {
 	dateToString,
 } from '../../../shared/helpers';
 
-interface FooterProps {
+interface ComponentProps {
 	tweet: Tweet;
 }
 
-class Footer extends React.Component<FooterProps> {
+class Footer extends React.Component<ComponentProps> {
 	render() {
 		const tweet = this.props.tweet;
 

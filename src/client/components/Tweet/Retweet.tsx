@@ -1,17 +1,17 @@
-import * as React from 'react';
+import React from 'react';
 
 import Profile from './Profile';
-import Tweet from './Tweet';
+import TweetComponent from './Tweet';
 
 import {
-	Tweet as _Tweet,
+	Tweet,
 } from '../../../shared/models';
 
-interface RetweetProps {
-	tweet: _Tweet;
+interface ComponentProps {
+	tweet: Tweet;
 };
 
-class Retweet extends React.Component<RetweetProps> {
+class Retweet extends React.Component<ComponentProps> {
 	render() {
 		const tweet = this.props.tweet;
 
@@ -20,7 +20,7 @@ class Retweet extends React.Component<RetweetProps> {
 				<div>
 					<Profile user={tweet.user} isRetweet={ true } />
 				</div>
-				<Tweet tweet={tweet.retweeted_status!} />
+				<TweetComponent tweet={tweet.retweeted_status!} />
 			</div>
 		);
 	}

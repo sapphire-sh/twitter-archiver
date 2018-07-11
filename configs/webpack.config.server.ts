@@ -9,6 +9,8 @@ import {
 	distPath,
 } from '../configs/webpack.config.base';
 
+console.log(distPath);
+
 export const serverConfig: webpack.Configuration = {
 	...baseConfig,
 	'entry': path.resolve(__dirname, '../src/server', 'index.ts'),

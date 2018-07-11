@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import Profile from './Profile';
 import Text from './Text';
@@ -7,15 +7,15 @@ import Media from './Media';
 import Footer from './Footer';
 
 import {
-	Tweet as _Tweet,
+	Tweet,
 } from '../../../shared/models';
 
-interface TweetProps {
-	tweet: _Tweet;
+interface ComponentProps {
+	tweet: Tweet;
 };
 
-class Tweet extends React.Component<TweetProps> {
-	getEntities(tweet: _Tweet) {
+class TweetComponent extends React.Component<ComponentProps> {
+	getEntities(tweet: Tweet) {
 		const extendedTweet = (tweet as any).extended_tweet;
 		if(extendedTweet !== undefined) {
 			tweet.text = extendedTweet.full_text;
@@ -36,7 +36,7 @@ class Tweet extends React.Component<TweetProps> {
 				<Profile user={tweet.user} isRetweet={ false } />
 				<div className="ui segments">
 					<div className="ui top attached segment">
-						<Text text={tweet.text} entities={ entities } />
+						<Text text={tweet.text!} entities={ entities } />
 					</div>
 					<Media entities={entities} />
 					<Count counts={{
@@ -51,4 +51,4 @@ class Tweet extends React.Component<TweetProps> {
 	}
 }
 
-export default Tweet;
+export default TweetComponent;

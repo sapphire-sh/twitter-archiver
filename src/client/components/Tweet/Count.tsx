@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 
-interface CountProps {
+interface ComponentProps {
 	counts: {
 		reply: number;
 		retweet: number;
@@ -8,7 +8,7 @@ interface CountProps {
 	};
 }
 
-class Count extends React.Component<CountProps> {
+class Count extends React.Component<ComponentProps> {
 	render() {
 		const {
 			retweet,

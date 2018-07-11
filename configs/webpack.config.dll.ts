@@ -16,6 +16,8 @@ export const dllConfig: webpack.Configuration = {
 			'react-redux',
 			'redux',
 			'redux-thunk',
+			'semantic-ui-css',
+			'semantic-ui-react',
 		],
 	},
 	'output': {

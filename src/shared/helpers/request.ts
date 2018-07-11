@@ -1,6 +1,6 @@
-import {
-	Tweet,
-} from '../../shared/models';
+// import {
+// 	Tweet,
+// } from '../../shared/models';
 
 const API_URL = '/api';
 
@@ -16,7 +16,7 @@ enum RequestMethod {
 function getURL(requestType: RequestType): string {
 	switch(requestType) {
 	case RequestType.FETCH_TWEET:
-		return `${API_URL}/tweets`;
+		return `${API_URL}/tweets/1`;
 	}
 }
 

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {
 	connect,
 } from 'react-redux';
@@ -11,12 +11,12 @@ import {
 	State,
 } from '../reducers';
 
-interface IndicatorProps {
+interface ComponentProps {
 	isFetching: boolean;
 	tweets: Tweet[];
 };
 
-class Indicator extends React.Component<IndicatorProps> {
+class Indicator extends React.Component<ComponentProps> {
 	render() {
 		if(this.props.tweets.length === 0) {
 			if(this.props.isFetching) {
