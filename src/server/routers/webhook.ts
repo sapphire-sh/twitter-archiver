@@ -3,6 +3,11 @@ import crypto from 'crypto';
 import * as Express from 'express';
 
 import {
+	Tweet,
+} from '../../shared/models';
+
+import {
+	Database,
 	Twitter,
 } from '../libs';
 
@@ -18,8 +23,12 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-	console.log(req.body);
-	console.log(req.query);
+	const data = req.body;
+	if(data.tweet_create_events !== undefined) {
+		data.tweet_create_events.forEach((e: Tweet) => {
+			Database.addQueue(e);
+		});
+	}
 	res.json(true);
 });
 
