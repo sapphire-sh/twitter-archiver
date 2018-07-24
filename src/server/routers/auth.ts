@@ -9,7 +9,6 @@ import {
 const router = Express.Router();
 
 router.get('/', (req, res) => {
-	console.log(1111);
 	OAuth.getRequestToken().then((token) => {
 		req.session.oauth = token;
 
