@@ -149,4 +149,13 @@ export class Twitter {
 			console.log(res);
 		});
 	}
+
+	static subscribe() {
+		this.twit.post('account_activity/all/dev/subscriptions', {}, (err, res) => {
+			if(err) {
+				console.log(err);
+			}
+			console.log(res);
+		});
+	}
 }

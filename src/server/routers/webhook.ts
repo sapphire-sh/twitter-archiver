@@ -36,4 +36,9 @@ router.get('/set', (req, res) => {
 	res.json(true);
 });
 
+router.get('/subscribe', (_, res) => {
+	Twitter.subscribe();
+	res.json(true);
+});
+
 export default router;
