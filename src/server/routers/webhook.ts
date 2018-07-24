@@ -11,9 +11,9 @@ const router = Express.Router();
 const hmac = crypto.createHmac('sha256', __env.consumer_secret);
 
 router.get('/', (req, res) => {
-	hmac.update(req.params.crc_token);
+	hmac.update(req.query.crc_token);
 
-	res.json({
+	res.sendStatus(200).json({
 		'response_token': hmac.digest('hex'),
 	});
 });
