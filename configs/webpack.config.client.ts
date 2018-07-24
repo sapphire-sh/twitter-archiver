@@ -9,7 +9,6 @@ import {
 	distPath,
 	dllPath,
 } from '../configs/webpack.config.base';
-console.log(distPath);
 
 export const clientConfig: webpack.Configuration = {
 	...baseConfig,
@@ -108,18 +107,10 @@ export const clientConfig: webpack.Configuration = {
 		'watchContentBase': true,
 		'proxy': {
 			'/api': {
-				'target': {
-					'host': '0.0.0.0',
-					'protocol': 'http',
-					'port': 8015,
-				},
+				'target': 'http://localhost:8015',
 			},
 			'/auth': {
-				'target': {
-					'host': '0.0.0.0',
-					'protocol': 'http',
-					'port': 8015,
-				},
+				'target': 'http://localhost:8015',
 			},
 		},
 		'host': '0.0.0.0',

@@ -1,11 +1,11 @@
 import React from 'react';
 
 import {
+	Dispatch,
 	bindActionCreators,
 	AnyAction,
 } from 'redux';
 import {
-	Dispatch,
 	connect,
 } from 'react-redux';
 
