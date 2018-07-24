@@ -23,6 +23,14 @@ router.post('/', (req, res) => {
 	res.json(true);
 });
 
+router.get('/list', (_, res) => {
+	Twitter.getWebhookList().then((data) => {
+		res.json(data);
+	}).catch((err) => {
+		res.json(err);
+	});
+});
+
 router.get('/set', (req, res) => {
 	Twitter.setWebhook();
 	res.json(true);
