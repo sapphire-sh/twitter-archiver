@@ -37,7 +37,7 @@ export class Twitter {
 		this.twit = new Twit(token);
 
 		this.stream = this.twit.stream('user', {
-			// 'tweet_mode': 'extended',
+			'tweet_mode': 'extended',
 		});
 
 		this.stream.on('tweet', (tweet) => {
@@ -125,5 +125,25 @@ export class Twitter {
 		let self = this;
 
 		return self.get('account/verify_credentials', {});
+	}
+
+	static getWebhookList() {
+		this.twit.get('account_activity/all/webhooks', {}, (err, res) => {
+			if(err) {
+				console.log(err);
+			}
+			console.log(res);
+		});
+	}
+
+	static setWebhook() {
+		this.twit.post('account_activity/all/dev/webhooks', {
+			'url': 'https://archive.sapphire.sh/webhook',
+		}, (err, res) => {
+			if(err) {
+				console.log(err);
+			}
+			console.log(res);
+		});
 	}
 }
