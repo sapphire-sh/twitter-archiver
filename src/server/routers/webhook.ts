@@ -17,6 +17,12 @@ router.get('/', (req, res) => {
 	});
 });
 
+router.post('/', (req, res) => {
+	console.log(req.body);
+	console.log(req.query);
+	res.json(true);
+});
+
 router.get('/set', (req, res) => {
 	Twitter.setWebhook();
 	res.json(true);
