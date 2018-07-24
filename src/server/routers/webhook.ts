@@ -1,3 +1,5 @@
+import crypto from 'crypto';
+	
 import * as Express from 'express';
 
 import {
@@ -6,18 +8,14 @@ import {
 
 const router = Express.Router();
 
-router.get('/', (req, res) => {
-	console.log('get');
-	console.log(req);
-	console.log(res);
-	res.sendStatus(200).json(true);
-});
+const hmac = crypto.createHmac('sha256', __env.consumer_secret);
 
 router.get('/', (req, res) => {
-	console.log('post');
-	console.log(req);
-	console.log(res);
-	res.sendStatus(200).json(true);
+	hmac.update(req.params.crc_token);
+
+	res.json({
+		'response_token': hmac.digest('hex'),
+	});
 });
 
 router.get('/set', (req, res) => {
