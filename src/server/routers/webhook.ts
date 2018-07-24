@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 	hmac.update(req.query.crc_token);
 
 	res.status(200).json({
-		'response_token': hmac.digest('base64'),
+		'response_token': `sha256=${hmac.digest('base64')}`,
 	});
 });
 
