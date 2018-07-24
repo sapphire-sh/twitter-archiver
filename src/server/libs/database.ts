@@ -1,4 +1,3 @@
-import Promise from 'bluebird';
 import Knex from 'knex';
 
 import {
@@ -136,6 +135,35 @@ export class Database {
 					resolve(tweets[0]);
 				}
 				resolve(undefined);
+			}).catch((err) => {
+				reject(err);
+			});
+		})
+	}
+
+	public static setHistory(id: string) {
+		return new Promise((resolve, reject) => {
+			return this.knex('history').insert({
+				'id': id,
+			}).then((data) => {
+				resolve();
+			}).catch((err) => {
+				reject(err);
+			});
+		});
+	}
+
+	public static getHistory() {
+		return new Promise<string>((resolve, reject) => {
+			return this.knex('history').orderBy('id', 'desc').limit(1).then((rows: {
+				id: string;
+			}[]) => {
+				if(rows.length === 0) {
+					resolve('1');
+				}
+				else {
+					resolve(rows[0].id);
+				}
 			}).catch((err) => {
 				reject(err);
 			});

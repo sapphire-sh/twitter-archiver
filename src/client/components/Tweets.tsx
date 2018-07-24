@@ -17,6 +17,11 @@ import {
 	State,
 } from '../reducers';
 
+import {
+	sendRequest,
+	RequestType,
+} from '../../shared/helpers';
+
 import '../styles/Tweets.css';
 
 interface ComponentProps {
@@ -24,6 +29,16 @@ interface ComponentProps {
 };
 
 class Tweets extends React.Component<ComponentProps> {
+	private onClick(id: string) {
+		sendRequest(RequestType.SET_HISTORY, {
+			'id': id,
+		}).then((res) => {
+			console.log(res);
+		}).catch((err) => {
+			console.log(err);
+		});
+	}
+
 	render() {
 		const tweets = this.props.tweets;
 
@@ -47,6 +62,9 @@ class Tweets extends React.Component<ComponentProps> {
 						return (
 							<div key={tweet.id_str} className="ui segment attached">
 								{ component }
+								<div className="ui button" onClick={() => {
+									this.onClick(tweet.id_str);
+								}}>{tweet.id_str}</div>
 							</div>
 						);
 					})

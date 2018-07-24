@@ -5,7 +5,8 @@
 const API_URL = '/api';
 
 export enum RequestType {
-	FETCH_TWEET = 10000,
+	FETCH_TWEET = 10001,
+	SET_HISTORY = 20001,
 }
 
 enum RequestMethod {
@@ -17,6 +18,8 @@ function getURL(requestType: RequestType): string {
 	switch(requestType) {
 	case RequestType.FETCH_TWEET:
 		return `${API_URL}/tweets/1`;
+	case RequestType.SET_HISTORY:
+		return `${API_URL}/history`;
 	}
 }
 
@@ -24,6 +27,8 @@ function getMethod(requestType: RequestType): RequestMethod {
 	switch(requestType) {
 	case RequestType.FETCH_TWEET:
 		return RequestMethod.GET;
+	case RequestType.SET_HISTORY:
+		return RequestMethod.POST;
 	}
 }
 
