@@ -23,7 +23,8 @@ export function tweet(state = initialState, action: TweetAction): TweetState {
 	switch(action.type) {
 	case TweetKeys.INVALIDATE_TWEETS:
 		return {
-			...initialState,
+			...state,
+			'didInvalidate': true,
 		};
 	case TweetKeys.REQUEST_TWEETS:
 		return {
@@ -36,10 +37,7 @@ export function tweet(state = initialState, action: TweetAction): TweetState {
 			...state,
 			'isFetching': false,
 			'didInvalidate': false,
-			'tweets': [
-				...state.tweets,
-				...action.tweets,
-			],
+			'tweets': action.tweets,
 		};
 	default:
 		return state;

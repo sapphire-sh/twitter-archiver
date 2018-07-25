@@ -66,7 +66,7 @@ class View extends React.Component<ViewProps, ViewState> {
 							return null;
 						}
 						return (
-							<Sticky offset={20} context={contextRef}>
+							<Sticky offset={40} context={contextRef}>
 								<MenuComponent {...this.props} />
 							</Sticky>
 						);

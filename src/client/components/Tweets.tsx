@@ -39,6 +39,10 @@ class Tweets extends React.Component<ComponentProps> {
 		});
 	}
 
+	componentDidUpdate() {
+		window.scrollTo(0, 0);
+	}
+
 	render() {
 		const tweets = this.props.tweets;
 
