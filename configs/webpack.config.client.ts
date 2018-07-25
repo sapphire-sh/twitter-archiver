@@ -107,10 +107,14 @@ export const clientConfig: webpack.Configuration = {
 		'watchContentBase': true,
 		'proxy': {
 			'/api': {
-				'target': 'http://localhost:8015',
+				'target': 'https://archive.sapphire.sh',
+				'secure': false,
+    			'changeOrigin': true,
 			},
 			'/auth': {
-				'target': 'http://localhost:8015',
+				'target': 'https://archive.sapphire.sh',
+				'secure': false,
+    			'changeOrigin': true,
 			},
 		},
 		'host': '0.0.0.0',

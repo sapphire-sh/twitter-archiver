@@ -21,95 +21,62 @@ import {
 import Tweets from '../components/Tweets';
 
 import {
+	MenuComponent,
+} from '../components';
+
+import {
 	Grid,
-	Menu,
-} from 'semantic-ui-react'
+	Sticky,
+} from 'semantic-ui-react';
 
 interface ViewProps {
 	invalidateTweets: typeof invalidateTweets;
 	fetchTweetsIfNeeded: typeof fetchTweetsIfNeeded;
 }
 
-class View extends React.Component<ViewProps> {
+interface ViewState {
+	contextRef: HTMLDivElement | null;
+}
+
+class View extends React.Component<ViewProps, ViewState> {
 	constructor(props: ViewProps) {
 		super(props);
 
-		this.refreshTweets = this.refreshTweets.bind(this);
+		this.state = {
+			'contextRef': null,
+		};
 	}
-
-	componentWillMount() {
-		this.refreshTweets();
-	}
-
-	refreshTweets() {
-		this.props.invalidateTweets();
-		this.props.fetchTweetsIfNeeded();
+	
+	handleContextRef = (contextRef: HTMLDivElement) => {
+		this.setState({
+			'contextRef': contextRef,
+		});
 	}
 
 	render() {
+		const {
+			contextRef,
+		} = this.state;
+
 		return (
 			<Grid>
 				<Grid.Column width={4}>
-          			<Menu fluid vertical>
-						<Menu.Item>
-							<Menu.Header>Products</Menu.Header>
-
-							<Menu.Menu>
-								<Menu.Item
-									name='enterprise'
-								/>
-								<Menu.Item
-									name='consumer'
-								/>
-							</Menu.Menu>
-						</Menu.Item>
-
-						<Menu.Item>
-							<Menu.Header>CMS Solutions</Menu.Header>
-
-							<Menu.Menu>
-								<Menu.Item
-									name='rails'
-								/>
-								<Menu.Item
-									name='python'
-								/>
-								<Menu.Item name='php' />
-							</Menu.Menu>
-						</Menu.Item>
-
-						<Menu.Item>
-							<Menu.Header>Hosting</Menu.Header>
-
-							<Menu.Menu>
-								<Menu.Item
-									name='shared'
-								/>
-								<Menu.Item
-									name='dedicated'
-								/>
-							</Menu.Menu>
-						</Menu.Item>
-
-						<Menu.Item>
-							<Menu.Header>Support</Menu.Header>
-
-							<Menu.Menu>
-								<Menu.Item name='email'>
-									E-mail Support
-            				</Menu.Item>
-
-								<Menu.Item name='faq'>
-									FAQs
-            				</Menu.Item>
-							</Menu.Menu>
-						</Menu.Item>
-					</Menu>
+					{(() => {
+						if(contextRef === null) {
+							return null;
+						}
+						return (
+							<Sticky offset={20} context={contextRef}>
+								<MenuComponent {...this.props} />
+							</Sticky>
+						);
+					})()}
 				</Grid.Column>
 
-				<Grid.Column stretched width={12}>
-					<Tweets />
-					<div onClick={this.refreshTweets} className="ui attached button">refresh</div>
+				<Grid.Column width={12}>
+					<div ref={this.handleContextRef}>
+						<Tweets />
+					</div>
 				</Grid.Column>
 			</Grid>
 		);
