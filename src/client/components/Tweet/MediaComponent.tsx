@@ -8,7 +8,7 @@ interface ComponentProps {
 	entities: Entities;
 };
 
-class Media extends React.Component<ComponentProps> {
+export class MediaComponent extends React.Component<ComponentProps> {
 	render() {
 		const entities = this.props.entities;
 
@@ -40,5 +40,3 @@ class Media extends React.Component<ComponentProps> {
 		);
 	}
 }
-
-export default Media;

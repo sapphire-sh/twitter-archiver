@@ -1,12 +1,8 @@
-// import {
-// 	Tweet,
-// } from '../../shared/models';
-
 const API_URL = '/api';
 
 export enum RequestType {
 	FETCH_TWEET = 10001,
-	SET_HISTORY = 20001,
+	UPDATE_HISTORY = 20001,
 }
 
 enum RequestMethod {
@@ -17,8 +13,8 @@ enum RequestMethod {
 function getURL(requestType: RequestType): string {
 	switch(requestType) {
 	case RequestType.FETCH_TWEET:
-		return `${API_URL}/tweets/1`;
-	case RequestType.SET_HISTORY:
+		return `${API_URL}/tweets`;
+	case RequestType.UPDATE_HISTORY:
 		return `${API_URL}/history`;
 	}
 }
@@ -27,17 +23,10 @@ function getMethod(requestType: RequestType): RequestMethod {
 	switch(requestType) {
 	case RequestType.FETCH_TWEET:
 		return RequestMethod.GET;
-	case RequestType.SET_HISTORY:
+	case RequestType.UPDATE_HISTORY:
 		return RequestMethod.POST;
 	}
 }
-
-// function getReturnType(requestType: RequestType) {
-// 	switch(requestType) {
-// 	case RequestType.FETCH_TWEET:
-// 		return Tweet[];
-// 	}
-// }
 
 export function sendRequest(requestType: RequestType, params: {} = {}) {
 	const url = getURL(requestType);

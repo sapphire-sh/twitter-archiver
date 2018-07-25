@@ -12,7 +12,7 @@ interface ComponentProps {
 	tweet: Tweet;
 }
 
-class Footer extends React.Component<ComponentProps> {
+export class FooterComponent extends React.Component<ComponentProps> {
 	render() {
 		const tweet = this.props.tweet;
 
@@ -33,5 +33,3 @@ class Footer extends React.Component<ComponentProps> {
 		);
 	}
 }
-
-export default Footer;

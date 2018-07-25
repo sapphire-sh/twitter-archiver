@@ -1,53 +1,31 @@
 import React from 'react';
 
 import {
-	connect,
-} from 'react-redux';
-
-import {
-	invalidateTweets,
-	fetchTweetsIfNeeded,
+	updateHistory,
 } from '../actions';
-
-import TweetComponent from './Tweet/Tweet';
-import Retweet from './Tweet/Retweet';
-
-import Indicator from './Indicator';
 
 import {
 	Tweet,
 } from '../../shared/models';
 
 import {
-	State,
-} from '../reducers';
-
-import {
-	sendRequest,
-	RequestType,
-} from '../../shared/helpers';
+	IndicatorComponent,
+	TweetComponent,
+	RetweetComponent,
+} from '../components';
 
 import '../styles/Tweets.css';
 
 interface ComponentProps {
+	isFetchingTweets: boolean;
 	tweets: Tweet[];
 
-	invalidateTweets: typeof invalidateTweets;
-	fetchTweetsIfNeeded: typeof fetchTweetsIfNeeded;
+	updateHistory: typeof updateHistory;
 };
 
-class Tweets extends React.Component<ComponentProps> {
+export class TweetsComponent extends React.Component<ComponentProps> {
 	private onClick(id: string) {
-		sendRequest(RequestType.SET_HISTORY, {
-			'id': id,
-		}).then((res) => {
-			this.props.invalidateTweets();
-			this.props.fetchTweetsIfNeeded();
-			
-			console.log(res);
-		}).catch((err) => {
-			console.log(err);
-		});
+		this.props.updateHistory(id);
 	}
 
 	componentDidUpdate() {
@@ -59,7 +37,7 @@ class Tweets extends React.Component<ComponentProps> {
 
 		return (
 			<div>
-				<Indicator />
+				<IndicatorComponent {...this.props} />
 				{
 					tweets.map((tweet) => {
 						let component;
@@ -70,7 +48,7 @@ class Tweets extends React.Component<ComponentProps> {
 						}
 						else {
 							component = (
-								<Retweet tweet={tweet} />
+								<RetweetComponent tweet={tweet} />
 							);
 						}
 
@@ -88,11 +66,3 @@ class Tweets extends React.Component<ComponentProps> {
 		);
 	}
 }
-
-function mapStateToProps(state: State) {
-	return {
-		'tweets': state.tweet.tweets,
-	};
-}
-
-export default connect(mapStateToProps)(Tweets);

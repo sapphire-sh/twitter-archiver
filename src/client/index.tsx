@@ -15,7 +15,9 @@ import {
 	reducers,
 } from './reducers';
 
-import App from './containers/App';
+import {
+	AppContainer,
+} from './containers';
 
 import './index.html';
 
@@ -24,7 +26,7 @@ const store = createStore(reducers, applyMiddleware(thunk));
 const AppRouter = () => {
 	return (
 		<Provider store={store}>
-			<App />
+			<AppContainer />
 		</Provider>
 	);
 };

@@ -14,8 +14,8 @@ import {
 } from '../reducers';
 
 import {
-	getTweetsDidInvalidate,
-	getTweetsIsFetching,
+	getDidInvalidateTweets,
+	getIsFetchingTweets,
 	getLastTweetID,
 } from '../selectors';
 
@@ -51,7 +51,7 @@ function fetchTweets(lastTweetID: string | null) {
 	return (dispatch: Dispatch<any>) => {
 		dispatch(requestTweets());
 
-		return sendRequest(RequestType.FETCH_TWEET, {
+		sendRequest(RequestType.FETCH_TWEET, {
 			lastTweetID,
 		}).then((tweets: Tweet[]) => {
 			dispatch(receiveTweets(tweets));
@@ -62,15 +62,15 @@ function fetchTweets(lastTweetID: string | null) {
 }
 
 function shouldFetchTweets(state: State) {
-	const didInvalidate = getTweetsDidInvalidate(state);
-	const isFetching = getTweetsIsFetching(state);
+	const didInvalidate = getDidInvalidateTweets(state);
+	const isFetching = getIsFetchingTweets(state);
 
 	return didInvalidate === true && isFetching === false;
 }
 
 export function fetchTweetsIfNeeded() {
 	return (dispatch: Dispatch<any>, getState: () => State) => {
-		const state: State = getState();
+		const state = getState();
 
 		if(shouldFetchTweets(state)) {
 			const lastTweetID = getLastTweetID(state);

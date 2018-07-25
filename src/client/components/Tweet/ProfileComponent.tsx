@@ -9,7 +9,7 @@ interface ComponentProps {
 	isRetweet: boolean;
 };
 
-class Profile extends React.Component<ComponentProps> {
+export class ProfileComponent extends React.Component<ComponentProps> {
 	render() {
 		const user = this.props.user;
 
@@ -26,5 +26,3 @@ class Profile extends React.Component<ComponentProps> {
 		);
 	}
 }
-
-export default Profile;

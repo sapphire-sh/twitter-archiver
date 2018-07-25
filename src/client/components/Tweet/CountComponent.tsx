@@ -8,7 +8,7 @@ interface ComponentProps {
 	};
 }
 
-class Count extends React.Component<ComponentProps> {
+export class CountComponent extends React.Component<ComponentProps> {
 	render() {
 		const {
 			retweet,
@@ -31,5 +31,3 @@ class Count extends React.Component<ComponentProps> {
 		);
 	}
 }
-
-export default Count;

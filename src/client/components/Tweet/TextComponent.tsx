@@ -11,7 +11,7 @@ interface TextProps {
 	entities: Entities;
 };
 
-class Text extends React.Component<TextProps> {
+export class TextComponent extends React.Component<TextProps> {
 	render() {
 		const {
 			text,
@@ -29,5 +29,3 @@ class Text extends React.Component<TextProps> {
 		);
 	}
 }
-
-export default Text;

@@ -6,7 +6,7 @@ import {
 
 const router = Express.Router();
 
-router.get('/tweets/:id', (_, res) => {
+router.get('/tweets', (_, res) => {
 	Database.getHistory().then((id) => {
 		return Database.getTweets(id);
 	}).then((tweets) => {
@@ -16,7 +16,7 @@ router.get('/tweets/:id', (_, res) => {
 	});
 });
 
-router.get('/check/:id', (_, res) => {
+router.get('/check', (_, res) => {
 	Database.getLatestTweet();
 	res.json(1);
 });

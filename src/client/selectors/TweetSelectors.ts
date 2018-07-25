@@ -10,14 +10,13 @@ const getState = (state: State) => {
 	return state.tweet;
 };
 
-// TODO use reselect
-export const getTweetsDidInvalidate = createSelector([
+export const getDidInvalidateTweets = createSelector([
 	getState,
 ], (state) => {
 	return state.didInvalidate;
 });
 
-export const getTweetsIsFetching = createSelector([
+export const getIsFetchingTweets = createSelector([
 	getState,
 ], (state) => {
 	return state.isFetching;
