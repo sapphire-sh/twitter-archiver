@@ -54,7 +54,7 @@ function fetchTweets(lastTweetID: string | null) {
 		return sendRequest(RequestType.FETCH_TWEET, {
 			lastTweetID,
 		}).then((tweets: Tweet[]) => {
-			return dispatch(receiveTweets(tweets));
+			dispatch(receiveTweets(tweets));
 		}).catch((err) => {
 			console.log(err);
 		});

@@ -75,7 +75,7 @@ class View extends React.Component<ViewProps, ViewState> {
 
 				<Grid.Column width={12}>
 					<div ref={this.handleContextRef}>
-						<Tweets />
+						<Tweets {...this.props} />
 					</div>
 				</Grid.Column>
 			</Grid>

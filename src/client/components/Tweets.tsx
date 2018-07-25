@@ -4,6 +4,11 @@ import {
 	connect,
 } from 'react-redux';
 
+import {
+	invalidateTweets,
+	fetchTweetsIfNeeded,
+} from '../actions';
+
 import TweetComponent from './Tweet/Tweet';
 import Retweet from './Tweet/Retweet';
 
@@ -26,6 +31,9 @@ import '../styles/Tweets.css';
 
 interface ComponentProps {
 	tweets: Tweet[];
+
+	invalidateTweets: typeof invalidateTweets;
+	fetchTweetsIfNeeded: typeof fetchTweetsIfNeeded;
 };
 
 class Tweets extends React.Component<ComponentProps> {
@@ -33,6 +41,9 @@ class Tweets extends React.Component<ComponentProps> {
 		sendRequest(RequestType.SET_HISTORY, {
 			'id': id,
 		}).then((res) => {
+			this.props.invalidateTweets();
+			this.props.fetchTweetsIfNeeded();
+			
 			console.log(res);
 		}).catch((err) => {
 			console.log(err);
