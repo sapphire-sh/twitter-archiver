@@ -16,11 +16,6 @@ router.get('/tweets', (_, res) => {
 	});
 });
 
-router.get('/check', (_, res) => {
-	Database.getLatestTweet();
-	res.json(1);
-});
-
 router.post('/history', (req, res) => {
 	Database.setHistory(req.body.id).then(() => {
 		res.json(true);
