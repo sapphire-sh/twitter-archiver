@@ -113,10 +113,10 @@ export class Database {
 	public static getTweets(key: string) {
 		return new Promise((resolve, reject) => {
 			return Promise.all([
-				this.knex('tweets').where('key', '<', key).orderBy('key', 'asc').limit(5).then((rows: DataRow[]) => {
+				this.knex('tweets').where('key', '<', key).orderBy('key', 'desc').limit(5).then((rows: DataRow[]) => {
 					return Promise.all(rows.map((row) => {
 						return inflate(row.data);
-					}));
+					}).reverse());
 				}),
 				this.knex('tweets').where('key', '>=', key).orderBy('key', 'asc').limit(95).then((rows: DataRow[]) => {
 					return Promise.all(rows.map((row) => {
