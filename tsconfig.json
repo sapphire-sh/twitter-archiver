@@ -19,6 +19,7 @@
 		"noImplicitReturns": true,
 		"moduleResolution": "node",
 		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
 		"noErrorTruncation": true,
 		"noUnusedLocals": true
 	}
