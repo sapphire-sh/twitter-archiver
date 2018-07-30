@@ -10,7 +10,7 @@ const router = Express.Router();
 
 router.get('/', (req, res) => {
 	OAuth.getRequestToken().then((token) => {
-		req.session.oauth = token;
+		req.session!.oauth = token;
 
 		res.redirect(`https://twitter.com/oauth/authenticate?oauth_token=${token.oauth_token}`);
 	}).catch((err) => {
@@ -51,9 +51,14 @@ function validateAccessToken({
 router.get('/callback', (req, res) => {
 	const oauth_verifier = req.query.oauth_verifier;
 
+	const {
+		oauth_token,
+		oauth_token_secret,
+	} = req.session!;
+
 	if(validateOAuthToken({
-		'oauth_token': req.session.oauth_token,
-		'oauth_token_secret': req.session.oauth_token_secret,
+		'oauth_token': oauth_token,
+		'oauth_token_secret': oauth_token_secret,
 	}, oauth_verifier)) {
 		res.redirect('/');
 	}
@@ -61,9 +66,9 @@ router.get('/callback', (req, res) => {
 		OAuth.getAccessToken({
 			'oauth_verifier': oauth_verifier,
 		}).then((token) => {
-			req.session.isValid = validateAccessToken(token);
+			req.session!.isValid = validateAccessToken(token);
 
-			delete req.session.oauth;
+			delete req.session!.oauth;
 
 			res.redirect('/');
 		}).catch((err) => {

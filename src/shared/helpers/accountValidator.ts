@@ -5,7 +5,7 @@ import {
 } from 'express';
 
 function isValid(req: Request) {
-	if(req.session.isValid === true) {
+	if(req.session!.isValid === true) {
 		return true;
 	}
 	if(req.baseUrl.match(/^\/auth(\/callback)?/) !== null) {
@@ -21,7 +21,7 @@ export function accountValidator(req: Request, res: Response, next: NextFunction
 	next();
 	return;
 	if(isValid(req)) {
-		req.session.timestamp = (new Date()).getTime();
+		req.session!.timestamp = (new Date()).getTime();
 		next();
 	}
 	else {
