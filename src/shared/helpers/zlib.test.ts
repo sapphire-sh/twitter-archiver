@@ -9,7 +9,7 @@ import {
 
 describe('./utils/zlib.ts', () => {
 	const original = 'sapphire';
-	const deflated = new Buffer('eJxTKk4sKMjILEpVAgAUDwOh', 'base64');
+	const deflated = Buffer.from('eJxTKk4sKMjILEpVAgAUDwOh', 'base64');
 
 	it('deflate', () => {
 		return deflate(original).then((res) => {
@@ -24,7 +24,7 @@ describe('./utils/zlib.ts', () => {
 	});
 
 	it('invalid inflate', () => {
-		return inflate(new Buffer(original)).then(() => {
+		return inflate(Buffer.from(original)).then(() => {
 			expect(true).to.be.false;
 		}).catch(() => {});
 	});
