@@ -39,6 +39,14 @@ export class TweetComponent extends React.Component<ComponentProps> {
 				<div className="ui segments">
 					<div className="ui top attached segment">
 						<TextComponent text={tweet.text!} entities={ entities } />
+						{(() => {
+							if(tweet.quoted_status === undefined) {
+								return null;
+							}
+							return (
+								<TweetComponent tweet={tweet.quoted_status} />
+							);
+						})()}
 					</div>
 					<MediaComponent entities={entities} />
 					<CountComponent counts={{

@@ -58,6 +58,9 @@ export class TweetsComponent extends React.Component<ComponentProps> {
 								<div className="ui button" onClick={() => {
 									this.onClick(tweet.id_str);
 								}}>{tweet.id_str}</div>
+								<div className="ui button" onClick={() => {
+									console.log(tweet);
+								}}>json</div>
 							</div>
 						);
 					})
