@@ -3,6 +3,8 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 const {
 	baseConfig,
 	distPath,
@@ -87,6 +89,7 @@ module.exports = {
 				return [
 					new webpack.HotModuleReplacementPlugin(),
 					new webpack.NoEmitOnErrorsPlugin(),
+					new BundleAnalyzerPlugin(),
 				];
 			}
 			if(env === 'production') {
@@ -117,10 +120,8 @@ module.exports = {
     			'changeOrigin': true,
 			},
 		},
-		'host': '0.0.0.0',
-		'disableHostCheck': true,
+		'host': 'localhost',
 		'port': 8016,
 		'open': true,
-		'hot': true,
 	},
 };
