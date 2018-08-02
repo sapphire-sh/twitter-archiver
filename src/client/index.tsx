@@ -22,10 +22,13 @@ import {
 
 import './index.html';
 
-const store = createStore(reducers, compose(...[
+const middlewares = [
 	applyMiddleware(thunk),
-	__dev ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : undefined,
-],));
+];
+if(__dev) {
+	middlewares.push(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+}
+const store = createStore(reducers, compose(...middlewares));
 
 const AppRouter = () => {
 	return (
