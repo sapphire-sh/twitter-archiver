@@ -5,6 +5,7 @@ import {
 import {
 	Database,
 	OAuth,
+	Socket,
 	Twitter,
 } from './libs';
 
@@ -15,10 +16,11 @@ const token = {
 	'access_token_secret': __env.access_token_secret,
 };
 
-Database.initialize();
-OAuth.initialize(token.consumer_key, token.consumer_secret);
-Twitter.initialize(token);
-
 const port = __env.PORT === undefined ? 8015 : parseInt(__env.PORT!);
 
-new Server(port);
+const app = new Server(port);
+
+Database.initialize();
+OAuth.initialize(token.consumer_key, token.consumer_secret);
+Socket.initialize(app.server);
+Twitter.initialize(token);

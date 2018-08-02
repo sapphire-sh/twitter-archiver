@@ -1,6 +1,10 @@
 import Knex from 'knex';
 
 import {
+	Socket,
+} from '../libs';
+
+import {
 	Tweet,
 } from '../../shared/models';
 
@@ -104,6 +108,9 @@ export class Database {
 					'key': tweet.id_str,
 					'data': data,
 				});
+			}).then((rows) => {
+				console.log(rows);
+				Socket.emit(JSON.stringify(rows));
 			});
 		}).catch((err) => {
 			console.error(err);
