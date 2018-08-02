@@ -1,6 +1,6 @@
-import webpack from 'webpack';
+const webpack = require('webpack');
 
-export function webpackCompile(configs: webpack.Configuration[]) {
+module.exports = (configs) => {
 	return new Promise((resolve, reject) => {
 		const compiler = webpack(configs);
 
@@ -14,4 +14,4 @@ export function webpackCompile(configs: webpack.Configuration[]) {
 			resolve();
 		});
 	});
-}
+};

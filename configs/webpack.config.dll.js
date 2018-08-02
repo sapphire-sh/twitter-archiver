@@ -1,13 +1,13 @@
-import path from 'path';
+const path = require('path');
 
-import webpack from 'webpack';
+const webpack = require('webpack');
 
-import {
+const {
 	baseConfig,
 	dllPath,
-} from '../configs/webpack.config.base';
+} = require('../configs/webpack.config.base');
 
-export const dllConfig: webpack.Configuration = {
+module.exports = {
 	...baseConfig,
 	'entry': {
 		'react': [
@@ -26,7 +26,7 @@ export const dllConfig: webpack.Configuration = {
 		'library': '[name]',
 	},
 	'plugins': [
-		...baseConfig.plugins!,
+		...baseConfig.plugins,
 		new webpack.LoaderOptionsPlugin({
 			'minimize': true,
 		}),

@@ -1,16 +1,16 @@
-import path from 'path';
+const path = require('path');
 
-import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-import {
-	env,
+const {
 	baseConfig,
 	distPath,
 	dllPath,
-} from '../configs/webpack.config.base';
+	env,
+} = require('../configs/webpack.config.base');
 
-export const clientConfig: webpack.Configuration = {
+module.exports = {
 	...baseConfig,
 	'entry': path.resolve(__dirname, '../src/client', 'index.tsx'),
 	'output': {
@@ -76,7 +76,7 @@ export const clientConfig: webpack.Configuration = {
 		],
 	},
 	'plugins': [
-		...baseConfig.plugins!,
+		...baseConfig.plugins,
 		new ExtractTextPlugin('styles.css'),
 		new webpack.DllReferencePlugin({
 			'context': process.cwd(),

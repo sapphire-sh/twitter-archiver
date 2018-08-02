@@ -1,15 +1,12 @@
-import fs from 'fs';
+const fs = require('fs');
 
-import {
-	webpackCompile,
-} from './webpackCompiler';
+const compiler = require('./compiler');
 
-import {
+const {
 	dllPath,
-} from '../configs/webpack.config.base';
-import {
-	dllConfig,
-} from '../configs/webpack.config.dll';
+} = require('../configs/webpack.config.base');
+
+const config = require('../configs/webpack.config.dll');
 
 try {
 	fs.statSync(dllPath);
@@ -17,8 +14,8 @@ try {
 }
 catch(err) {
 	if(err.code === 'ENOENT') {
-		webpackCompile([
-			dllConfig,
+		compiler([
+			config,
 		]).then(() => {
 			console.log('done');
 		}).catch((err) => {

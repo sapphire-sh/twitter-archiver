@@ -1,16 +1,21 @@
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path');
 
-import webpack from 'webpack';
+const webpack = require('webpack');
 
-export const distPath = path.resolve(__dirname, '../dist');
-export const dllPath = path.resolve(__dirname, '../dll');
+const distPath = path.resolve(__dirname, '../dist');
+const dllPath = path.resolve(__dirname, '../dll');
 
-export const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
+const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
 const envPath = path.resolve(__dirname, '../.env');
 
-export const baseConfig: webpack.Configuration = {
+module.exports.distPath = distPath;
+module.exports.dllPath = dllPath;
+
+module.exports.env = env;
+
+module.exports.baseConfig = {
 	'devtool': '#source-map',
 	'resolve': {
 		'extensions': [
