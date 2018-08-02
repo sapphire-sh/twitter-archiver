@@ -12,6 +12,10 @@ import {
 	FooterComponent,
 } from '../../components';
 
+import {
+	Segment,
+} from 'semantic-ui-react';
+
 interface ComponentProps {
 	tweet: Tweet;
 }
@@ -29,35 +33,45 @@ export class TweetComponent extends React.Component<ComponentProps> {
 	}
 
 	public render() {
-		const tweet = this.props.tweet;
+		const {
+			tweet,
+		} = this.props;
+
+		const {
+			user,
+			text,
+			quoted_status,
+			retweet_count,
+			favorite_count,
+		} = tweet;
 
 		const entities = this.getEntities(tweet);
 
 		return (
 			<div className="tweet">
-				<ProfileComponent user={tweet.user} isRetweet={false} />
-				<div className="ui segments">
-					<div className="ui top attached segment">
-						<TextComponent text={tweet.text!} entities={entities} />
+				<ProfileComponent user={user} isRetweet={false} />
+				<Segment.Group>
+					<Segment>
+						<TextComponent text={text!} entities={entities} />
 						{(() => {
-							if(tweet.quoted_status === undefined) {
+							if(quoted_status === undefined) {
 								return null;
 							}
 							return (
-								<TweetComponent tweet={tweet.quoted_status} />
+								<TweetComponent tweet={quoted_status} />
 							);
 						})()}
-					</div>
+					</Segment>
 					<MediaComponent entities={entities} />
 					<CountComponent
 						counts={{
 							'reply': 0,
-							'retweet': (tweet as any).retweet_count,
-							'favorite': (tweet as any).favorite_count,
+							'retweet': retweet_count,
+							'favorite': favorite_count!,
 						}}
 					/>
 					<FooterComponent tweet={tweet} />
-				</div>
+				</Segment.Group>
 			</div>
 		);
 	}

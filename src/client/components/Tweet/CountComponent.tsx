@@ -1,5 +1,11 @@
 import React from 'react';
 
+import {
+	Segment,
+	Label,
+	Icon,
+} from 'semantic-ui-react';
+
 interface ComponentProps {
 	counts: {
 		reply: number;
@@ -11,23 +17,27 @@ interface ComponentProps {
 export class CountComponent extends React.Component<ComponentProps> {
 	public render() {
 		const {
+			counts,
+		} = this.props;
+
+		const {
 			retweet,
 			favorite,
-		} = this.props.counts;
+		} = counts;
 
 		if(retweet === 0 && favorite === 0) {
 			return null;
 		}
 
 		return (
-			<div className="ui attached segment">
-				<div className="ui label">
-					<i className="retweet icon" />{retweet}
-				</div>
-				<div className="ui label">
-					<i className="star icon" />{favorite}
-				</div>
-			</div>
+			<Segment>
+				<Label>
+					<Icon name="retweet" />{retweet}
+				</Label>
+				<Label>
+					<Icon name="star" />{favorite}
+				</Label>
+			</Segment>
 		);
 	}
 }

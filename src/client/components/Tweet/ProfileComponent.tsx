@@ -4,6 +4,10 @@ import {
 	User,
 } from '../../../shared/models';
 
+import {
+	Label,
+} from 'semantic-ui-react';
+
 interface ComponentProps {
 	user: User;
 	isRetweet: boolean;
@@ -11,22 +15,36 @@ interface ComponentProps {
 
 export class ProfileComponent extends React.Component<ComponentProps> {
 	public render() {
-		const user = this.props.user;
+		const {
+			user,
+			isRetweet,
+		} = this.props;
+
+		const {
+			screen_name,
+			name,
+			profile_image_url_https,
+			profile_link_color,
+		} = user;
 
 		return (
 			<a
-				className="ui ribbon image label"
-				style={{
-					'marginBottom': this.props.isRetweet ? '4px' : '',
-					'color': '#ffffff',
-					'backgroundColor': `#${user.profile_link_color}`,
-				}}
-				href={`https://twitter.com/${user.screen_name}`}
+				href={`https://twitter.com/${screen_name}`}
 				target="_blank"
 			>
-				<img src={user.profile_image_url_https} />
-				{user.name}
-				<div className="detail">@{user.screen_name}</div>
+				<Label
+					image={true}
+					ribbon={true}
+					style={{
+						'marginBottom': isRetweet ? '4px' : '',
+						'color': '#ffffff',
+						'backgroundColor': `#${profile_link_color}`,
+					}}
+				>
+					<img src={profile_image_url_https} />
+					{name}
+					<div className="detail">@{screen_name}</div>
+				</Label>
 			</a>
 		);
 	}

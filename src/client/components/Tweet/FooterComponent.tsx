@@ -8,19 +8,24 @@ import {
 	dateToString,
 } from '../../../shared/helpers';
 
+import {
+	Segment,
+} from 'semantic-ui-react';
+
 interface ComponentProps {
 	tweet: Tweet;
 }
 
 export class FooterComponent extends React.Component<ComponentProps> {
 	public render() {
-		const tweet = this.props.tweet;
+		const {
+			tweet,
+		} = this.props;
 
 		const tweetUrl = `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`;
 
 		return (
-			<div
-				className="ui bottom attached segment"
+			<Segment
 				style={{
 					'display': 'flex',
 					'justifyContent': 'space-between',
@@ -37,7 +42,7 @@ export class FooterComponent extends React.Component<ComponentProps> {
 						'__html': tweet.source!,
 					}}
 				/>
-			</div>
+			</Segment>
 		);
 	}
 }

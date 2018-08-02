@@ -4,6 +4,10 @@ import {
 	Tweet,
 } from '../../shared/models';
 
+import {
+	Segment,
+} from 'semantic-ui-react';
+
 interface ComponentProps {
 	isFetchingTweets: boolean;
 	tweets: Tweet[];
@@ -17,16 +21,9 @@ export class IndicatorComponent extends React.Component<ComponentProps> {
 		} = this.props;
 
 		if(tweets.length === 0) {
-			if(isFetchingTweets) {
-				return (
-					<div className="ui segment attached">loading...</div>
-				);
-			}
-			else {
-				return (
-					<div className="ui segment attached">none</div>
-				);
-			}
+			return (
+				<Segment>{isFetchingTweets ? 'loading...' : 'none'}</Segment>
+			);
 		}
 		else {
 			return null;

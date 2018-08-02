@@ -4,13 +4,20 @@ import {
 	Entities,
 } from '../../../shared/models';
 
+import {
+	Segment,
+	Image,
+} from 'semantic-ui-react';
+
 interface ComponentProps {
 	entities: Entities;
 }
 
 export class MediaComponent extends React.Component<ComponentProps> {
 	public render() {
-		const entities = this.props.entities;
+		const {
+			entities,
+		} = this.props;
 
 		if(entities === undefined) {
 			return null;
@@ -21,30 +28,30 @@ export class MediaComponent extends React.Component<ComponentProps> {
 		}
 
 		return (
-			<div
-				className="ui attached segment small images"
-				style={{
-					'display': 'flex',
-					'justifyContent': 'space-between',
-					'alignItems': 'center',
-					'flexWrap': 'wrap',
-				}}
-			>
-				{
-					entities.media.map((medium) => {
-						return (
-							<img
-								key={medium.id_str}
-								className="ui rounded image"
-								style={{
-									'margin': '0 auto',
-								}}
-								src={medium.media_url_https}
-							/>
-						);
-					})
-				}
-			</div>
+			<Segment>
+				<Image.Group
+					size="small"
+					style={{
+						'display': 'flex',
+						'justifyContent': 'space-between',
+						'alignItems': 'center',
+						'flexWrap': 'wrap',
+					}}
+				>
+				{entities.media.map((medium) => {
+					return (
+						<Image
+							key={medium.id_str}
+							style={{
+								'margin': '0 auto',
+							}}
+							src={medium.media_url_https}
+							rounded={true}
+						/>
+					);
+				})}
+				</Image.Group>
+			</Segment>
 		);
 	}
 }

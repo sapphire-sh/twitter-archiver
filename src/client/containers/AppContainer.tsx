@@ -39,6 +39,7 @@ import {
 } from '../components';
 
 import {
+	Container,
 	Grid,
 	Sticky,
 } from 'semantic-ui-react';
@@ -80,7 +81,7 @@ class AppComponent extends React.Component<ComponentProps, ComponentState> {
 		} = this.state;
 
 		return (
-			<div className="ui container">
+			<Container>
 				<Grid>
 					<Grid.Column width={4}>
 						{(() => {
@@ -103,7 +104,7 @@ class AppComponent extends React.Component<ComponentProps, ComponentState> {
 				</Grid>
 
 				<SocketContainer />
-			</div>
+			</Container>
 		);
 	}
 }

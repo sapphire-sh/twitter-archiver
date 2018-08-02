@@ -15,14 +15,21 @@ interface ComponentProps {
 
 export class RetweetComponent extends React.Component<ComponentProps> {
 	public render() {
-		const tweet = this.props.tweet;
+		const {
+			tweet,
+		} = this.props;
+
+		const {
+			user,
+			retweeted_status,
+		} = tweet;
 
 		return (
 			<div>
 				<div>
-					<ProfileComponent user={tweet.user} isRetweet={true} />
+					<ProfileComponent user={user} isRetweet={true} />
 				</div>
-				<TweetComponent tweet={tweet.retweeted_status!} />
+				<TweetComponent tweet={retweeted_status!} />
 			</div>
 		);
 	}

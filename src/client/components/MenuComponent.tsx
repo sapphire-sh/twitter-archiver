@@ -9,6 +9,10 @@ import {
 	fetchTweetsIfNeeded,
 } from '../actions';
 
+import {
+	Button,
+} from 'semantic-ui-react';
+
 interface ComponentProps {
 	invalidateTweets: typeof invalidateTweets;
 	fetchTweetsIfNeeded: typeof fetchTweetsIfNeeded;
@@ -78,7 +82,7 @@ export class MenuComponent extends React.Component<ComponentProps> {
 				<Menu.Item>
 					<Menu.Menu>
 						<Menu.Item name="refresh">
-							<div onClick={this.refreshTweets} className="ui attached button">refresh</div>
+							<Button onClick={this.refreshTweets}>refresh</Button>
 						</Menu.Item>
 					</Menu.Menu>
 				</Menu.Item>

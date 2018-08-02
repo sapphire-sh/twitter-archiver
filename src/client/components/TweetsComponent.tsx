@@ -14,6 +14,11 @@ import {
 	RetweetComponent,
 } from '../components';
 
+import {
+	Segment,
+	Button,
+} from 'semantic-ui-react';
+
 import '../styles/Tweets.css';
 
 interface ComponentProps {
@@ -47,44 +52,37 @@ export class TweetsComponent extends React.Component<ComponentProps> {
 	}
 
 	public render() {
-		const tweets = this.props.tweets;
+		const {
+			tweets,
+		} = this.props;
 
 		return (
 			<div>
-				<IndicatorComponent {...this.props} />
-				{
-					tweets.map((tweet) => {
-						let component;
-						if(tweet.retweeted_status === undefined) {
-							component = (
-								<TweetComponent tweet={tweet} />
-							);
-						}
-						else {
-							component = (
-								<RetweetComponent tweet={tweet} />
-							);
-						}
-
+				<Segment.Group>
+					<IndicatorComponent {...this.props} />
+					{tweets.map((tweet) => {
 						return (
-							<div key={tweet.id_str} className="ui segment attached">
-								{component}
-								<div
-									className="ui button"
-									onClick={this.handleUpdateHistory(tweet.id_str)}
-								>
+							<Segment key={tweet.id_str}>
+								{(() => {
+									if(tweet.retweeted_status === undefined) {
+										return (
+											<TweetComponent tweet={tweet} />
+										);
+									}
+									return (
+										<RetweetComponent tweet={tweet} />
+									);
+								})()}
+								<Button onClick={this.handleUpdateHistory(tweet.id_str)}>
 									{tweet.id_str}
-								</div>
-								<div
-									className="ui button"
-									onClick={this.handlePrintJSON(tweet)}
-								>
+								</Button>
+								<Button onClick={this.handlePrintJSON(tweet)}>
 									json
-								</div>
-							</div>
+								</Button>
+							</Segment>
 						);
-					})
-				}
+					})}
+				</Segment.Group>
 			</div>
 		);
 	}
