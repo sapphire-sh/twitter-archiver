@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 	
-import * as Express from 'express';
+import Express from 'express';
 
 import {
 	Tweet,

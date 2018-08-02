@@ -1,7 +1,7 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import fs from 'fs';
+import path from 'path';
 
-import * as webpack from 'webpack';
+import webpack from 'webpack';
 
 export const distPath = path.resolve(__dirname, '../dist');
 export const dllPath = path.resolve(__dirname, '../dll');
