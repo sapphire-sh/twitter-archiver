@@ -28,11 +28,8 @@ export const getTweets = createSelector([
 	return state.tweets;
 });
 
-export const getLastTweetID = createSelector([
-	getTweets,
-], (tweets) => {
-	if(tweets.length === 0) {
-		return null;
-	}
-	return tweets[tweets.length - 1].id_str;
+export const getLatestTweetID = createSelector([
+	getState,
+], (state) => {
+	return state.latestTweetID;
 });

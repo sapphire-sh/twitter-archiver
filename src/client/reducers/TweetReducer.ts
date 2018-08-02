@@ -11,12 +11,14 @@ export interface TweetState {
 	isFetching: boolean;
 	didInvalidate: boolean;
 	tweets: Tweet[];
+	latestTweetID: number;
 }
 
 const initialState: TweetState = {
 	'isFetching': false,
 	'didInvalidate': true,
 	'tweets': [],
+	'latestTweetID': -1,
 };
 
 export function tweet(state = initialState, action: TweetAction): TweetState {
@@ -38,6 +40,11 @@ export function tweet(state = initialState, action: TweetAction): TweetState {
 			'isFetching': false,
 			'didInvalidate': false,
 			'tweets': action.tweets,
+		};
+	case TweetKeys.UPDATE_LATEST_TWEET_ID:
+		return {
+			...state,
+			'latestTweetID': action.latestTweetID,
 		};
 	default:
 		return state;

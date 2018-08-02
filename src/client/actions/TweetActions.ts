@@ -4,9 +4,10 @@ import {
 
 import {
 	TweetKeys,
-	TweetInvalidateAction,
-	TweetRequestAction,
-	TweetReceiveAction,
+	InvalidateTweetAction,
+	RequestTweetsAction,
+	ReceiveTweetsAction,
+	UpdateLatestTweetID,
 } from './types/TweetActionTypes';
 
 import {
@@ -16,7 +17,7 @@ import {
 import {
 	getDidInvalidateTweets,
 	getIsFetchingTweets,
-	getLastTweetID,
+	getLatestTweetID,
 } from '../selectors';
 
 import {
@@ -28,32 +29,30 @@ import {
 	RequestType,
 } from '../../shared/helpers';
 
-export function invalidateTweets(): TweetInvalidateAction {
+export function invalidateTweets(): InvalidateTweetAction {
 	return {
 		'type': TweetKeys.INVALIDATE_TWEETS,
 	};
 }
 
-function requestTweets(): TweetRequestAction {
+function requestTweets(): RequestTweetsAction {
 	return {
 		'type': TweetKeys.REQUEST_TWEETS,
 	};
 }
 
-function receiveTweets(tweets: Tweet[]): TweetReceiveAction {
+function receiveTweets(tweets: Tweet[]): ReceiveTweetsAction {
 	return {
 		'type': TweetKeys.RECEIVE_TWEETS,
 		'tweets': tweets,
 	};
 }
 
-function fetchTweets(lastTweetID: string | null) {
+function fetchTweets() {
 	return (dispatch: Dispatch<any>) => {
 		dispatch(requestTweets());
 
-		sendRequest(RequestType.FETCH_TWEET, {
-			lastTweetID,
-		}).then((tweets: Tweet[]) => {
+		sendRequest(RequestType.FETCH_TWEET).then((tweets: Tweet[]) => {
 			dispatch(receiveTweets(tweets));
 		}).catch((err) => {
 			console.log(err);
@@ -73,9 +72,28 @@ export function fetchTweetsIfNeeded() {
 		const state = getState();
 
 		if(shouldFetchTweets(state)) {
-			const lastTweetID = getLastTweetID(state);
-
-			dispatch(fetchTweets(lastTweetID));
+			dispatch(fetchTweets());
 		}
 	};
+}
+
+function updateLatestTweetID(id: number): UpdateLatestTweetID {
+	return {
+		'type': TweetKeys.UPDATE_LATEST_TWEET_ID,
+		'latestTweetID': id,
+	};
+}
+
+function shouldUpdateLatestTweetID(state: State, id: number) {
+	return getLatestTweetID(state) !== id;
+}
+
+export function updateLatestTweetIDIfNeeded(id: number) {
+	return (dispatch: Dispatch<any>, getState: () => State) => {
+		const state = getState();
+
+		if(shouldUpdateLatestTweetID(state, id)) {
+			dispatch(updateLatestTweetID(id));
+		}
+	}
 }

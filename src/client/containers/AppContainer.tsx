@@ -5,6 +5,7 @@ import {
 	bindActionCreators,
 	AnyAction,
 } from 'redux';
+
 import {
 	connect,
 } from 'react-redux';
@@ -16,10 +17,6 @@ import {
 } from '../actions';
 
 import {
-	Tweet,
-} from '../../shared/models';
-
-import {
 	State,
 } from '../reducers';
 
@@ -27,6 +24,14 @@ import {
 	getIsFetchingTweets,
 	getTweets,
 } from '../selectors';
+
+import {
+	Tweet,
+} from '../../shared/models';
+
+import {
+	SocketContainer,
+} from '../containers';
 
 import {
 	MenuComponent,
@@ -96,6 +101,8 @@ class AppComponent extends React.Component<ComponentProps, ComponentState> {
 						</div>
 					</Grid.Column>
 				</Grid>
+
+				<SocketContainer />
 			</div>
 		);
 	}

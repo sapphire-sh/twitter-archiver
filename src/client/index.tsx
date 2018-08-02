@@ -5,6 +5,7 @@ import {
 import {
 	createStore,
 	applyMiddleware,
+	compose,
 } from 'redux';
 import {
 	Provider,
@@ -21,7 +22,10 @@ import {
 
 import './index.html';
 
-const store = createStore(reducers, applyMiddleware(thunk));
+const store = createStore(reducers, compose(...[
+	applyMiddleware(thunk),
+	__dev ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : undefined,
+],));
 
 const AppRouter = () => {
 	return (

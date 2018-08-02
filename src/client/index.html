@@ -4,15 +4,6 @@
 		<title>twitter-archiver</title>
 		<link rel="stylesheet" href="/styles.css" />
 		<script src="/socket.io/socket.io.js"></script>
-		<script>
-			const socket = io('https://archive.sapphire.sh');
-			socket.on('message', (message) => {
-				console.log(message);
-				socket.emit('message', {
-					'message': message,
-				});
-			});
-		</script>
 		<base target="_blank" />
 	</head>
 	<body>

@@ -22,6 +22,10 @@ export class Socket {
 				'message': 'connect',
 			});
 
+			socket.on('event', (event) => {
+				console.log(event.message);
+			});
+
 			socket.on('disconnect', () => {
 				delete this.sockets[socket.id];
 				console.log(`${socket.id} disconnected`);
@@ -29,7 +33,7 @@ export class Socket {
 		});
 	}
 
-	public static emit(message: string) {
+	public static emit(message: number | string) {
 		console.log(`message: ${message}`);
 		console.log(`socket count: ${this.sockets.length}`);
 		Object.values(this.sockets).forEach((socket) => {

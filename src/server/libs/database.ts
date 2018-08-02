@@ -108,9 +108,8 @@ export class Database {
 					'key': tweet.id_str,
 					'data': data,
 				});
-			}).then((rows) => {
-				console.log(rows);
-				Socket.emit(JSON.stringify(rows));
+			}).then((rows: number[]) => {
+				Socket.emit(rows[0]);
 			});
 		}).catch((err) => {
 			console.error(err);
