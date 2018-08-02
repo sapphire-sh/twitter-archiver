@@ -5,7 +5,7 @@
 		<link rel="stylesheet" href="/styles.css" />
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
-			const socket = io(window.location.href);
+			const socket = io('https://archive.sapphire.sh');
 			socket.on('message', (message) => {
 				console.log(message);
 				socket.emit('message', {

@@ -30,7 +30,11 @@ export class Socket {
 	}
 
 	public static emit(message: string) {
+		console.log(`message: ${message}`);
+		console.log(`socket count: ${this.sockets.length}`);
 		Object.values(this.sockets).forEach((socket) => {
+			console.log(`socket id: ${socket.id}`);
+
 			socket.emit('event', {
 				'message': message,
 			});
