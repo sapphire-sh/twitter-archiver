@@ -9,7 +9,7 @@ import {
 } from '../../shared/models';
 
 import {
-	IndicatorComponent,
+	PlaceholderComponent,
 	TweetComponent,
 	RetweetComponent,
 } from '../components';
@@ -59,7 +59,7 @@ export class TweetsComponent extends React.Component<ComponentProps> {
 		return (
 			<div>
 				<Segment.Group>
-					<IndicatorComponent {...this.props} />
+					<PlaceholderComponent {...this.props} />
 					{tweets.map((tweet) => {
 						return (
 							<Segment key={tweet.id_str}>

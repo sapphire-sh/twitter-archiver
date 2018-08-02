@@ -34,6 +34,7 @@ import {
 } from '../containers';
 
 import {
+	IndicatorComponent,
 	MenuComponent,
 	TweetsComponent,
 } from '../components';
@@ -81,30 +82,33 @@ class AppComponent extends React.Component<ComponentProps, ComponentState> {
 		} = this.state;
 
 		return (
-			<Container>
-				<Grid>
-					<Grid.Column width={4}>
-						{(() => {
-							if(contextRef === null) {
-								return null;
-							}
-							return (
-								<Sticky offset={40} context={contextRef}>
-									<MenuComponent {...this.props} />
-								</Sticky>
-							);
-						})()}
-					</Grid.Column>
+			<div>
+				<IndicatorComponent />
+				<Container>
+					<Grid>
+						<Grid.Column width={4}>
+							{(() => {
+								if(contextRef === null) {
+									return null;
+								}
+								return (
+									<Sticky offset={40} context={contextRef}>
+										<MenuComponent {...this.props} />
+									</Sticky>
+								);
+							})()}
+						</Grid.Column>
 
-					<Grid.Column width={12}>
-						<div ref={this.handleContextRef}>
-							<TweetsComponent {...this.props} />
-						</div>
-					</Grid.Column>
-				</Grid>
+						<Grid.Column width={12}>
+							<div ref={this.handleContextRef}>
+								<TweetsComponent {...this.props} />
+							</div>
+						</Grid.Column>
+					</Grid>
 
-				<SocketContainer />
-			</Container>
+					<SocketContainer />
+				</Container>
+			</div>
 		);
 	}
 }

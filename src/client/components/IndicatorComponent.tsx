@@ -1,32 +1,11 @@
 import React from 'react';
 
-import {
-	Tweet,
-} from '../../shared/models';
+import '../styles/Indicator.css';
 
-import {
-	Segment,
-} from 'semantic-ui-react';
-
-interface ComponentProps {
-	isFetchingTweets: boolean;
-	tweets: Tweet[];
-}
-
-export class IndicatorComponent extends React.Component<ComponentProps> {
+export class IndicatorComponent extends React.Component {
 	public render() {
-		const {
-			isFetchingTweets,
-			tweets,
-		} = this.props;
-
-		if(tweets.length === 0) {
-			return (
-				<Segment>{isFetchingTweets ? 'loading...' : 'none'}</Segment>
-			);
-		}
-		else {
-			return null;
-		}
+		return (
+			<div id="indicator" />
+		);
 	}
 }
