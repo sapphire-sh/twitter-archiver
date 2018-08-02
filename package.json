@@ -6,8 +6,8 @@
   "scripts": {
     "clean": "rm -rf ./dist ./coverage ./scripts/*.js ./configs/*.js",
     "clean:dll": "rm -rf ./dll",
-    "build:dll": "tsc ./scripts/dll_build.ts --lib dom,es6 && NODE_ENV=development node ./scripts/dll_build.js",
-    "prebuild": "npm run clean && tsc ./scripts/build.ts --lib dom,es6",
+    "build:dll": "tsc ./scripts/dll_build.ts --lib dom,es6 --allowSyntheticDefaultImports --esModuleInterop && NODE_ENV=development node ./scripts/dll_build.js",
+    "prebuild": "npm run clean && tsc ./scripts/build.ts --lib dom,es6 --allowSyntheticDefaultImports --esModuleInterop",
     "build": "( [[ -d ./dll ]] || npm run build:dll ) && node ./scripts/build.js",
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "prestart": "cross-env NODE_ENV=production npm run build",
