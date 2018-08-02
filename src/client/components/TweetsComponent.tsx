@@ -24,8 +24,22 @@ interface ComponentProps {
 }
 
 export class TweetsComponent extends React.Component<ComponentProps> {
-	private onClick(id: string) {
-		this.props.updateHistory(id);
+	constructor(props: ComponentProps) {
+		super(props);
+
+		this.handleUpdateHistory = this.handleUpdateHistory.bind(this);
+	}
+
+	private handleUpdateHistory(id: string) {
+		return () => {
+			this.props.updateHistory(id);
+		};
+	}
+
+	private handlePrintJSON(tweet: Tweet) {
+		return () => {
+			console.log(tweet);
+		};
 	}
 
 	public componentDidUpdate() {
@@ -54,13 +68,19 @@ export class TweetsComponent extends React.Component<ComponentProps> {
 
 						return (
 							<div key={tweet.id_str} className="ui segment attached">
-								{ component }
-								<div className="ui button" onClick={() => {
-									this.onClick(tweet.id_str);
-								}}>{tweet.id_str}</div>
-								<div className="ui button" onClick={() => {
-									console.log(tweet);
-								}}>json</div>
+								{component}
+								<div
+									className="ui button"
+									onClick={this.handleUpdateHistory(tweet.id_str)}
+								>
+									{tweet.id_str}
+								</div>
+								<div
+									className="ui button"
+									onClick={this.handlePrintJSON(tweet)}
+								>
+									json
+								</div>
 							</div>
 						);
 					})

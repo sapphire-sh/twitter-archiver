@@ -32,7 +32,7 @@ export class MenuComponent extends React.Component<ComponentProps> {
 
 	public render() {
 		return (
-			<Menu fluid vertical>
+			<Menu fluid={true} vertical={true}>
 				<Menu.Item>
 					<Menu.Header>Products</Menu.Header>
 

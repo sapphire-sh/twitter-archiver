@@ -35,10 +35,10 @@ export class TweetComponent extends React.Component<ComponentProps> {
 
 		return (
 			<div className="tweet">
-				<ProfileComponent user={tweet.user} isRetweet={ false } />
+				<ProfileComponent user={tweet.user} isRetweet={false} />
 				<div className="ui segments">
 					<div className="ui top attached segment">
-						<TextComponent text={tweet.text!} entities={ entities } />
+						<TextComponent text={tweet.text!} entities={entities} />
 						{(() => {
 							if(tweet.quoted_status === undefined) {
 								return null;
@@ -49,11 +49,13 @@ export class TweetComponent extends React.Component<ComponentProps> {
 						})()}
 					</div>
 					<MediaComponent entities={entities} />
-					<CountComponent counts={{
-						'reply': 0,
-						'retweet': (tweet as any).retweet_count,
-						'favorite': (tweet as any).favorite_count,
-					}} />
+					<CountComponent
+						counts={{
+							'reply': 0,
+							'retweet': (tweet as any).retweet_count,
+							'favorite': (tweet as any).favorite_count,
+						}}
+					/>
 					<FooterComponent tweet={tweet} />
 				</div>
 			</div>

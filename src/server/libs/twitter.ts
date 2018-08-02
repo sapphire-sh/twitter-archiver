@@ -74,12 +74,9 @@ export class Twitter {
 		});
 	}
 
-	private static _request(type: RequestType, url: string, params: Params) {
-		if(params === undefined) {
-			params = {};
-		}
-
+	private static _request(type: RequestType, url: string, params: Params = {}) {
 		let fn: (url: string, params: object, callback: Callback) => void;
+
 		switch(type) {
 		case RequestType.GET:
 			fn = this.twit.get;
@@ -103,7 +100,7 @@ export class Twitter {
 		});
 	}
 
-	private static get(url: string, params?: Params) {
+	private static get(url: string, params: Params = {}) {
 		if(params === undefined) {
 			params = {};
 		}
@@ -111,7 +108,7 @@ export class Twitter {
 		return this._request(RequestType.GET, url, params);
 	}
 
-	private static post(url: string, params: Params) {
+	private static post(url: string, params: Params = {}) {
 		return this._request(RequestType.POST, url, params);
 	}
 
@@ -132,22 +129,20 @@ export class Twitter {
 	}
 
 	public static setWebhook() {
-		this.twit.post('account_activity/all/dev/webhooks', {
+		this.post('account_activity/all/dev/webhooks', {
 			'url': 'https://archive.sapphire.sh/webhook',
-		}, (err, res) => {
-			if(err) {
-				console.log(err);
-			}
+		}).then((res) => {
 			console.log(res);
+		}).catch((err) => {
+			console.log(err);
 		});
 	}
 
 	public static subscribe() {
-		this.twit.post('account_activity/all/dev/subscriptions', {}, (err, res) => {
-			if(err) {
-				console.log(err);
-			}
+		this.post('account_activity/all/dev/subscriptions').then((res) => {
 			console.log(res);
+		}).catch((err) => {
+			console.log(err);
 		});
 	}
 }

@@ -14,14 +14,19 @@ export class ProfileComponent extends React.Component<ComponentProps> {
 		const user = this.props.user;
 
 		return (
-			<a style={{
-				'marginBottom': this.props.isRetweet ? '4px' : '',
-				'color': '#ffffff',
-				'backgroundColor': `#${user.profile_link_color}`,
-			}} href={ `https://twitter.com/${user.screen_name}` } target="_blank" className="ui ribbon image label">
-				<img src={ user.profile_image_url_https } />
-				{ user.name }
-				<div className="detail">@{ user.screen_name }</div>
+			<a
+				className="ui ribbon image label"
+				style={{
+					'marginBottom': this.props.isRetweet ? '4px' : '',
+					'color': '#ffffff',
+					'backgroundColor': `#${user.profile_link_color}`,
+				}}
+				href={`https://twitter.com/${user.screen_name}`}
+				target="_blank"
+			>
+				<img src={user.profile_image_url_https} />
+				{user.name}
+				<div className="detail">@{user.screen_name}</div>
 			</a>
 		);
 	}

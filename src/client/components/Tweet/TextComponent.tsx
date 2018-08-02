@@ -20,11 +20,13 @@ export class TextComponent extends React.Component<TextProps> {
 
 		return (
 			<div className="text">
-				<div dangerouslySetInnerHTML={{
-					'__html': twitter.autoLink(text, {
-						'urlEntities': entities.urls,
-					}).replace(/\n/g, '<br />'),
-				}} />
+				<div
+					dangerouslySetInnerHTML={{
+						'__html': twitter.autoLink(text, {
+							'urlEntities': entities.urls,
+						}).replace(/\n/g, '<br />'),
+					}}
+				/>
 			</div>
 		);
 	}

@@ -22,10 +22,10 @@ export class CountComponent extends React.Component<ComponentProps> {
 		return (
 			<div className="ui attached segment">
 				<div className="ui label">
-					<i className="retweet icon"></i>{retweet}
+					<i className="retweet icon" />{retweet}
 				</div>
 				<div className="ui label">
-					<i className="star icon"></i>{favorite}
+					<i className="star icon" />{favorite}
 				</div>
 			</div>
 		);
