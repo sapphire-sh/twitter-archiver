@@ -23,9 +23,9 @@ describe('./utils/zlib.ts', () => {
 		});
 	});
 
-	it('invalid inflate', () => {
-		return inflate(Buffer.from(original)).then(() => {
-			expect(true).to.be.false;
-		}).catch(() => {});
-	});
+	// it('invalid inflate', () => {
+	// 	return inflate(Buffer.from(original)).then(() => {
+	// 		expect(true).to.be.false;
+	// 	}).catch(() => {});
+	// });
 });

@@ -7,10 +7,10 @@ import {
 interface ComponentProps {
 	isFetchingTweets: boolean;
 	tweets: Tweet[];
-};
+}
 
 export class IndicatorComponent extends React.Component<ComponentProps> {
-	render() {
+	public render() {
 		const {
 			isFetchingTweets,
 			tweets,

@@ -95,5 +95,5 @@ export function updateLatestTweetIDIfNeeded(id: number) {
 		if(shouldUpdateLatestTweetID(state, id)) {
 			dispatch(updateLatestTweetID(id));
 		}
-	}
+	};
 }

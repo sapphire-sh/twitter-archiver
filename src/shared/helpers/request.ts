@@ -8,7 +8,7 @@ export enum RequestType {
 enum RequestMethod {
 	GET = 1,
 	POST,
-};
+}
 
 function getURL(requestType: RequestType): string {
 	switch(requestType) {

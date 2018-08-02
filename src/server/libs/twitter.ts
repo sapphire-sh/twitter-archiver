@@ -22,18 +22,18 @@ import {
 export interface OAuthToken extends AccessToken {
 	consumer_key: string;
 	consumer_secret: string;
-};
+}
 
 enum RequestType {
 	GET = 'GET',
 	POST = 'POST',
-};
+}
 
 export class Twitter {
 	private static twit: Twit;
 	private static stream: Stream;
 
-	static initialize(token: OAuthToken) {
+	public static initialize(token: OAuthToken) {
 		this.twit = new Twit(token);
 
 		this.stream = this.twit.stream('user', {
@@ -57,7 +57,7 @@ export class Twitter {
 		});
 	}
 
-	static fetchTimeline() {
+	public static fetchTimeline() {
 		return new Promise<Tweet[]>((resolve, reject) => {
 			this.twit.get('statuses/home_timeline', {
 				'count': 200,
@@ -74,9 +74,7 @@ export class Twitter {
 		});
 	}
 
-	static _request(type: RequestType, url: string, params: Params) {
-		let self = this;
-
+	private static _request(type: RequestType, url: string, params: Params) {
 		if(params === undefined) {
 			params = {};
 		}
@@ -84,10 +82,10 @@ export class Twitter {
 		let fn: (url: string, params: object, callback: Callback) => void;
 		switch(type) {
 		case RequestType.GET:
-			fn = self.twit.get;
+			fn = this.twit.get;
 			break;
 		case RequestType.POST:
-			fn = self.twit.post;
+			fn = this.twit.post;
 			break;
 		default:
 			return Promise.reject('invalid request type');
@@ -105,29 +103,23 @@ export class Twitter {
 		});
 	}
 
-	static get(url: string, params?: Params) {
-		let self = this;
-
+	private static get(url: string, params?: Params) {
 		if(params === undefined) {
 			params = {};
 		}
 
-		return self._request(RequestType.GET, url, params);
+		return this._request(RequestType.GET, url, params);
 	}
 
-	static post(url: string, params: Params) {
-		let self = this;
-
-		return self._request(RequestType.POST, url, params);
+	private static post(url: string, params: Params) {
+		return this._request(RequestType.POST, url, params);
 	}
 
-	static getCurrentUser() {
-		let self = this;
-
-		return self.get('account/verify_credentials', {});
+	public static getCurrentUser() {
+		return this.get('account/verify_credentials', {});
 	}
 
-	static getWebhookList() {
+	public static getWebhookList() {
 		return new Promise((resolve, reject) => {
 			this.twit.get('account_activity/all/webhooks', {}, (err, res) => {
 				if(err) {
@@ -139,7 +131,7 @@ export class Twitter {
 		});
 	}
 
-	static setWebhook() {
+	public static setWebhook() {
 		this.twit.post('account_activity/all/dev/webhooks', {
 			'url': 'https://archive.sapphire.sh/webhook',
 		}, (err, res) => {
@@ -150,7 +142,7 @@ export class Twitter {
 		});
 	}
 
-	static subscribe() {
+	public static subscribe() {
 		this.twit.post('account_activity/all/dev/subscriptions', {}, (err, res) => {
 			if(err) {
 				console.log(err);

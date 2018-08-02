@@ -13,7 +13,7 @@ interface ComponentProps {
 }
 
 export class FooterComponent extends React.Component<ComponentProps> {
-	render() {
+	public render() {
 		const tweet = this.props.tweet;
 
 		const tweetUrl = `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`;

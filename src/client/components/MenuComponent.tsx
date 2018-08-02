@@ -2,7 +2,7 @@ import React from 'react';
 
 import {
 	Menu,
-} from 'semantic-ui-react'
+} from 'semantic-ui-react';
 
 import {
 	invalidateTweets,
@@ -21,28 +21,24 @@ export class MenuComponent extends React.Component<ComponentProps> {
 		this.refreshTweets = this.refreshTweets.bind(this);
 	}
 
-	componentWillMount() {
-		this.refreshTweets();
-	}
-
 	private refreshTweets() {
 		this.props.invalidateTweets();
 		this.props.fetchTweetsIfNeeded();
 	}
 
-	render() {
+	public componentWillMount() {
+		this.refreshTweets();
+	}
+
+	public render() {
 		return (
 			<Menu fluid vertical>
 				<Menu.Item>
 					<Menu.Header>Products</Menu.Header>
 
 					<Menu.Menu>
-						<Menu.Item
-							name='enterprise'
-						/>
-						<Menu.Item
-							name='consumer'
-						/>
+						<Menu.Item name="enterprise" />
+						<Menu.Item name="consumer" />
 					</Menu.Menu>
 				</Menu.Item>
 
@@ -50,13 +46,9 @@ export class MenuComponent extends React.Component<ComponentProps> {
 					<Menu.Header>CMS Solutions</Menu.Header>
 
 					<Menu.Menu>
-						<Menu.Item
-							name='rails'
-						/>
-						<Menu.Item
-							name='python'
-						/>
-						<Menu.Item name='php' />
+						<Menu.Item name="rails" />
+						<Menu.Item name="python" />
+						<Menu.Item name="php" />
 					</Menu.Menu>
 				</Menu.Item>
 
@@ -64,12 +56,8 @@ export class MenuComponent extends React.Component<ComponentProps> {
 					<Menu.Header>Hosting</Menu.Header>
 
 					<Menu.Menu>
-						<Menu.Item
-							name='shared'
-						/>
-						<Menu.Item
-							name='dedicated'
-						/>
+						<Menu.Item name="shared" />
+						<Menu.Item name="dedicated" />
 					</Menu.Menu>
 				</Menu.Item>
 
@@ -77,16 +65,16 @@ export class MenuComponent extends React.Component<ComponentProps> {
 					<Menu.Header>Support</Menu.Header>
 
 					<Menu.Menu>
-						<Menu.Item name='email'>
+						<Menu.Item name="email">
 							E-mail Support
-					</Menu.Item>
+						</Menu.Item>
 
-						<Menu.Item name='faq'>
+						<Menu.Item name="faq">
 							FAQs
-					</Menu.Item>
+						</Menu.Item>
 					</Menu.Menu>
 				</Menu.Item>
-				
+
 				<Menu.Item>
 					<Menu.Menu>
 						<Menu.Item name="refresh">

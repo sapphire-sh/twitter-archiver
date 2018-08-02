@@ -21,18 +21,18 @@ interface ComponentProps {
 	tweets: Tweet[];
 
 	updateHistory: typeof updateHistory;
-};
+}
 
 export class TweetsComponent extends React.Component<ComponentProps> {
 	private onClick(id: string) {
 		this.props.updateHistory(id);
 	}
 
-	componentDidUpdate() {
+	public componentDidUpdate() {
 		window.scrollTo(0, 0);
 	}
 
-	render() {
+	public render() {
 		const tweets = this.props.tweets;
 
 		return (

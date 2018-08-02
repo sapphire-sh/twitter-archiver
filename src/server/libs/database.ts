@@ -40,7 +40,7 @@ knex.schema.hasTable('tweets').then((exists) => {
 
 		table.timestamps(true, true);
 	});
-})
+});
 
 knex.schema.hasTable('history').then((exists) => {
 	if(exists) {
@@ -145,9 +145,9 @@ export class Database {
 
 	public static getHistory() {
 		return new Promise<string>((resolve, reject) => {
-			return this.knex('history').orderBy('id', 'desc').limit(1).then((rows: {
+			return this.knex('history').orderBy('id', 'desc').limit(1).then((rows: Array<{
 				key: string;
-			}[]) => {
+			}>) => {
 				if(rows.length === 0) {
 					resolve('1');
 				}
@@ -157,6 +157,6 @@ export class Database {
 			}).catch((err) => {
 				reject(err);
 			});
-		})
+		});
 	}
 }

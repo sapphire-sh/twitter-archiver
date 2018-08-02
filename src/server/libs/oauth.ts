@@ -5,23 +5,21 @@ import {
 export interface RequestToken {
 	oauth_token: string;
 	oauth_token_secret: string;
-};
+}
 
 export interface AccessToken {
 	access_token: string;
 	access_token_secret: string;
-};
+}
 
 export class OAuth {
-	static oauth_token: string;
-	static oauth_token_secret: string;
+	private static oauth_token: string;
+	private static oauth_token_secret: string;
 
 	private static oauth: _OAuth;
 
-	static initialize(consumer_key: string, consumer_secret: string) {
-		let self = this;
-
-		self.oauth = new _OAuth(
+	public static initialize(consumer_key: string, consumer_secret: string) {
+		this.oauth = new _OAuth(
 			'https://api.twitter.com/oauth/request_token',
 			'https://api.twitter.com/oauth/access_token',
 			consumer_key,
@@ -32,18 +30,16 @@ export class OAuth {
 		);
 	}
 
-	static getRequestToken(): Promise<RequestToken> {
-		let self = this;
-
+	public static getRequestToken(): Promise<RequestToken> {
 		return new Promise((resolve, reject) => {
-			self.oauth.getOAuthRequestToken((err, oauth_token, oauth_token_secret) => {
+			this.oauth.getOAuthRequestToken((err, oauth_token, oauth_token_secret) => {
 				/* istanbul ignore if */
 				if(err) {
 					reject(err);
 				}
 				else {
-					self.oauth_token = oauth_token;
-					self.oauth_token_secret = oauth_token_secret;
+					this.oauth_token = oauth_token;
+					this.oauth_token_secret = oauth_token_secret;
 
 					resolve({
 						'oauth_token': oauth_token,
@@ -54,15 +50,13 @@ export class OAuth {
 		});
 	}
 
-	static getAccessToken(token: {
+	public static getAccessToken(token: {
 		oauth_verifier: string,
 	}): Promise<AccessToken> {
-		let self = this;
-
 		const oauth_verifier = token.oauth_verifier;
 
 		return new Promise((resolve, reject) => {
-			self.oauth.getOAuthAccessToken(self.oauth_token, self.oauth_token_secret, oauth_verifier, (err, access_token, access_token_secret) => {
+			this.oauth.getOAuthAccessToken(this.oauth_token, this.oauth_token_secret, oauth_verifier, (err, access_token, access_token_secret) => {
 				/* istanbul ignore if */
 				if(err) {
 					reject(err);
@@ -76,4 +70,4 @@ export class OAuth {
 			});
 		});
 	}
-};
+}

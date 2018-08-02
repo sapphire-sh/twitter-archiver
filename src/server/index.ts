@@ -16,7 +16,7 @@ const token = {
 	'access_token_secret': __env.access_token_secret,
 };
 
-const port = __env.PORT === undefined ? 8015 : parseInt(__env.PORT!);
+const port = __env.PORT === undefined ? 8015 : parseInt(__env.PORT!, 10);
 
 const app = new Server(port);
 

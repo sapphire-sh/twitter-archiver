@@ -14,10 +14,10 @@ import {
 
 interface ComponentProps {
 	tweet: Tweet;
-};
+}
 
 export class TweetComponent extends React.Component<ComponentProps> {
-	getEntities(tweet: Tweet) {
+	private getEntities(tweet: Tweet) {
 		const extendedTweet = (tweet as any).extended_tweet;
 		if(extendedTweet !== undefined) {
 			tweet.text = extendedTweet.full_text;
@@ -28,7 +28,7 @@ export class TweetComponent extends React.Component<ComponentProps> {
 		return Object.assign({}, tweet.entities, (tweet as any).extended_entities);
 	}
 
-	render() {
+	public render() {
 		const tweet = this.props.tweet;
 
 		const entities = this.getEntities(tweet);

@@ -67,14 +67,14 @@ class AppComponent extends React.Component<ComponentProps, ComponentState> {
 			'contextRef': null,
 		};
 	}
-	
-	handleContextRef = (contextRef: HTMLDivElement) => {
+
+	private handleContextRef = (contextRef: HTMLDivElement) => {
 		this.setState({
 			'contextRef': contextRef,
 		});
 	}
 
-	render() {
+	public render() {
 		const {
 			contextRef,
 		} = this.state;

@@ -10,7 +10,7 @@ export class Socket {
 	};
 
 	public static initialize(server: http.Server) {
-		this.io = SocketIO(server);	
+		this.io = SocketIO(server);
 
 		this.sockets = {};
 

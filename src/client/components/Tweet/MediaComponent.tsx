@@ -6,10 +6,10 @@ import {
 
 interface ComponentProps {
 	entities: Entities;
-};
+}
 
 export class MediaComponent extends React.Component<ComponentProps> {
-	render() {
+	public render() {
 		const entities = this.props.entities;
 
 		if(entities === undefined) {

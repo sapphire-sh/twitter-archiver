@@ -23,7 +23,7 @@ interface ComponentProps {
 }
 
 class SocketComponent extends React.Component<ComponentProps> {
-	componentDidMount() {
+	public componentDidMount() {
 		const socket = io('https://archive.sapphire.sh');
 		socket.on('event', (event) => {
 			console.log(event);
@@ -33,7 +33,7 @@ class SocketComponent extends React.Component<ComponentProps> {
 		});
 	}
 
-	render() {
+	public render() {
 		return null;
 	}
 }

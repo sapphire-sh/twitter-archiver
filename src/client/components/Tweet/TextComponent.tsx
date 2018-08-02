@@ -9,10 +9,10 @@ import {
 interface TextProps {
 	text: string;
 	entities: Entities;
-};
+}
 
 export class TextComponent extends React.Component<TextProps> {
-	render() {
+	public render() {
 		const {
 			text,
 			entities,

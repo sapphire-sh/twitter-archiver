@@ -19,10 +19,12 @@ router.get('/', (req, res) => {
 	});
 });
 
-function validateOAuthToken({
-	oauth_token,
-	oauth_token_secret,
-}: RequestToken, oauth_verifier: string) {
+function validateOAuthToken(requestToken: RequestToken, oauth_verifier: string) {
+	const {
+		oauth_token,
+		oauth_token_secret,
+	} = requestToken;
+
 	if(oauth_token === undefined) {
 		return false;
 	}

@@ -43,5 +43,5 @@ export function updateHistory(id: string) {
 		}).catch((err) => {
 			console.log(err);
 		});
-	}
+	};
 }

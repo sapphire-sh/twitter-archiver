@@ -7,7 +7,7 @@
     "clean": "rm -rf ./dist ./coverage",
     "clean:dll": "rm -rf ./dll",
     "build:dll": "NODE_ENV=development node ./scripts/build_dll.js",
-    "prebuild": "npm run clean",
+    "prebuild": "npm run clean && npm run lint",
     "build": "( [[ -d ./dll ]] || npm run build:dll ) && node ./scripts/build.js",
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "prestart": "cross-env NODE_ENV=production npm run build",
@@ -17,6 +17,7 @@
     "start:dev": "concurrently \"npm run start:dev:client\" \"npm run start:dev:server\"",
     "stop": "pm2 stop ./app.json",
     "test": "npm run clean && jest --no-cache",
+    "lint": "tslint -p ./tsconfig.json",
     "coverage": "npm run clean && jest --coverage --no-cache",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls"
   },

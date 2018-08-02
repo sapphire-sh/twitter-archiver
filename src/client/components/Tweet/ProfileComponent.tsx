@@ -7,10 +7,10 @@ import {
 interface ComponentProps {
 	user: User;
 	isRetweet: boolean;
-};
+}
 
 export class ProfileComponent extends React.Component<ComponentProps> {
-	render() {
+	public render() {
 		const user = this.props.user;
 
 		return (

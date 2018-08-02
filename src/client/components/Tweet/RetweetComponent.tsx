@@ -11,10 +11,10 @@ import {
 
 interface ComponentProps {
 	tweet: Tweet;
-};
+}
 
 export class RetweetComponent extends React.Component<ComponentProps> {
-	render() {
+	public render() {
 		const tweet = this.props.tweet;
 
 		return (

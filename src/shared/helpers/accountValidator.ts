@@ -27,4 +27,4 @@ export function accountValidator(req: Request, res: Response, next: NextFunction
 	else {
 		res.redirect('/auth');
 	}
-};
+}

@@ -9,7 +9,7 @@ interface ComponentProps {
 }
 
 export class CountComponent extends React.Component<ComponentProps> {
-	render() {
+	public render() {
 		const {
 			retweet,
 			favorite,
