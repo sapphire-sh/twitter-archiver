@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-	updateHistory,
+	updateHistoryIfNeeded,
 } from '../actions';
 
 import {
@@ -25,7 +25,7 @@ interface ComponentProps {
 	isFetchingTweets: boolean;
 	tweets: Tweet[];
 
-	updateHistory: typeof updateHistory;
+	updateHistoryIfNeeded: typeof updateHistoryIfNeeded;
 }
 
 export class TweetsComponent extends React.Component<ComponentProps> {
@@ -37,7 +37,7 @@ export class TweetsComponent extends React.Component<ComponentProps> {
 
 	private handleUpdateHistory(id: string) {
 		return () => {
-			this.props.updateHistory(id);
+			this.props.updateHistoryIfNeeded(id);
 		};
 	}
 

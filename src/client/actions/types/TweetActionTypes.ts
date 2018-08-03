@@ -28,7 +28,7 @@ export interface ReceiveTweetsAction extends Action {
 
 export interface UpdateLatestTweetID extends Action {
 	type: TweetKeys.UPDATE_LATEST_TWEET_ID;
-	latestTweetID: number;
+	latestTweetID: string;
 }
 
 export type TweetAction = (

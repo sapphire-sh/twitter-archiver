@@ -14,6 +14,14 @@ import {
 } from '../actions';
 
 import {
+	State,
+} from '../reducers';
+
+import {
+	getHistoryID,
+} from '../selectors';
+
+import {
 	sendRequest,
 	RequestType,
 } from '../../shared/helpers';
@@ -24,24 +32,39 @@ function requestHistoryUpdate(): HistoryUpdateRequestAction {
 	};
 }
 
-function receiveHistoryUpdate(): HistoryUpdateReceiveAction {
+function receiveHistoryUpdate(id: string): HistoryUpdateReceiveAction {
 	return {
 		'type': HistoryKeys.RECEIVE_UPDATE_HISTORY,
+		'historyID': id,
 	};
 }
 
-export function updateHistory(id: string) {
+function updateHistory(id: string) {
 	return (dispatch: Dispatch<any>) => {
 		dispatch(requestHistoryUpdate());
 
 		sendRequest(RequestType.UPDATE_HISTORY, {
 			'id': id,
 		}).then((res) => {
-			dispatch(receiveHistoryUpdate());
+			dispatch(receiveHistoryUpdate(id));
 			dispatch(invalidateTweets());
 			dispatch(fetchTweetsIfNeeded());
 		}).catch((err) => {
 			console.log(err);
 		});
+	};
+}
+
+function shouldUpdateHistory(state: State, id: string) {
+	return getHistoryID(state) !== id;
+}
+
+export function updateHistoryIfNeeded(id: string) {
+	return (dispatch: Dispatch<any>, getState: () => State) => {
+		const state = getState();
+
+		if(shouldUpdateHistory(state, id)) {
+			dispatch(updateHistory(id));
+		}
 	};
 }

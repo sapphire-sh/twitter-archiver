@@ -3,14 +3,21 @@ import {
 } from 'redux';
 
 import {
+	history,
+	HistoryState,
+} from './HistoryReducer';
+
+import {
 	tweet,
 	TweetState,
 } from './TweetReducer';
 
 export interface State {
-	tweet: TweetState;
+	historyState: HistoryState;
+	tweetState: TweetState;
 }
 
 export const reducers = combineReducers<State>({
-	'tweet': tweet,
+	'historyState': history,
+	'tweetState': tweet,
 });

@@ -5,5 +5,5 @@ export enum SocketEventType {
 
 export interface SocketEvent {
 	type: SocketEventType;
-	message: number | string;
+	message: string;
 }

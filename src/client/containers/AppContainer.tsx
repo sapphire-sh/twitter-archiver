@@ -13,7 +13,7 @@ import {
 import {
 	invalidateTweets,
 	fetchTweetsIfNeeded,
-	updateHistory,
+	updateHistoryIfNeeded,
 } from '../actions';
 
 import {
@@ -54,7 +54,7 @@ interface ComponentProps {
 
 	invalidateTweets: typeof invalidateTweets;
 	fetchTweetsIfNeeded: typeof fetchTweetsIfNeeded;
-	updateHistory: typeof updateHistory;
+	updateHistoryIfNeeded: typeof updateHistoryIfNeeded;
 }
 
 class AppComponent extends React.Component<ComponentProps> {
@@ -91,7 +91,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>) {
 	return bindActionCreators({
 		invalidateTweets,
 		fetchTweetsIfNeeded,
-		updateHistory,
+		updateHistoryIfNeeded,
 	}, dispatch);
 }
 

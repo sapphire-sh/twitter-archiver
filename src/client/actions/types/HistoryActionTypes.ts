@@ -13,6 +13,7 @@ export interface HistoryUpdateRequestAction extends Action {
 
 export interface HistoryUpdateReceiveAction extends Action {
 	type: HistoryKeys.RECEIVE_UPDATE_HISTORY;
+	historyID: string;
 }
 
 export type HistoryAction = (

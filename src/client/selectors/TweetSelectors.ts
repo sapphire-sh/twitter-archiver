@@ -7,7 +7,7 @@ import {
 } from '../reducers';
 
 const getState = (state: State) => {
-	return state.tweet;
+	return state.tweetState;
 };
 
 export const getDidInvalidateTweets = createSelector([

@@ -77,23 +77,24 @@ export function fetchTweetsIfNeeded() {
 	};
 }
 
-function updateLatestTweetID(id: number): UpdateLatestTweetID {
+function updateLatestTweetID(id: string): UpdateLatestTweetID {
 	return {
 		'type': TweetKeys.UPDATE_LATEST_TWEET_ID,
 		'latestTweetID': id,
 	};
 }
 
-function shouldUpdateLatestTweetID(state: State, id: number) {
+function shouldUpdateLatestTweetID(state: State, id: string) {
 	return getLatestTweetID(state) !== id;
 }
 
-export function updateLatestTweetIDIfNeeded(id: number) {
+export function updateLatestTweetIDIfNeeded(id: string) {
 	return (dispatch: Dispatch<any>, getState: () => State) => {
 		const state = getState();
 
 		if(shouldUpdateLatestTweetID(state, id)) {
 			dispatch(updateLatestTweetID(id));
+			dispatch(fetchTweetsIfNeeded());
 		}
 	};
 }
