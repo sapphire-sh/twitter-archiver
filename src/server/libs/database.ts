@@ -69,9 +69,8 @@ export class Database {
 
 				const tweet = Database.queue.shift();
 
-				console.log(prevCount + ' ' + currCount);
 				if(prevCount !== currCount) {
-					Socket.emit(SocketEventType.QUEUE_COUNT, `${currCount}`);
+					// Socket.emit(SocketEventType.QUEUE_COUNT, `${currCount}`);
 				}
 				prevCount = currCount;
 
@@ -107,7 +106,7 @@ export class Database {
 	}
 
 	public static addQueue(tweet: Tweet) {
-		this.queue.push(tweet);
+		this.queue.unshift(tweet);
 	}
 
 	private static insertTweet(tweet: Tweet) {
