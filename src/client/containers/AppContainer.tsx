@@ -24,6 +24,7 @@ import {
 	getIsFetchingTweets,
 	getTweets,
 	getHistoryID,
+	getQueueCount,
 	getIsSocketConnected,
 } from '../selectors';
 
@@ -54,6 +55,7 @@ interface ComponentProps {
 	isFetchingTweets: boolean;
 	tweets: Tweet[];
 	historyID: string;
+	queueCount: number;
 	isSocketConnected: boolean;
 
 	invalidateTweets: typeof invalidateTweets;
@@ -89,6 +91,7 @@ function mapStateToProps(state: State) {
 		'tweets': getTweets(state),
 		'isFetchingTweets': getIsFetchingTweets(state),
 		'historyID': getHistoryID(state),
+		'queueCount': getQueueCount(state),
 		'isSocketConnected': getIsSocketConnected(state),
 	};
 }

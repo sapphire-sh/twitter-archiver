@@ -16,6 +16,8 @@ import {
 import '../styles/Menu.scss';
 
 interface ComponentProps {
+	queueCount: number;
+
 	invalidateTweets: typeof invalidateTweets;
 	fetchTweetsIfNeeded: typeof fetchTweetsIfNeeded;
 }
@@ -76,6 +78,10 @@ export class MenuComponent extends React.Component<ComponentProps, ComponentStat
 	}
 
 	public render() {
+		const {
+			queueCount,
+		} = this.props;
+
 		return (
 			<Menu
 				id="menu"
@@ -113,11 +119,11 @@ export class MenuComponent extends React.Component<ComponentProps, ComponentStat
 				</Menu.Item>
 
 				<Menu.Item>
-					<Menu.Header>Support</Menu.Header>
+					<Menu.Header>Stats</Menu.Header>
 
 					<Menu.Menu>
-						<Menu.Item name="email">
-							E-mail Support
+						<Menu.Item name="queue-count">
+							queue count: {queueCount}
 						</Menu.Item>
 
 						<Menu.Item name="faq">

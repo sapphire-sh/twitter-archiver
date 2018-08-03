@@ -13,6 +13,7 @@ import {
 import {
 	updateLatestTweetIDIfNeeded,
 	updateHistoryIfNeeded,
+	updateQueueCount,
 	socketConnected,
 	socketDisconnected,
 } from '../actions';
@@ -29,6 +30,7 @@ import {
 interface ComponentProps {
 	updateLatestTweetIDIfNeeded: typeof updateLatestTweetIDIfNeeded;
 	updateHistoryIfNeeded: typeof updateHistoryIfNeeded;
+	updateQueueCount: typeof updateQueueCount;
 	socketConnected: typeof socketConnected;
 	socketDisconnected: typeof socketDisconnected;
 }
@@ -71,6 +73,9 @@ class SocketComponent extends React.Component<ComponentProps, ComponentState> {
 		case SocketEventType.UPDATE_HISTORY:
 			this.props.updateHistoryIfNeeded(message);
 			break;
+		case SocketEventType.QUEUE_COUNT:
+			this.props.updateQueueCount(parseInt(message, 10));
+			break;
 		}
 	}
 
@@ -111,6 +116,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>) {
 	return bindActionCreators({
 		'updateLatestTweetIDIfNeeded': updateLatestTweetIDIfNeeded,
 		'updateHistoryIfNeeded': updateHistoryIfNeeded,
+		'updateQueueCount': updateQueueCount,
 		'socketConnected': socketConnected,
 		'socketDisconnected': socketDisconnected,
 	}, dispatch);
