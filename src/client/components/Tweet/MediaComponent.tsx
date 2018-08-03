@@ -10,12 +10,14 @@ import {
 } from 'semantic-ui-react';
 
 interface ComponentProps {
+	id: string;
 	entities: Entities;
 }
 
 export class MediaComponent extends React.Component<ComponentProps> {
 	public render() {
 		const {
+			id,
 			entities,
 		} = this.props;
 
@@ -39,16 +41,30 @@ export class MediaComponent extends React.Component<ComponentProps> {
 					}}
 				>
 				{entities.media.map((medium) => {
-					return (
-						<Image
-							key={medium.id_str}
-							style={{
-								'margin': '0 auto',
-							}}
-							src={medium.media_url_https}
-							rounded={true}
-						/>
-					);
+					switch(medium.type) {
+					case 'video':
+						return (
+							<iframe
+								key={medium.id_str}
+								style={{
+									'margin': '0 auto',
+								}}
+								src={`https://twitter.com/i/videos/${id}`}
+							/>
+						);
+					case 'photo':
+					default:
+						return (
+							<Image
+								key={medium.id_str}
+								style={{
+									'margin': '0 auto',
+								}}
+								src={medium.media_url_https}
+								rounded={true}
+							/>
+						);
+					}
 				})}
 				</Image.Group>
 			</Segment>

@@ -35,17 +35,18 @@ export class TweetComponent extends React.Component<ComponentProps> {
 
 	private getEntities(tweet: Tweet) {
 		const extendedTweet = this.getExtendedTweet(tweet);
-		if(extendedTweet === undefined) {
-			if((tweet as any).extended_entities === undefined) {
-				return tweet.entities;
+
+		if(extendedTweet !== undefined) {
+			if(extendedTweet.extended_entities !== undefined) {
+				return extendedTweet.extended_entities;
 			}
-			return (tweet as any).extended_entities;
+			return extendedTweet.entities;
 		}
 		else {
-			if(extendedTweet.extended_entities === undefined) {
-				return tweet.entities;
+			if((tweet as any).extended_entities !== undefined) {
+				return (tweet as any).extended_entities;
 			}
-			return extendedTweet.extended_entities;
+			return tweet.entities;
 		}
 	}
 
@@ -69,7 +70,7 @@ export class TweetComponent extends React.Component<ComponentProps> {
 				<ProfileComponent user={user} isRetweet={false} />
 				<Segment.Group>
 					<Segment>
-						<TextComponent text={text!} entities={entities} />
+						<TextComponent text={text} entities={entities} />
 						{(() => {
 							if(quoted_status === undefined) {
 								return null;
@@ -79,7 +80,10 @@ export class TweetComponent extends React.Component<ComponentProps> {
 							);
 						})()}
 					</Segment>
-					<MediaComponent entities={entities} />
+					<MediaComponent
+						id={tweet.id_str}
+						entities={entities}
+					/>
 					<CountComponent
 						counts={{
 							'reply': 0,
