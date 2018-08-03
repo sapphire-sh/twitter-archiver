@@ -63,14 +63,15 @@ export class Database {
 	public static initialize() {
 		Promise.resolve(0).then(function loop(prevCount) {
 			return Promise.resolve().then(() => {
+				const currCount = Database.queue.length;
+				console.log(prevCount + ' ' + currCount);
+				if(prevCount !== currCount) {
+					Socket.emit(SocketEventType.QUEUE_COUNT, `${currCount}`);
+				}
+
 				const tweet = Database.queue.shift();
 				if(tweet !== undefined) {
 					return Database.insertTweet(tweet);
-				}
-
-				const currCount = Database.queue.length;
-				if(prevCount !== currCount) {
-					Socket.emit(SocketEventType.QUEUE_COUNT, `${currCount}`);
 				}
 
 				return Promise.resolve();
