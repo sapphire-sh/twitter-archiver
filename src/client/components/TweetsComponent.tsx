@@ -19,7 +19,7 @@ import {
 	Button,
 } from 'semantic-ui-react';
 
-import '../styles/Tweets.css';
+import '../styles/Tweets.scss';
 
 interface ComponentProps {
 	isFetchingTweets: boolean;

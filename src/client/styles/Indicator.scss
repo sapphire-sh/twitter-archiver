@@ -7,14 +7,14 @@
 	background: linear-gradient(to left, #87ceeb 5%, #4db4fd 10%, #87ceeb 15%);
 	background-size: 200% 100%;
 	animation: indicator_transition 4.0s linear 0s infinite;
-}
 
-@keyframes indicator_transition {
-	from {
-		background-position: 200% 0%;
-	}
+	@keyframes indicator_transition {
+		from {
+			background-position: 200% 0%;
+		}
 
-	to {
-		background-position: 0% 0%;
+		to {
+			background-position: 0% 0%;
+		}
 	}
 }

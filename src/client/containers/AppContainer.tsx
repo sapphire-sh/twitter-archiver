@@ -46,7 +46,7 @@ import {
 
 import 'semantic-ui-css/semantic.min.css';
 
-import '../styles/App.css';
+import '../styles/App.scss';
 
 interface ComponentProps {
 	isFetchingTweets: boolean;

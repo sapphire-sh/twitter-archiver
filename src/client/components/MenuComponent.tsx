@@ -13,7 +13,7 @@ import {
 	Button,
 } from 'semantic-ui-react';
 
-import '../styles/Menu.css';
+import '../styles/Menu.scss';
 
 interface ComponentProps {
 	invalidateTweets: typeof invalidateTweets;
