@@ -10,13 +10,11 @@ import {
 
 import {
 	PlaceholderComponent,
-	TweetComponent,
-	RetweetComponent,
+	TweetSegmentComponent,
 } from '../components';
 
 import {
 	Segment,
-	Button,
 } from 'semantic-ui-react';
 
 import '../styles/Tweets.scss';
@@ -24,58 +22,27 @@ import '../styles/Tweets.scss';
 interface ComponentProps {
 	isFetchingTweets: boolean;
 	tweets: Tweet[];
+	historyID: string;
 
 	updateHistoryIfNeeded: typeof updateHistoryIfNeeded;
 }
 
 export class TweetsComponent extends React.Component<ComponentProps> {
-	constructor(props: ComponentProps) {
-		super(props);
-
-		this.handleUpdateHistory = this.handleUpdateHistory.bind(this);
-	}
-
-	private handleUpdateHistory(id: string) {
-		return () => {
-			this.props.updateHistoryIfNeeded(id);
-		};
-	}
-
-	private handlePrintJSON(tweet: Tweet) {
-		return () => {
-			console.log(tweet);
-		};
-	}
-
 	public render() {
 		const {
 			tweets,
+			historyID,
 		} = this.props;
 
 		return (
 			<div>
 				<Segment.Group>
 					<PlaceholderComponent {...this.props} />
-					{tweets.map((tweet) => {
+					{tweets.filter((tweet) => {
+						return tweet.id_str >= historyID;
+					}).map((tweet) => {
 						return (
-							<Segment key={tweet.id_str}>
-								{(() => {
-									if(tweet.retweeted_status === undefined) {
-										return (
-											<TweetComponent tweet={tweet} />
-										);
-									}
-									return (
-										<RetweetComponent tweet={tweet} />
-									);
-								})()}
-								<Button onClick={this.handleUpdateHistory(tweet.id_str)}>
-									{tweet.id_str}
-								</Button>
-								<Button onClick={this.handlePrintJSON(tweet)}>
-									json
-								</Button>
-							</Segment>
+							<TweetSegmentComponent key={tweet.id_str} tweet={tweet} {...this.props} />
 						);
 					})}
 				</Segment.Group>

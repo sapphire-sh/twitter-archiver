@@ -23,6 +23,7 @@ import {
 import {
 	getIsFetchingTweets,
 	getTweets,
+	getHistoryID,
 	getIsSocketConnected,
 } from '../selectors';
 
@@ -52,6 +53,7 @@ import '../styles/App.scss';
 interface ComponentProps {
 	isFetchingTweets: boolean;
 	tweets: Tweet[];
+	historyID: string;
 	isSocketConnected: boolean;
 
 	invalidateTweets: typeof invalidateTweets;
@@ -86,6 +88,7 @@ function mapStateToProps(state: State) {
 	return {
 		'tweets': getTweets(state),
 		'isFetchingTweets': getIsFetchingTweets(state),
+		'historyID': getHistoryID(state),
 		'isSocketConnected': getIsSocketConnected(state),
 	};
 }
