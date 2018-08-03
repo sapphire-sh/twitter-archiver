@@ -2,6 +2,11 @@ import http from 'http';
 
 import SocketIO from 'socket.io';
 
+import {
+	SocketEventType,
+	SocketEvent,
+} from '../../shared/models';
+
 export class Socket {
 	private static io: SocketIO.Server;
 
@@ -33,15 +38,14 @@ export class Socket {
 		});
 	}
 
-	public static emit(message: number | string) {
-		console.log(`message: ${message}`);
-		console.log(`socket count: ${this.sockets.length}`);
-		Object.values(this.sockets).forEach((socket) => {
-			console.log(`socket id: ${socket.id}`);
+	public static emit(type: SocketEventType, message: number | string) {
+		const event: SocketEvent = {
+			'type': type,
+			'message': message,
+		};
 
-			socket.emit('event', {
-				'message': message,
-			});
+		Object.values(this.sockets).forEach((socket) => {
+			socket.emit('event', event);
 		});
 	}
 }

@@ -6,6 +6,7 @@ import {
 
 import {
 	Tweet,
+	SocketEventType,
 } from '../../shared/models';
 
 import {
@@ -109,7 +110,7 @@ export class Database {
 					'data': data,
 				});
 			}).then((rows: number[]) => {
-				Socket.emit(rows[0]);
+				Socket.emit(SocketEventType.INSERT_TWEET, rows[0]);
 			});
 		}).catch((err) => {
 			console.error(err);
@@ -120,11 +121,10 @@ export class Database {
 		return new Promise((resolve, reject) => {
 			return this.knex('tweets').where('key', '>=', key).orderBy('key', 'asc').limit(100).then((rows: DataRow[]) => {
 				return Promise.all(rows.map((row) => {
-					return inflate(row.data);
+					return inflate<Tweet>(row.data);
 				}));
-			}).then((data) => {
-				const tweets = data as Tweet[];
-				resolve(tweets);
+			}).then((rows: Tweet[]) => {
+				resolve(rows);
 			}).catch((err) => {
 				reject(err);
 			});
@@ -135,7 +135,8 @@ export class Database {
 		return new Promise((resolve, reject) => {
 			return this.knex('history').insert({
 				'key': key,
-			}).then((data) => {
+			}).then((rows: number[]) => {
+				Socket.emit(SocketEventType.INSERT_TWEET, rows[0]);
 				resolve();
 			}).catch((err) => {
 				reject(err);

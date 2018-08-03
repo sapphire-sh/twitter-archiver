@@ -1,1 +1,2 @@
-export * from './tweet';
+export * from './SocketEvent';
+export * from './Tweet';

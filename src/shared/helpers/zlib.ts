@@ -1,6 +1,6 @@
 import zlib from 'zlib';
 
-export function deflate(data: any) {
+export function deflate<T>(data: T) {
 	const jsonStr = JSON.stringify(data);
 	const buffer = Buffer.from(jsonStr);
 
@@ -17,7 +17,7 @@ export function deflate(data: any) {
 	});
 }
 
-export function inflate(data: Buffer) {
+export function inflate<T>(data: Buffer): Promise<T> {
 	return new Promise((resolve, reject) => {
 		zlib.inflate(data, (err, result) => {
 			if(err) {
