@@ -21,15 +21,27 @@ interface ComponentProps {
 }
 
 export class TweetComponent extends React.Component<ComponentProps> {
-	private getEntities(tweet: Tweet) {
-		const extendedTweet = (tweet as any).extended_tweet;
-		if(extendedTweet !== undefined) {
-			tweet.text = extendedTweet.full_text;
-			tweet.entities = extendedTweet.entities;
-			(tweet as any).extended_entities = extendedTweet.extended_entities;
-		}
+	private getExtendedTweet(tweet: Tweet) {
+		return (tweet as any).extended_tweet;
+	}
 
-		return Object.assign({}, tweet.entities, (tweet as any).extended_entities);
+	private getText(tweet: Tweet) {
+		const extendedTweet = this.getExtendedTweet(tweet);
+		if(extendedTweet === undefined) {
+			return tweet.text;
+		}
+		return extendedTweet.full_text;
+	}
+
+	private getEntities(tweet: Tweet) {
+		const extendedTweet = this.getExtendedTweet(tweet);
+		if(extendedTweet === undefined) {
+			return tweet.entities;
+		}
+		if(extendedTweet.extended_entities === undefined) {
+			return tweet.entities;
+		}
+		return extendedTweet.extended_entities;
 	}
 
 	public render() {
@@ -39,12 +51,12 @@ export class TweetComponent extends React.Component<ComponentProps> {
 
 		const {
 			user,
-			text,
 			quoted_status,
 			retweet_count,
 			favorite_count,
 		} = tweet;
 
+		const text = this.getText(tweet);
 		const entities = this.getEntities(tweet);
 
 		return (
