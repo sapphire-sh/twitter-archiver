@@ -61,17 +61,27 @@ export class Database {
 	private static queue: Tweet[] = [];
 
 	public static initialize() {
-		Promise.resolve().then(function loop(): Promise<any> {
+		Promise.resolve(0).then(function loop(prevCount) {
 			return Promise.resolve().then(() => {
 				const tweet = Database.queue.shift();
 				if(tweet !== undefined) {
 					return Database.insertTweet(tweet);
 				}
+
+				const currCount = Database.queue.length;
+				if(prevCount !== currCount) {
+					Socket.emit(SocketEventType.QUEUE_COUNT, `${currCount}`);
+				}
+
 				return Promise.resolve();
 			}).catch((err) => {
 				console.log(err);
 			}).then(() => {
-				setTimeout(loop, 100);
+				const currCount = Database.queue.length;
+
+				setTimeout(() => {
+					loop(currCount);
+				}, 100);
 			});
 		}).catch((err) => {
 			console.log(err);
