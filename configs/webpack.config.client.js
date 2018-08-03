@@ -112,12 +112,17 @@ module.exports = {
 			'/api': {
 				'target': 'https://archive.sapphire.sh',
 				'secure': false,
-    			'changeOrigin': true,
+				'changeOrigin': true,
 			},
 			'/auth': {
 				'target': 'https://archive.sapphire.sh',
 				'secure': false,
-    			'changeOrigin': true,
+				'changeOrigin': true,
+			},
+			'/socket.io': {
+				'target': 'https://archive.sapphire.sh',
+				'secure': false,
+				'changeOrigin': true,
 			},
 		},
 		'host': 'localhost',
