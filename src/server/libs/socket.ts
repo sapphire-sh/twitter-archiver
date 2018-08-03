@@ -38,7 +38,7 @@ export class Socket {
 		});
 	}
 
-	public static emit(type: SocketEventType, message: number | string) {
+	public static emit(type: SocketEventType, message: string) {
 		const event: SocketEvent = {
 			'type': type,
 			'message': message,
