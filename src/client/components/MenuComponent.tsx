@@ -13,16 +13,26 @@ import {
 	Button,
 } from 'semantic-ui-react';
 
+import '../styles/Menu.css';
+
 interface ComponentProps {
 	invalidateTweets: typeof invalidateTweets;
 	fetchTweetsIfNeeded: typeof fetchTweetsIfNeeded;
 }
 
-export class MenuComponent extends React.Component<ComponentProps> {
+interface ComponentState {
+	menuWidth: number;
+}
+
+export class MenuComponent extends React.Component<ComponentProps, ComponentState> {
 	constructor(props: ComponentProps) {
 		super(props);
 
 		this.refreshTweets = this.refreshTweets.bind(this);
+
+		this.state = {
+			'menuWidth': 0,
+		};
 	}
 
 	private refreshTweets() {
@@ -30,13 +40,50 @@ export class MenuComponent extends React.Component<ComponentProps> {
 		this.props.fetchTweetsIfNeeded();
 	}
 
-	public componentWillMount() {
+	public componentDidMount() {
+		const menu = document.querySelector<HTMLDivElement>('#menu');
+		if(menu === null) {
+			return;
+		}
+
+		const {
+			parentElement,
+		} = menu;
+		if(parentElement === null) {
+			return;
+		}
+
+		const {
+			clientWidth,
+		} = parentElement;
+
+		const {
+			paddingLeft,
+			paddingRight,
+		} = getComputedStyle(parentElement);
+
+		if(paddingLeft === null || paddingRight === null) {
+			return;
+		}
+
+		const horizontalPadding = parseInt(paddingLeft, 10) + parseInt(paddingRight, 10);
+
+		this.setState({
+			'menuWidth': clientWidth - horizontalPadding,
+		});
+
 		this.refreshTweets();
 	}
 
 	public render() {
 		return (
-			<Menu fluid={true} vertical={true}>
+			<Menu
+				id="menu"
+				style={{
+					'width': this.state.menuWidth,
+				}}
+				vertical={true}
+			>
 				<Menu.Item>
 					<Menu.Header>Products</Menu.Header>
 

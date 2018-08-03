@@ -42,11 +42,11 @@ import {
 import {
 	Container,
 	Grid,
-	Sticky,
 } from 'semantic-ui-react';
 
 import 'semantic-ui-css/semantic.min.css';
-import '../styles/index.css';
+
+import '../styles/App.css';
 
 interface ComponentProps {
 	isFetchingTweets: boolean;
@@ -57,52 +57,19 @@ interface ComponentProps {
 	updateHistory: typeof updateHistory;
 }
 
-interface ComponentState {
-	contextRef: HTMLDivElement | null;
-}
-
-class AppComponent extends React.Component<ComponentProps, ComponentState> {
-	constructor(props: ComponentProps) {
-		super(props);
-
-		this.state = {
-			'contextRef': null,
-		};
-	}
-
-	private handleContextRef = (contextRef: HTMLDivElement) => {
-		this.setState({
-			'contextRef': contextRef,
-		});
-	}
-
+class AppComponent extends React.Component<ComponentProps> {
 	public render() {
-		const {
-			contextRef,
-		} = this.state;
-
 		return (
 			<div>
 				<IndicatorComponent />
 				<Container>
 					<Grid>
 						<Grid.Column width={4}>
-							{(() => {
-								if(contextRef === null) {
-									return null;
-								}
-								return (
-									<Sticky offset={40} context={contextRef}>
-										<MenuComponent {...this.props} />
-									</Sticky>
-								);
-							})()}
+							<MenuComponent {...this.props} />
 						</Grid.Column>
 
-						<Grid.Column width={12}>
-							<div ref={this.handleContextRef}>
-								<TweetsComponent {...this.props} />
-							</div>
+						<Grid.Column floated="right" width={12}>
+							<TweetsComponent {...this.props} />
 						</Grid.Column>
 					</Grid>
 

@@ -1,3 +1,7 @@
+html {
+	min-width: 1200px;
+}
+
 .ui.container {
 	padding: 40px 0;
 }

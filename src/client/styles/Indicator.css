@@ -1,4 +1,7 @@
 #indicator {
+	position: fixed;
+	top: 0px;
+	z-index: 500;
 	width: 100%;
 	height: 4px;
 	background: linear-gradient(to left, #87ceeb 5%, #4db4fd 10%, #87ceeb 15%);
