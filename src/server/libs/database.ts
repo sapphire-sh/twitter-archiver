@@ -61,15 +61,18 @@ export class Database {
 	private static queue: Tweet[] = [];
 
 	public static initialize() {
-		Promise.resolve(0).then(function loop(prevCount) {
+		Promise.resolve().then(function loop() {
 			return Promise.resolve().then(() => {
+				const prevCount = Database.queue.length;
+
+				const tweet = Database.queue.shift();
+
 				const currCount = Database.queue.length;
 				console.log(prevCount + ' ' + currCount);
 				if(prevCount !== currCount) {
-					Socket.emit(SocketEventType.QUEUE_COUNT, `${currCount}`);
+					Socket.emit(SocketEventType.QUEUE_COUNT, `${prevCount}`);
 				}
 
-				const tweet = Database.queue.shift();
 				if(tweet !== undefined) {
 					return Database.insertTweet(tweet);
 				}
@@ -78,11 +81,7 @@ export class Database {
 			}).catch((err) => {
 				console.log(err);
 			}).then(() => {
-				const currCount = Database.queue.length;
-
-				setTimeout(() => {
-					loop(currCount);
-				}, 100);
+				setTimeout(loop, 100);
 			});
 		}).catch((err) => {
 			console.log(err);
