@@ -136,7 +136,7 @@ export class Database {
 			return this.knex('history').insert({
 				'key': key,
 			}).then((rows: number[]) => {
-				Socket.emit(SocketEventType.INSERT_TWEET, key);
+				Socket.emit(SocketEventType.UPDATE_HISTORY, key);
 				resolve();
 			}).catch((err) => {
 				reject(err);
