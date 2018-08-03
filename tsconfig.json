@@ -15,6 +15,7 @@
 		"rootDir": ".",
 		"jsx": "react",
 		"strict": true,
+		"strictNullChecks": false,
 		"noImplicitAny": false,
 		"noImplicitReturns": true,
 		"moduleResolution": "node",

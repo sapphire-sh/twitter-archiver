@@ -23,6 +23,7 @@ import {
 import {
 	getIsFetchingTweets,
 	getTweets,
+	getIsSocketConnected,
 } from '../selectors';
 
 import {
@@ -51,6 +52,7 @@ import '../styles/App.scss';
 interface ComponentProps {
 	isFetchingTweets: boolean;
 	tweets: Tweet[];
+	isSocketConnected: boolean;
 
 	invalidateTweets: typeof invalidateTweets;
 	fetchTweetsIfNeeded: typeof fetchTweetsIfNeeded;
@@ -61,7 +63,7 @@ class AppComponent extends React.Component<ComponentProps> {
 	public render() {
 		return (
 			<div>
-				<IndicatorComponent />
+				<IndicatorComponent {...this.props} />
 				<Container>
 					<Grid>
 						<Grid.Column width={4}>
@@ -84,6 +86,7 @@ function mapStateToProps(state: State) {
 	return {
 		'tweets': getTweets(state),
 		'isFetchingTweets': getIsFetchingTweets(state),
+		'isSocketConnected': getIsSocketConnected(state),
 	};
 }
 
