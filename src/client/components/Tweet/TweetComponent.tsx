@@ -38,13 +38,19 @@ export class TweetComponent extends React.Component<ComponentProps> {
 
 		if(extendedTweet !== undefined) {
 			if(extendedTweet.extended_entities !== undefined) {
-				return extendedTweet.extended_entities;
+				return {
+					...extendedTweet.entities,
+					...extendedTweet.extended_entities,
+				};
 			}
 			return extendedTweet.entities;
 		}
 		else {
 			if((tweet as any).extended_entities !== undefined) {
-				return (tweet as any).extended_entities;
+				return {
+					...(tweet as any).extended_entities,
+					...tweet.entities,
+				};
 			}
 			return tweet.entities;
 		}
