@@ -48,8 +48,8 @@ export class TweetComponent extends React.Component<ComponentProps> {
 		else {
 			if((tweet as any).extended_entities !== undefined) {
 				return {
-					...(tweet as any).extended_entities,
 					...tweet.entities,
+					...(tweet as any).extended_entities,
 				};
 			}
 			return tweet.entities;
