@@ -47,10 +47,6 @@ export class TweetsComponent extends React.Component<ComponentProps> {
 		};
 	}
 
-	public componentDidUpdate() {
-		window.scrollTo(0, 0);
-	}
-
 	public render() {
 		const {
 			tweets,

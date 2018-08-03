@@ -46,6 +46,8 @@ function updateHistory(id: string) {
 		sendRequest(RequestType.UPDATE_HISTORY, {
 			'id': id,
 		}).then((res) => {
+			window.scrollTo(0, 0);
+
 			dispatch(receiveHistoryUpdate(id));
 			dispatch(invalidateTweets());
 			dispatch(fetchTweetsIfNeeded());

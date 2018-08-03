@@ -94,6 +94,7 @@ export function updateLatestTweetIDIfNeeded(id: string) {
 
 		if(shouldUpdateLatestTweetID(state, id)) {
 			dispatch(updateLatestTweetID(id));
+			dispatch(invalidateTweets());
 			dispatch(fetchTweetsIfNeeded());
 		}
 	};
