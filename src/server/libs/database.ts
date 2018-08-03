@@ -110,7 +110,7 @@ export class Database {
 					'data': data,
 				});
 			}).then((rows: number[]) => {
-				Socket.emit(SocketEventType.INSERT_TWEET, rows[0]);
+				Socket.emit(SocketEventType.INSERT_TWEET, tweet.id_str);
 			});
 		}).catch((err) => {
 			console.error(err);
@@ -136,7 +136,7 @@ export class Database {
 			return this.knex('history').insert({
 				'key': key,
 			}).then((rows: number[]) => {
-				Socket.emit(SocketEventType.INSERT_TWEET, rows[0]);
+				Socket.emit(SocketEventType.INSERT_TWEET, key);
 				resolve();
 			}).catch((err) => {
 				reject(err);
