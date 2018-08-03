@@ -36,12 +36,17 @@ export class TweetComponent extends React.Component<ComponentProps> {
 	private getEntities(tweet: Tweet) {
 		const extendedTweet = this.getExtendedTweet(tweet);
 		if(extendedTweet === undefined) {
-			return tweet.entities;
+			if((tweet as any).extended_entities === undefined) {
+				return tweet.entities;
+			}
+			return (tweet as any).extended_entities;
 		}
-		if(extendedTweet.extended_entities === undefined) {
-			return tweet.entities;
+		else {
+			if(extendedTweet.extended_entities === undefined) {
+				return tweet.entities;
+			}
+			return extendedTweet.extended_entities;
 		}
-		return extendedTweet.extended_entities;
 	}
 
 	public render() {
