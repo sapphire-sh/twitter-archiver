@@ -89,7 +89,6 @@ module.exports = {
 				return [
 					new webpack.HotModuleReplacementPlugin(),
 					new webpack.NoEmitOnErrorsPlugin(),
-					new BundleAnalyzerPlugin(),
 				];
 			}
 			if(env === 'production') {
@@ -97,6 +96,14 @@ module.exports = {
 					new webpack.LoaderOptionsPlugin({
 						'minimize': true,
 					}),
+				];
+			}
+			return [];
+		})(),
+		...(() => {
+			if(process.env.NODE_ENV === 'analyze') {
+				return [
+					new BundleAnalyzerPlugin(),
 				];
 			}
 			return [];

@@ -17,7 +17,8 @@
     "start:dev": "concurrently \"npm run start:dev:client\" \"npm run start:dev:server\"",
     "stop": "pm2 stop ./app.json",
     "test": "npm run clean && jest --no-cache",
-    "lint": "tslint -p ./tsconfig.json",
+	"lint": "tslint -p ./tsconfig.json",
+	"analyze": "NODE_ENV=analyze webpack --config ./configs/webpack.config.client.js",
     "coverage": "npm run clean && jest --coverage --no-cache",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls"
   },
