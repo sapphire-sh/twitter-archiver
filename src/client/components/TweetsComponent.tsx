@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
 	updateHistoryIfNeeded,
+	openModal,
 } from '../actions';
 
 import {
@@ -25,6 +26,7 @@ interface ComponentProps {
 	historyID: string;
 
 	updateHistoryIfNeeded: typeof updateHistoryIfNeeded;
+	openModal: typeof openModal;
 }
 
 export class TweetsComponent extends React.Component<ComponentProps> {

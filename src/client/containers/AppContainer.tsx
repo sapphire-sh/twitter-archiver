@@ -14,6 +14,7 @@ import {
 	invalidateTweets,
 	fetchTweetsIfNeeded,
 	updateHistoryIfNeeded,
+	openModal,
 } from '../actions';
 
 import {
@@ -34,6 +35,7 @@ import {
 
 import {
 	SocketContainer,
+	ModalContainer,
 } from '../containers';
 
 import {
@@ -61,6 +63,7 @@ interface ComponentProps {
 	invalidateTweets: typeof invalidateTweets;
 	fetchTweetsIfNeeded: typeof fetchTweetsIfNeeded;
 	updateHistoryIfNeeded: typeof updateHistoryIfNeeded;
+	openModal: typeof openModal;
 }
 
 class AppComponent extends React.Component<ComponentProps> {
@@ -78,9 +81,10 @@ class AppComponent extends React.Component<ComponentProps> {
 							<TweetsComponent {...this.props} />
 						</Grid.Column>
 					</Grid>
-
-					<SocketContainer />
 				</Container>
+
+				<ModalContainer />
+				<SocketContainer />
 			</div>
 		);
 	}
@@ -98,9 +102,10 @@ function mapStateToProps(state: State) {
 
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>) {
 	return bindActionCreators({
-		invalidateTweets,
-		fetchTweetsIfNeeded,
-		updateHistoryIfNeeded,
+		'invalidateTweets': invalidateTweets,
+		'fetchTweetsIfNeeded': fetchTweetsIfNeeded,
+		'updateHistoryIfNeeded': updateHistoryIfNeeded,
+		'openModal': openModal,
 	}, dispatch);
 }
 

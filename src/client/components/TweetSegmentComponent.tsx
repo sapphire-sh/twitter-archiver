@@ -2,6 +2,8 @@ import React from 'react';
 
 import {
 	updateHistoryIfNeeded,
+	openModal,
+	ModalType,
 } from '../actions';
 
 import {
@@ -24,6 +26,7 @@ interface ComponentProps {
 	tweet: Tweet;
 
 	updateHistoryIfNeeded: typeof updateHistoryIfNeeded;
+	openModal: typeof openModal;
 }
 
 export class TweetSegmentComponent extends React.Component<ComponentProps> {
@@ -43,6 +46,7 @@ export class TweetSegmentComponent extends React.Component<ComponentProps> {
 	private handlePrintJSON(tweet: Tweet) {
 		return () => {
 			console.log(tweet);
+			this.props.openModal(ModalType.MODAL_JSON, tweet);
 		};
 	}
 

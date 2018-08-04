@@ -8,6 +8,11 @@ import {
 } from './HistoryReducer';
 
 import {
+	modal,
+	ModalState,
+} from './ModalReducer';
+
+import {
 	socket,
 	SocketState,
 } from './SocketReducer';
@@ -24,6 +29,7 @@ import {
 
 export interface State {
 	historyState: HistoryState;
+	modalState: ModalState;
 	socketState: SocketState;
 	statsState: StatsState;
 	tweetState: TweetState;
@@ -31,6 +37,7 @@ export interface State {
 
 export const reducers = combineReducers<State>({
 	'historyState': history,
+	'modalState': modal,
 	'socketState': socket,
 	'statsState': stats,
 	'tweetState': tweet,
