@@ -12,6 +12,7 @@ import {
 import {
 	ProfileComponent,
 	TweetComponent,
+	FooterComponent,
 } from '../../components';
 
 interface ComponentProps {
@@ -28,16 +29,16 @@ export class RetweetComponent extends React.Component<ComponentProps> {
 		} = this.props;
 
 		const {
-			user,
 			retweeted_status,
 		} = tweet;
 
 		return (
-			<div>
+			<div className="retweet">
 				<div>
-					<ProfileComponent user={user} isRetweet={true} />
+					<ProfileComponent {...this.props} />
 				</div>
-				<TweetComponent {...this.props} tweet={retweeted_status} />
+				<TweetComponent {...this.props} tweet={retweeted_status} isRetweet={true} />
+				<FooterComponent {...this.props} isRetweet={false} />
 			</div>
 		);
 	}

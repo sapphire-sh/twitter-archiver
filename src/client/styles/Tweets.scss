@@ -7,11 +7,33 @@
 		word-wrap: break-word;
 	}
 
+	&-profile {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
 	&-footer {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 	}
+}
+
+.retweet {
+	.tweet {
+		&-profile {
+			margin-bottom: 4px;
+		}
+	}
+}
+
+.ui.animated.button {
+	z-index: 0;
+}
+
+.visible.content > i:last-child {
+	margin: 0;
 }
 
 .entities-media > div > img {

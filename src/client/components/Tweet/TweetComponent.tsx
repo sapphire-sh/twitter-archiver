@@ -22,6 +22,7 @@ import {
 
 interface ComponentProps {
 	tweet: Tweet;
+	isRetweet: boolean;
 
 	updateHistoryIfNeeded: typeof updateHistoryIfNeeded;
 	openModal: typeof openModal;
@@ -66,10 +67,10 @@ export class TweetComponent extends React.Component<ComponentProps> {
 	public render() {
 		const {
 			tweet,
+			isRetweet,
 		} = this.props;
 
 		const {
-			user,
 			quoted_status,
 		} = tweet;
 
@@ -78,7 +79,7 @@ export class TweetComponent extends React.Component<ComponentProps> {
 
 		return (
 			<div className="tweet">
-				<ProfileComponent user={user} isRetweet={false} />
+				<ProfileComponent {...this.props} />
 				<Segment.Group>
 					<Segment>
 						<TextComponent text={text} entities={entities} />
@@ -97,7 +98,7 @@ export class TweetComponent extends React.Component<ComponentProps> {
 							</Segment>
 						);
 					})()}
-					<FooterComponent {...this.props} />
+					<FooterComponent {...this.props} isRetweet={isRetweet} />
 				</Segment.Group>
 			</div>
 		);

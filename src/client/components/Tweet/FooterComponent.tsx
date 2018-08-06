@@ -11,17 +11,14 @@ import {
 } from '../../../shared/models';
 
 import {
-	dateToString,
-} from '../../../shared/helpers';
-
-import {
 	Segment,
-	Label,
+	Button,
 	Icon,
 } from 'semantic-ui-react';
 
 interface ComponentProps {
 	tweet: Tweet;
+	isRetweet: boolean;
 
 	updateHistoryIfNeeded: typeof updateHistoryIfNeeded;
 	openModal: typeof openModal;
@@ -50,40 +47,67 @@ export class FooterComponent extends React.Component<ComponentProps> {
 	public render() {
 		const {
 			tweet,
+			isRetweet,
 		} = this.props;
 
 		const {
 			retweet_count,
 			favorite_count,
-		} = tweet;
-
-		const tweetUrl = `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`;
+			quote_count,
+			reply_count,
+		} = tweet as any;
 
 		return (
 			<Segment className="tweet-footer">
-				<div>
-					<Icon name="sync" onClick={this.handleUpdateHistory(tweet.id_str)} />
-					<Icon name="code" onClick={this.handlePrintJSON(tweet)} />
-				</div>
-				<div>
-					<Label>
-						<Icon name="retweet" />{retweet_count}
-					</Label>
-					<Label>
-						<Icon name="star" />{favorite_count}
-					</Label>
-				</div>
-				<div className="created_at">
-					<a href={tweetUrl} target="_blank">
-						{dateToString(new Date(tweet.created_at))}
-					</a>
-				</div>
-				<div
-					className="source"
-					dangerouslySetInnerHTML={{
-						'__html': tweet.source!,
-					}}
-				/>
+				<Button.Group size="tiny">
+					{(() => {
+						if(isRetweet === true) {
+							return null;
+						}
+						return (
+							<Button onClick={this.handleUpdateHistory(tweet.id_str)} animated="vertical" basic={true} color="grey">
+								<Button.Content hidden={true}>read</Button.Content>
+								<Button.Content visible={true}>
+									<Icon name="sync" />
+								</Button.Content>
+							</Button>
+						);
+					})()}
+					<Button animated="vertical" basic={true} color="grey">
+						<Button.Content hidden={true}>reply</Button.Content>
+						<Button.Content visible={true}>
+							<Icon name="reply" />
+							<span>{reply_count}</span>
+						</Button.Content>
+					</Button>
+					<Button animated="vertical" basic={true} color="grey">
+						<Button.Content hidden={true}>retweet</Button.Content>
+						<Button.Content visible={true}>
+							<Icon name="retweet" />
+							<span>{retweet_count}</span>
+						</Button.Content>
+					</Button>
+					<Button animated="vertical" basic={true} color="grey">
+						<Button.Content hidden={true}>favorite</Button.Content>
+						<Button.Content visible={true}>
+							<Icon name="star" />
+							<span>{favorite_count}</span>
+						</Button.Content>
+					</Button>
+					<Button animated="vertical" basic={true} color="grey">
+						<Button.Content hidden={true}>quote</Button.Content>
+						<Button.Content visible={true}>
+							<Icon name="quote left" />
+							<span>{quote_count}</span>
+						</Button.Content>
+					</Button>
+					<Button onClick={this.handlePrintJSON(tweet)} animated="vertical" basic={true} color="grey">
+						<Button.Content hidden={true}>json</Button.Content>
+						<Button.Content visible={true} icon={true}>
+							<Icon name="code" />
+						</Button.Content>
+					</Button>
+				</Button.Group>
 			</Segment>
 		);
 	}
