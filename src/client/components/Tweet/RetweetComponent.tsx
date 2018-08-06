@@ -17,6 +17,7 @@ import {
 
 interface ComponentProps {
 	tweet: Tweet;
+	isQuote: boolean;
 
 	updateHistoryIfNeeded: typeof updateHistoryIfNeeded;
 	openModal: typeof openModal;

@@ -16,6 +16,7 @@ import {
 
 interface ComponentProps {
 	tweet: Tweet;
+	isQuote: boolean;
 }
 
 interface ComponentState {
@@ -46,6 +47,7 @@ export class ProfileComponent extends React.Component<ComponentProps, ComponentS
 	public render() {
 		const {
 			tweet,
+			isQuote,
 		} = this.props;
 
 		const {
@@ -75,7 +77,7 @@ export class ProfileComponent extends React.Component<ComponentProps, ComponentS
 				<Label
 					as="a"
 					image={true}
-					ribbon={true}
+					ribbon={isQuote === true ? false : true}
 					href={`https://twitter.com/${screen_name}`}
 					target="_blank"
 					style={{
@@ -84,7 +86,7 @@ export class ProfileComponent extends React.Component<ComponentProps, ComponentS
 					}}
 				>
 					<img src={profile_image_url_https} />
-					{name}
+					<span>{name}</span>
 					<div className="detail">@{screen_name}</div>
 				</Label>
 				<Button.Group size="mini">
