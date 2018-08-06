@@ -28,7 +28,7 @@ import '../styles/Modal.scss';
 
 interface ComponentProps {
 	modalType: ModalType;
-	modalContent: {};
+	modalContent: any;
 
 	invalidateModal: typeof invalidateModal;
 }
@@ -73,7 +73,18 @@ class ModalComponent extends React.Component<ComponentProps> {
 			<div id="modal">
 				<div id="modal_background" onClick={this.handleClose} />
 				<div id="modal_content">
-					<pre>{JSON.stringify(modalContent, null, 1)}</pre>
+					{(() => {
+						switch(modalType) {
+						case ModalType.MODAL_JSON:
+							return (
+								<pre>{JSON.stringify(modalContent, null, 1)}</pre>
+							);
+						case ModalType.MODAL_IMAGE:
+							return (
+								<img src={modalContent.url} />
+							);
+						}
+					})()}
 				</div>
 			</div>
 		);

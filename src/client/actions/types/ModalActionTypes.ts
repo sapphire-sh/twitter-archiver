@@ -18,7 +18,7 @@ export interface InvalidateModalAction extends Action {
 export interface OpenModalAction extends Action {
 	type: ModalKeys.OPEN_MODAL;
 	modalType: ModalType;
-	modalContent: {};
+	modalContent: any;
 }
 
 export type ModalAction = (

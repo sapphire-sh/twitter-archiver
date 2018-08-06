@@ -9,7 +9,7 @@ import {
 
 export interface ModalState {
 	modalType: ModalType;
-	modalContent: {};
+	modalContent: any;
 }
 
 const initialState: ModalState = {

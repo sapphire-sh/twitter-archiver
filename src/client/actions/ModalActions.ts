@@ -7,6 +7,7 @@ import {
 export enum ModalType {
 	MODAL_IDLE = -1,
 	MODAL_JSON = 1,
+	MODAL_IMAGE,
 }
 
 export function invalidateModal(): InvalidateModalAction {
@@ -15,7 +16,7 @@ export function invalidateModal(): InvalidateModalAction {
 	};
 }
 
-export function openModal(type: ModalType, content: {}): OpenModalAction {
+export function openModal(type: ModalType, content: any): OpenModalAction {
 	return {
 		'type': ModalKeys.OPEN_MODAL,
 		'modalType': type,

@@ -1,7 +1,13 @@
 import React from 'react';
 
 import {
+	openModal,
+	ModalType,
+} from '../../actions';
+
+import {
 	Entities,
+	MediaEntity,
 } from '../../../shared/models';
 
 import {
@@ -11,9 +17,25 @@ import {
 interface ComponentProps {
 	id: string;
 	entities: Entities;
+
+	openModal: typeof openModal;
 }
 
 export class MediaComponent extends React.Component<ComponentProps> {
+	constructor(props: ComponentProps) {
+		super(props);
+
+		this.handleClick = this.handleClick.bind(this);
+	}
+
+	private handleClick(medium: MediaEntity) {
+		return () => {
+			this.props.openModal(ModalType.MODAL_IMAGE, {
+				'url': medium.media_url_https,
+			});
+		};
+	}
+
 	public render() {
 		const {
 			id,
@@ -52,6 +74,7 @@ export class MediaComponent extends React.Component<ComponentProps> {
 								}}
 								src={medium.media_url_https}
 								rounded={true}
+								onClick={this.handleClick(medium)}
 							/>
 						);
 					}
