@@ -18,11 +18,39 @@ interface ComponentProps {
 	tweet: Tweet;
 }
 
-export class ProfileComponent extends React.Component<ComponentProps> {
+interface ComponentState {
+	tick: number;
+	key: number;
+}
+
+export class ProfileComponent extends React.Component<ComponentProps, ComponentState> {
+	constructor(props: ComponentProps) {
+		super(props);
+
+		this.state = {
+			'tick': null,
+			'key': 0,
+		};
+	}
+
+	public componentDidMount() {
+		this.setState({
+			'tick': window.setInterval(() => {
+				this.setState({
+					'key': this.state.key + 1,
+				});
+			}, 1000),
+		});
+	}
+
 	public render() {
 		const {
 			tweet,
 		} = this.props;
+
+		const {
+			key,
+		} = this.state;
 
 		const {
 			id_str,
@@ -72,7 +100,7 @@ export class ProfileComponent extends React.Component<ComponentProps> {
 					</Button>
 					<Button animated="vertical" basic={true} color="grey">
 						<Button.Content hidden={true}>
-							<a href={tweetUrl} target="_blank">{dateToRelativeString(date)}</a>
+							<a key={key} href={tweetUrl} target="_blank">{dateToRelativeString(date)}</a>
 						</Button.Content>
 						<Button.Content visible={true}>
 							{dateToString(date)}
