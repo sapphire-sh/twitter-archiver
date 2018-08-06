@@ -1,13 +1,17 @@
 import React from 'react';
 
 import {
+	updateHistoryIfNeeded,
+	openModal,
+} from '../../actions';
+
+import {
 	Tweet,
 } from '../../../shared/models';
 
 import {
 	ProfileComponent,
 	TextComponent,
-	CountComponent,
 	MediaComponent,
 	FooterComponent,
 } from '../../components';
@@ -18,6 +22,9 @@ import {
 
 interface ComponentProps {
 	tweet: Tweet;
+
+	updateHistoryIfNeeded: typeof updateHistoryIfNeeded;
+	openModal: typeof openModal;
 }
 
 export class TweetComponent extends React.Component<ComponentProps> {
@@ -64,8 +71,6 @@ export class TweetComponent extends React.Component<ComponentProps> {
 		const {
 			user,
 			quoted_status,
-			retweet_count,
-			favorite_count,
 		} = tweet;
 
 		const text = this.getText(tweet);
@@ -88,18 +93,11 @@ export class TweetComponent extends React.Component<ComponentProps> {
 						}
 						return (
 							<Segment>
-								<TweetComponent tweet={quoted_status} />
+								<TweetComponent {...this.props} tweet={quoted_status} />
 							</Segment>
 						);
 					})()}
-					<CountComponent
-						counts={{
-							'reply': 0,
-							'retweet': retweet_count,
-							'favorite': favorite_count!,
-						}}
-					/>
-					<FooterComponent tweet={tweet} />
+					<FooterComponent {...this.props} />
 				</Segment.Group>
 			</div>
 		);

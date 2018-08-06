@@ -3,7 +3,6 @@ import React from 'react';
 import {
 	updateHistoryIfNeeded,
 	openModal,
-	ModalType,
 } from '../actions';
 
 import {
@@ -17,10 +16,7 @@ import {
 
 import {
 	Segment,
-	Button,
 } from 'semantic-ui-react';
-
-import '../styles/TweetSegment.scss';
 
 interface ComponentProps {
 	tweet: Tweet;
@@ -30,25 +26,6 @@ interface ComponentProps {
 }
 
 export class TweetElementComponent extends React.Component<ComponentProps> {
-	constructor(props: ComponentProps) {
-		super(props);
-
-		this.handleUpdateHistory = this.handleUpdateHistory.bind(this);
-		this.handlePrintJSON = this.handlePrintJSON.bind(this);
-	}
-
-	private handleUpdateHistory(id: string) {
-		return () => {
-			this.props.updateHistoryIfNeeded(id);
-		};
-	}
-
-	private handlePrintJSON(tweet: Tweet) {
-		return () => {
-			this.props.openModal(ModalType.MODAL_JSON, tweet);
-		};
-	}
-
 	public render() {
 		const {
 			tweet,
@@ -59,19 +36,13 @@ export class TweetElementComponent extends React.Component<ComponentProps> {
 				{(() => {
 					if(tweet.retweeted_status === undefined) {
 						return (
-							<TweetComponent tweet={tweet} />
+							<TweetComponent {...this.props} />
 						);
 					}
 					return (
-						<RetweetComponent tweet={tweet} />
+						<RetweetComponent {...this.props} />
 					);
 				})()}
-				<Button onClick={this.handleUpdateHistory(tweet.id_str)}>
-					{tweet.id_str}
-				</Button>
-				<Button onClick={this.handlePrintJSON(tweet)}>
-					json
-				</Button>
 			</Segment>
 		);
 	}

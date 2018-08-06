@@ -1,4 +1,3 @@
-export * from './CountComponent';
 export * from './FooterComponent';
 export * from './MediaComponent';
 export * from './ProfileComponent';

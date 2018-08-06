@@ -1,9 +1,17 @@
-.tweet > a > img {
-	border-radius: 0 !important;
-}
+.tweet {
+	& > a > img {
+		border-radius: 0 !important;
+	}
 
-.tweet .text {
-	word-wrap: break-word;
+	.text {
+		word-wrap: break-word;
+	}
+
+	&-footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
 }
 
 .entities-media > div > img {

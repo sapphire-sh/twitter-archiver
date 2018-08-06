@@ -1,6 +1,11 @@
 import React from 'react';
 
 import {
+	updateHistoryIfNeeded,
+	openModal,
+} from '../../actions';
+
+import {
 	Tweet,
 } from '../../../shared/models';
 
@@ -11,6 +16,9 @@ import {
 
 interface ComponentProps {
 	tweet: Tweet;
+
+	updateHistoryIfNeeded: typeof updateHistoryIfNeeded;
+	openModal: typeof openModal;
 }
 
 export class RetweetComponent extends React.Component<ComponentProps> {
@@ -29,7 +37,7 @@ export class RetweetComponent extends React.Component<ComponentProps> {
 				<div>
 					<ProfileComponent user={user} isRetweet={true} />
 				</div>
-				<TweetComponent tweet={retweeted_status!} />
+				<TweetComponent {...this.props} tweet={retweeted_status} />
 			</div>
 		);
 	}
