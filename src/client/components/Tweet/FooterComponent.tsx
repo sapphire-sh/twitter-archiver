@@ -77,7 +77,7 @@ export class FooterComponent extends React.Component<ComponentProps> {
 						<Button.Content hidden={true}>reply</Button.Content>
 						<Button.Content visible={true}>
 							<Icon name="reply" />
-							<span>{reply_count}</span>
+							<span>{reply_count === undefined ? -1 : reply_count}</span>
 						</Button.Content>
 					</Button>
 					<Button animated="vertical" basic={true} color="grey">
@@ -98,7 +98,7 @@ export class FooterComponent extends React.Component<ComponentProps> {
 						<Button.Content hidden={true}>quote</Button.Content>
 						<Button.Content visible={true}>
 							<Icon name="quote left" />
-							<span>{quote_count}</span>
+							<span>{quote_count === undefined ? -1 : quote_count}</span>
 						</Button.Content>
 					</Button>
 					<Button onClick={this.handlePrintJSON(tweet)} animated="vertical" basic={true} color="grey">
