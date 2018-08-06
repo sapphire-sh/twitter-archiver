@@ -27,9 +27,14 @@
 		}
 	}
 }
+.ui {
+	&.image.label img {
+		border-radius: 0;
+	}
 
-.ui.animated.button {
-	z-index: 0;
+	&.animated.button {
+		z-index: 0;
+	}
 }
 
 .visible.content > i:last-child {

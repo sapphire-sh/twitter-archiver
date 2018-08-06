@@ -72,23 +72,21 @@ export class ProfileComponent extends React.Component<ComponentProps, ComponentS
 
 		return (
 			<div className="tweet-profile">
-				<a
+				<Label
+					as="a"
+					image={true}
+					ribbon={true}
 					href={`https://twitter.com/${screen_name}`}
 					target="_blank"
+					style={{
+						'color': '#ffffff',
+						'backgroundColor': `#${profile_link_color}`,
+					}}
 				>
-					<Label
-						image={true}
-						ribbon={true}
-						style={{
-							'color': '#ffffff',
-							'backgroundColor': `#${profile_link_color}`,
-						}}
-					>
-						<img src={profile_image_url_https} />
-						{name}
-						<div className="detail">@{screen_name}</div>
-					</Label>
-				</a>
+					<img src={profile_image_url_https} />
+					{name}
+					<div className="detail">@{screen_name}</div>
+				</Label>
 				<Button.Group size="mini">
 					<Button basic={true} color="grey">
 						<div
