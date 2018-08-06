@@ -15,8 +15,13 @@ import {
 	FooterComponent,
 } from '../../components';
 
+import {
+	Segment,
+} from 'semantic-ui-react';
+
 interface ComponentProps {
 	tweet: Tweet;
+	isRetweet: boolean;
 	isQuote: boolean;
 
 	updateHistoryIfNeeded: typeof updateHistoryIfNeeded;
@@ -34,12 +39,14 @@ export class RetweetComponent extends React.Component<ComponentProps> {
 		} = tweet;
 
 		return (
-			<div className="retweet">
-				<div>
-					<ProfileComponent {...this.props} />
-				</div>
-				<TweetComponent {...this.props} tweet={retweeted_status} isRetweet={true} />
-				<FooterComponent {...this.props} isRetweet={false} />
+			<div className="tweet retweet">
+				<ProfileComponent {...this.props} isRetweet={false} />
+				<Segment.Group>
+					<Segment>
+						<TweetComponent {...this.props} tweet={retweeted_status} />
+					</Segment>
+					<FooterComponent {...this.props} isRetweet={false} />
+				</Segment.Group>
 			</div>
 		);
 	}

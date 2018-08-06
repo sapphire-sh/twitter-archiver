@@ -5,7 +5,6 @@ import {
 } from '../../../shared/models';
 
 import {
-	Segment,
 	Image,
 } from 'semantic-ui-react';
 
@@ -21,25 +20,16 @@ export class MediaComponent extends React.Component<ComponentProps> {
 			entities,
 		} = this.props;
 
-		if(entities === undefined) {
-			return null;
-		}
-
-		if(entities.media === undefined) {
-			return null;
-		}
-
 		return (
-			<Segment>
-				<Image.Group
-					size="small"
-					style={{
-						'display': 'flex',
-						'justifyContent': 'space-between',
-						'alignItems': 'center',
-						'flexWrap': 'wrap',
-					}}
-				>
+			<Image.Group
+				size="small"
+				style={{
+					'display': 'flex',
+					'justifyContent': 'space-between',
+					'alignItems': 'center',
+					'flexWrap': 'wrap',
+				}}
+			>
 				{entities.media.map((medium) => {
 					switch(medium.type) {
 					case 'video':
@@ -66,8 +56,7 @@ export class MediaComponent extends React.Component<ComponentProps> {
 						);
 					}
 				})}
-				</Image.Group>
-			</Segment>
+			</Image.Group>
 		);
 	}
 }

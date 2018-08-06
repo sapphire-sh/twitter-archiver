@@ -11,12 +11,27 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+
+		> .ui.label > div:first-child {
+			display: inline-block;
+			width: 8px;
+		}
 	}
 
 	&-footer {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+	}
+
+	.ui {
+		&.image.label img {
+			border-radius: 0;
+		}
+
+		&.animated.button {
+			z-index: 0;
+		}
 	}
 }
 
@@ -25,15 +40,6 @@
 		&-profile {
 			margin-bottom: 4px;
 		}
-	}
-}
-.ui {
-	&.image.label img {
-		border-radius: 0;
-	}
-
-	&.animated.button {
-		z-index: 0;
 	}
 }
 

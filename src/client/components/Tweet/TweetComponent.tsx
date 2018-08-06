@@ -86,10 +86,23 @@ export class TweetComponent extends React.Component<ComponentProps> {
 					<Segment>
 						<TextComponent text={text} entities={entities} />
 					</Segment>
-					<MediaComponent
-						id={tweet.id_str}
-						entities={entities}
-					/>
+					{(() => {
+						if(entities === undefined) {
+							return null;
+						}
+
+						if(entities.media === undefined) {
+							return null;
+						}
+						return (
+							<Segment>
+								<MediaComponent
+									id={tweet.id_str}
+									entities={entities}
+								/>
+							</Segment>
+						);
+					})()}
 					{(() => {
 						if(quoted_status === undefined) {
 							return null;

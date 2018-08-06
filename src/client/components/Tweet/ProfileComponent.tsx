@@ -16,6 +16,7 @@ import {
 
 interface ComponentProps {
 	tweet: Tweet;
+	isRetweet: boolean;
 	isQuote: boolean;
 }
 
@@ -47,6 +48,7 @@ export class ProfileComponent extends React.Component<ComponentProps, ComponentS
 	public render() {
 		const {
 			tweet,
+			isRetweet,
 			isQuote,
 		} = this.props;
 
@@ -77,7 +79,7 @@ export class ProfileComponent extends React.Component<ComponentProps, ComponentS
 				<Label
 					as="a"
 					image={true}
-					ribbon={isQuote === true ? false : true}
+					ribbon={isQuote || isRetweet ? false : true}
 					href={`https://twitter.com/${screen_name}`}
 					target="_blank"
 					style={{
@@ -85,12 +87,13 @@ export class ProfileComponent extends React.Component<ComponentProps, ComponentS
 						'backgroundColor': `#${profile_link_color}`,
 					}}
 				>
+					<div />
 					<img src={profile_image_url_https} />
 					<span>{name}</span>
 					<div className="detail">@{screen_name}</div>
 				</Label>
 				<Button.Group size="mini">
-					<Button basic={true} color="grey">
+					<Button basic={true} color="blue">
 						<div
 							className="source"
 							dangerouslySetInnerHTML={{
@@ -98,7 +101,7 @@ export class ProfileComponent extends React.Component<ComponentProps, ComponentS
 							}}
 						/>
 					</Button>
-					<Button animated="vertical" basic={true} color="grey">
+					<Button animated="vertical" basic={true} color="blue">
 						<Button.Content hidden={true}>
 							<a key={key} href={tweetUrl} target="_blank">{dateToRelativeString(date)}</a>
 						</Button.Content>

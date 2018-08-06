@@ -40,7 +40,7 @@ export class TweetElementComponent extends React.Component<ComponentProps> {
 						);
 					}
 					return (
-						<RetweetComponent {...this.props} isQuote={false} />
+						<RetweetComponent {...this.props} isRetweet={true} isQuote={false} />
 					);
 				})()}
 			</Segment>
