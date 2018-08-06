@@ -12,9 +12,19 @@
 		justify-content: space-between;
 		align-items: center;
 
-		> .ui.label > div:first-child {
-			display: inline-block;
-			width: 8px;
+		.ui.label {
+			& > div:first-child {
+				display: inline-block;
+				width: 8px;
+			}
+
+			& > *:not(:last-child) {
+				margin-right: .5em;
+			}
+
+			& > *:last-child {
+				margin-right: 0;
+			}
 		}
 	}
 
@@ -25,11 +35,21 @@
 	}
 
 	.ui {
-		&.image.label img {
-			border-radius: 0;
+		&.label {
+			&.image img {
+				padding-left: .5em;
+			}
+
+			&.image .detail:not(:last-child) {
+				margin-right: .5em;
+			}
+
+			&.ribbon {
+				padding-right: .833em;
+			}
 		}
 
-		&.animated.button {
+		&.buttons {
 			z-index: 0;
 		}
 	}
