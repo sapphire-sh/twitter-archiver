@@ -29,7 +29,7 @@ interface ComponentProps {
 	openModal: typeof openModal;
 }
 
-export class TweetSegmentComponent extends React.Component<ComponentProps> {
+export class TweetElementComponent extends React.Component<ComponentProps> {
 	constructor(props: ComponentProps) {
 		super(props);
 
@@ -45,7 +45,6 @@ export class TweetSegmentComponent extends React.Component<ComponentProps> {
 
 	private handlePrintJSON(tweet: Tweet) {
 		return () => {
-			console.log(tweet);
 			this.props.openModal(ModalType.MODAL_JSON, tweet);
 		};
 	}
