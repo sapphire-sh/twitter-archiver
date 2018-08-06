@@ -77,19 +77,21 @@ export class TweetComponent extends React.Component<ComponentProps> {
 				<Segment.Group>
 					<Segment>
 						<TextComponent text={text} entities={entities} />
-						{(() => {
-							if(quoted_status === undefined) {
-								return null;
-							}
-							return (
-								<TweetComponent tweet={quoted_status} />
-							);
-						})()}
 					</Segment>
 					<MediaComponent
 						id={tweet.id_str}
 						entities={entities}
 					/>
+					{(() => {
+						if(quoted_status === undefined) {
+							return null;
+						}
+						return (
+							<Segment>
+								<TweetComponent tweet={quoted_status} />
+							</Segment>
+						);
+					})()}
 					<CountComponent
 						counts={{
 							'reply': 0,
