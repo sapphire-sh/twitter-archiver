@@ -103,7 +103,7 @@ export class FooterComponent extends React.Component<ComponentProps> {
 					</Button>
 					<Button onClick={this.handlePrintJSON(tweet)} animated="vertical" basic={true} color="grey">
 						<Button.Content hidden={true}>json</Button.Content>
-						<Button.Content visible={true} icon={true}>
+						<Button.Content visible={true}>
 							<Icon name="code" />
 						</Button.Content>
 					</Button>
