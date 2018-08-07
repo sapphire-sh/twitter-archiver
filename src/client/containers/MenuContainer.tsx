@@ -1,6 +1,16 @@
 import React from 'react';
 
 import {
+	Dispatch,
+	bindActionCreators,
+	AnyAction,
+} from 'redux';
+
+import {
+	connect,
+} from 'react-redux';
+
+import {
 	Menu,
 } from 'semantic-ui-react';
 
@@ -8,6 +18,14 @@ import {
 	invalidateTweets,
 	fetchTweetsIfNeeded,
 } from '../actions';
+
+import {
+	State,
+} from '../reducers';
+
+import {
+	getQueueCount,
+} from '../selectors';
 
 import {
 	Button,
@@ -26,7 +44,7 @@ interface ComponentState {
 	menuWidth: number;
 }
 
-export class MenuComponent extends React.Component<ComponentProps, ComponentState> {
+class MenuComponent extends React.Component<ComponentProps, ComponentState> {
 	constructor(props: ComponentProps) {
 		super(props);
 
@@ -143,3 +161,18 @@ export class MenuComponent extends React.Component<ComponentProps, ComponentStat
 		);
 	}
 }
+
+function mapStateToProps(state: State) {
+	return {
+		'queueCount': getQueueCount(state),
+	};
+}
+
+function mapDispatchToProps(dispatch: Dispatch<AnyAction>) {
+	return bindActionCreators({
+		'invalidateTweets': invalidateTweets,
+		'fetchTweetsIfNeeded': fetchTweetsIfNeeded,
+	}, dispatch);
+}
+
+export const MenuContainer = connect(mapStateToProps, mapDispatchToProps)(MenuComponent);
