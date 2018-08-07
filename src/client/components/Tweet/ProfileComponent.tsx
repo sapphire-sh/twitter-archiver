@@ -10,7 +10,6 @@ import {
 
 import {
 	dateToString,
-	dateToRelativeString,
 } from '../../../shared/helpers';
 
 import {
@@ -27,36 +26,11 @@ interface ComponentProps {
 	updateHistoryIfNeeded: typeof updateHistoryIfNeeded;
 }
 
-interface ComponentState {
-	tick: number;
-	key: number;
-	keyGenerator: ReturnType<typeof generateKey>;
-}
-
-function* generateKey() {
-	let i = 0;
-
-	while(true) {
-		i += 1;
-		if(i <= 60) {
-			yield i;
-			continue;
-		}
-		yield 60 + Math.floor(i / 60);
-	}
-}
-
-export class ProfileComponent extends React.Component<ComponentProps, ComponentState> {
+export class ProfileComponent extends React.Component<ComponentProps> {
 	constructor(props: ComponentProps) {
 		super(props);
 
 		this.handleUpdateHistory = this.handleUpdateHistory.bind(this);
-
-		this.state = {
-			'tick': null,
-			'keyGenerator': generateKey(),
-			'key': 0,
-		};
 	}
 
 	private handleUpdateHistory(id: string) {
@@ -65,44 +39,12 @@ export class ProfileComponent extends React.Component<ComponentProps, ComponentS
 		};
 	}
 
-	public componentDidMount() {
-		const {
-			keyGenerator,
-		} = this.state;
-
-		this.setState({
-			'tick': window.setInterval(() => {
-				this.setState({
-					'key': keyGenerator.next().value,
-				});
-			}, 1000),
-		});
-	}
-
-	public shouldComponentUpdate(nextProps: ComponentProps, nextState: ComponentState) {
-		return this.state.key !== nextState.key;
-	}
-
-	public componentWillUnmount() {
-		const {
-			tick,
-		} = this.state;
-
-		if(tick !== null) {
-			window.clearInterval(tick);
-		}
-	}
-
 	public render() {
 		const {
 			tweet,
 			isRetweet,
 			isQuote,
 		} = this.props;
-
-		const {
-			key,
-		} = this.state;
 
 		const {
 			id_str,
@@ -121,13 +63,12 @@ export class ProfileComponent extends React.Component<ComponentProps, ComponentS
 			translator_type,
 		} = user as any;
 
-		const tweetUrl = `https://twitter.com/${screen_name}/status/${id_str}`;
-
 		const date = new Date(created_at);
 
 		return (
 			<div className="tweet-profile">
 				<Label
+					className="tweet-profile-label"
 					as="a"
 					image={true}
 					ribbon={isQuote || isRetweet ? false : true}
@@ -138,7 +79,7 @@ export class ProfileComponent extends React.Component<ComponentProps, ComponentS
 					}}
 				>
 					<img src={profile_image_url_https} />
-					<span>{name}</span>
+					<span className="tweet-profile-label-name">{name}</span>
 					<div className="detail">@{screen_name}</div>
 					{(() => {
 						if(user.protected === true) {
@@ -181,13 +122,14 @@ export class ProfileComponent extends React.Component<ComponentProps, ComponentS
 							}}
 						/>
 					</Button>
-					<Button animated="vertical" basic={true} color="blue">
-						<Button.Content hidden={true}>
-							<a key={key} href={tweetUrl} target="_blank">{dateToRelativeString(date)}</a>
-						</Button.Content>
-						<Button.Content visible={true}>
-							{dateToString(date)}
-						</Button.Content>
+					<Button
+						as="a"
+						basic={true}
+						color="blue"
+						href={`https://twitter.com/${screen_name}/status/${id_str}`}
+						target="_blank"
+					>
+						{dateToString(date)}
 					</Button>
 					{(() => {
 						if(isRetweet === true) {

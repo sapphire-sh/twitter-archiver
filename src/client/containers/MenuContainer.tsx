@@ -45,7 +45,7 @@ interface ComponentState {
 	menuWidth: number;
 	autoScroll: boolean;
 	tick: number;
-	position: number;
+	onScroll: boolean;
 }
 
 class MenuComponent extends React.Component<ComponentProps, ComponentState> {
@@ -60,14 +60,23 @@ class MenuComponent extends React.Component<ComponentProps, ComponentState> {
 			'menuWidth': 0,
 			'autoScroll': false,
 			'tick': null,
-			'position': window.scrollY,
+			'onScroll': false,
 		};
 	}
 
 	private handleScroll(e: WheelEvent | KeyboardEvent) {
+		const {
+			autoScroll,
+		} = this.state;
+
+		if(autoScroll === false) {
+			return;
+		}
+
 		if(e instanceof WheelEvent) {
 			this.setState({
 				'autoScroll': false,
+				'onScroll': false,
 			});
 			return;
 		}
@@ -80,6 +89,7 @@ class MenuComponent extends React.Component<ComponentProps, ComponentState> {
 			case 40: // arrow down
 				this.setState({
 					'autoScroll': false,
+					'onScroll': false,
 				});
 				return;
 			}
@@ -137,14 +147,28 @@ class MenuComponent extends React.Component<ComponentProps, ComponentState> {
 			'tick': window.setInterval(() => {
 				const {
 					autoScroll,
+					onScroll,
 				} = this.state;
 
 				if(autoScroll === false) {
 					return;
 				}
 
+				if(document.body.scrollHeight <= document.body.clientHeight + window.scrollY) {
+					this.setState({
+						'onScroll': false,
+					});
+				}
+
+				if(onScroll === true) {
+					return;
+				}
+
 				window.scroll(0, document.body.scrollHeight);
-			}, 1000),
+				this.setState({
+					'onScroll': true,
+				});
+			}, 500),
 		});
 
 		this.handleRefreshTweets();
