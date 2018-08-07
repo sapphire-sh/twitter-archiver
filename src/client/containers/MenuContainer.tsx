@@ -28,7 +28,8 @@ import {
 } from '../selectors';
 
 import {
-	Button,
+	Icon,
+	Input,
 } from 'semantic-ui-react';
 
 import '../styles/Menu.scss';
@@ -42,25 +43,68 @@ interface ComponentProps {
 
 interface ComponentState {
 	menuWidth: number;
+	autoScroll: boolean;
+	tick: number;
+	position: number;
 }
 
 class MenuComponent extends React.Component<ComponentProps, ComponentState> {
 	constructor(props: ComponentProps) {
 		super(props);
 
-		this.refreshTweets = this.refreshTweets.bind(this);
+		this.handleScroll = this.handleScroll.bind(this);
+		this.handleRefreshTweets = this.handleRefreshTweets.bind(this);
+		this.handleAutoScroll = this.handleAutoScroll.bind(this);
 
 		this.state = {
 			'menuWidth': 0,
+			'autoScroll': false,
+			'tick': null,
+			'position': window.scrollY,
 		};
 	}
 
-	private refreshTweets() {
+	private handleScroll(e: WheelEvent | KeyboardEvent) {
+		if(e instanceof WheelEvent) {
+			this.setState({
+				'autoScroll': false,
+			});
+			return;
+		}
+		if(e instanceof KeyboardEvent) {
+			switch(e.keyCode) {
+			case 32: // space
+			case 33: // page up
+			case 34: // page down
+			case 38: // arrow up
+			case 40: // arrow down
+				this.setState({
+					'autoScroll': false,
+				});
+				return;
+			}
+		}
+	}
+
+	private handleRefreshTweets() {
 		this.props.invalidateTweets();
 		this.props.fetchTweetsIfNeeded();
 	}
 
+	private handleAutoScroll() {
+		const {
+			autoScroll,
+		} = this.state;
+
+		this.setState({
+			'autoScroll': autoScroll === false,
+		});
+	}
+
 	public componentDidMount() {
+		window.addEventListener('wheel', this.handleScroll);
+		window.addEventListener('keydown', this.handleScroll);
+
 		const menu = document.querySelector<HTMLDivElement>('#menu');
 		if(menu === null) {
 			return;
@@ -90,9 +134,33 @@ class MenuComponent extends React.Component<ComponentProps, ComponentState> {
 
 		this.setState({
 			'menuWidth': clientWidth - horizontalPadding,
+			'tick': window.setInterval(() => {
+				const {
+					autoScroll,
+				} = this.state;
+
+				if(autoScroll === false) {
+					return;
+				}
+
+				window.scroll(0, document.body.scrollHeight);
+			}, 1000),
 		});
 
-		this.refreshTweets();
+		this.handleRefreshTweets();
+	}
+
+	public componentWillUnmount() {
+		const {
+			tick,
+		} = this.state;
+
+		if(tick !== null) {
+			window.clearInterval(tick);
+		}
+
+		window.removeEventListener('wheel', this.handleScroll);
+		window.removeEventListener('keydown', this.handleScroll);
 	}
 
 	public render() {
@@ -100,60 +168,98 @@ class MenuComponent extends React.Component<ComponentProps, ComponentState> {
 			queueCount,
 		} = this.props;
 
+		const {
+			autoScroll,
+		} = this.state;
+
 		return (
 			<Menu
 				id="menu"
+				size="tiny"
 				style={{
 					'width': this.state.menuWidth,
 				}}
 				vertical={true}
 			>
 				<Menu.Item>
-					<Menu.Header>Products</Menu.Header>
+					<Menu.Header>profile</Menu.Header>
 
 					<Menu.Menu>
-						<Menu.Item name="enterprise" />
-						<Menu.Item name="consumer" />
+						<Menu.Item>
+							<span>username</span>
+						</Menu.Item>
+						<Menu.Item>
+							<span>@screen_name</span>
+						</Menu.Item>
 					</Menu.Menu>
 				</Menu.Item>
 
 				<Menu.Item>
-					<Menu.Header>CMS Solutions</Menu.Header>
+					<Menu.Header>search</Menu.Header>
 
 					<Menu.Menu>
-						<Menu.Item name="rails" />
-						<Menu.Item name="python" />
-						<Menu.Item name="php" />
+						<Menu.Item>
+							<Input placeholder="search" size="small" />
+						</Menu.Item>
 					</Menu.Menu>
 				</Menu.Item>
 
 				<Menu.Item>
-					<Menu.Header>Hosting</Menu.Header>
+					<Menu.Header>filter</Menu.Header>
 
 					<Menu.Menu>
-						<Menu.Item name="shared" />
-						<Menu.Item name="dedicated" />
+						<Menu.Item>
+							<span>muted keywords</span>
+						</Menu.Item>
+						<Menu.Item>
+							<span>muted users</span>
+						</Menu.Item>
+						<Menu.Item>
+							<span>blocked users</span>
+						</Menu.Item>
 					</Menu.Menu>
 				</Menu.Item>
 
 				<Menu.Item>
-					<Menu.Header>Stats</Menu.Header>
+					<Menu.Header>stats</Menu.Header>
 
 					<Menu.Menu>
 						<Menu.Item name="queue-count">
-							queue count: {queueCount}
-						</Menu.Item>
-
-						<Menu.Item name="faq">
-							FAQs
+							<span>queue count: {queueCount}</span>
 						</Menu.Item>
 					</Menu.Menu>
 				</Menu.Item>
 
 				<Menu.Item>
+					<Menu.Header>help</Menu.Header>
+
 					<Menu.Menu>
-						<Menu.Item name="refresh">
-							<Button onClick={this.refreshTweets}>refresh</Button>
+						<Menu.Item>
+							<span>keyboard shortcuts</span>
+						</Menu.Item>
+						<Menu.Item>
+							<span>github</span>
+						</Menu.Item>
+						<Menu.Item>
+							<span>@sapphire_dev</span>
+						</Menu.Item>
+					</Menu.Menu>
+				</Menu.Item>
+
+				<Menu.Item onClick={this.handleRefreshTweets}>
+					<Menu.Menu>
+						<Menu.Item>
+							<Icon name="exchange" />
+							<span>force refresh</span>
+						</Menu.Item>
+					</Menu.Menu>
+				</Menu.Item>
+
+				<Menu.Item active={autoScroll} onClick={this.handleAutoScroll}>
+					<Menu.Menu>
+						<Menu.Item>
+							<Icon name="angle double down" />
+							<span>auto scroll</span>
 						</Menu.Item>
 					</Menu.Menu>
 				</Menu.Item>

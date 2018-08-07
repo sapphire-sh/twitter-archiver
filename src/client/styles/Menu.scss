@@ -1,4 +1,16 @@
 #menu {
 	position: fixed;
 	top: 40px;
+
+	.menu:only-child {
+		margin-top: 0;
+	}
+
+	.item.active {
+		background-color: #2185d0 !important;
+
+		.item {
+			color: white !important;
+		}
+	}
 }
