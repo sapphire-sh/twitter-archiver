@@ -41,7 +41,7 @@ export class RetweetComponent extends React.Component<ComponentProps> {
 		return (
 			<div className="tweet retweet">
 				<ProfileComponent {...this.props} isRetweet={false} />
-				<Segment.Group>
+				<Segment.Group size="tiny">
 					<Segment>
 						<TweetComponent {...this.props} tweet={retweeted_status} />
 					</Segment>

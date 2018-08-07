@@ -1,6 +1,10 @@
 import React from 'react';
 
 import {
+	updateHistoryIfNeeded,
+} from '../../actions';
+
+import {
 	Tweet,
 } from '../../../shared/models';
 
@@ -19,6 +23,8 @@ interface ComponentProps {
 	tweet: Tweet;
 	isRetweet: boolean;
 	isQuote: boolean;
+
+	updateHistoryIfNeeded: typeof updateHistoryIfNeeded;
 }
 
 interface ComponentState {
@@ -44,10 +50,18 @@ export class ProfileComponent extends React.Component<ComponentProps, ComponentS
 	constructor(props: ComponentProps) {
 		super(props);
 
+		this.handleUpdateHistory = this.handleUpdateHistory.bind(this);
+
 		this.state = {
 			'tick': null,
 			'keyGenerator': generateKey(),
 			'key': 0,
+		};
+	}
+
+	private handleUpdateHistory(id: string) {
+		return () => {
+			this.props.updateHistoryIfNeeded(id);
 		};
 	}
 
@@ -117,16 +131,15 @@ export class ProfileComponent extends React.Component<ComponentProps, ComponentS
 					as="a"
 					image={true}
 					ribbon={isQuote || isRetweet ? false : true}
-					basic={true}
 					href={`https://twitter.com/${screen_name}`}
 					target="_blank"
 					style={{
-						'border': `1px solid #${profile_link_color}`,
+						'backgroundColor': `#${profile_link_color}`,
 					}}
 				>
 					<img src={profile_image_url_https} />
 					<span>{name}</span>
-					<span>@{screen_name}</span>
+					<div className="detail">@{screen_name}</div>
 					{(() => {
 						if(user.protected === true) {
 							return (
@@ -159,7 +172,7 @@ export class ProfileComponent extends React.Component<ComponentProps, ComponentS
 						}
 					})()}
 				</Label>
-				<Button.Group size="mini">
+				<Button.Group size="tiny">
 					<Button basic={true} color="blue">
 						<div
 							className="source"
@@ -176,6 +189,20 @@ export class ProfileComponent extends React.Component<ComponentProps, ComponentS
 							{dateToString(date)}
 						</Button.Content>
 					</Button>
+					{(() => {
+						if(isRetweet === true) {
+							return null;
+						}
+						if(isQuote === true) {
+							return null;
+						}
+						return (
+							<Button color="blue" onClick={this.handleUpdateHistory(tweet.id_str)}>
+								<Icon name="sync" />
+								{'mark as read'}
+							</Button>
+						);
+					})()}
 				</Button.Group>
 			</div>
 		);

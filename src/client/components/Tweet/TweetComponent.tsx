@@ -82,7 +82,7 @@ export class TweetComponent extends React.Component<ComponentProps> {
 		return (
 			<div className="tweet">
 				<ProfileComponent {...this.props} isQuote={isQuote} />
-				<Segment.Group>
+				<Segment.Group size="tiny">
 					<Segment>
 						<TextComponent text={text} entities={entities} />
 					</Segment>

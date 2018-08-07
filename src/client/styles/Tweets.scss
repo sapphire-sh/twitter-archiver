@@ -13,13 +13,11 @@
 		align-items: center;
 
 		.ui.label {
+			color: white;
+
 			& > div:first-child {
 				display: inline-block;
 				width: 8px;
-			}
-
-			& > *:not(:last-child) {
-				margin-right: .5em;
 			}
 
 			& > *:last-child {

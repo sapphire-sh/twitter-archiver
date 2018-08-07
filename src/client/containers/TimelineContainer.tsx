@@ -58,7 +58,7 @@ class TimelineComponent extends React.Component<ComponentProps> {
 
 		return (
 			<div>
-				<Segment.Group>
+				<Segment.Group size="tiny">
 					<PlaceholderComponent {...this.props} />
 					{tweets.filter((tweet) => {
 						return tweet.id_str >= historyID;
