@@ -24,6 +24,20 @@ interface ComponentProps {
 interface ComponentState {
 	tick: number;
 	key: number;
+	keyGenerator: ReturnType<typeof generateKey>;
+}
+
+function* generateKey() {
+	let i = 0;
+
+	while(true) {
+		i += 1;
+		if(i <= 60) {
+			yield i;
+			continue;
+		}
+		yield 60 + Math.floor(i / 60);
+	}
 }
 
 export class ProfileComponent extends React.Component<ComponentProps, ComponentState> {
@@ -32,18 +46,37 @@ export class ProfileComponent extends React.Component<ComponentProps, ComponentS
 
 		this.state = {
 			'tick': null,
+			'keyGenerator': generateKey(),
 			'key': 0,
 		};
 	}
 
 	public componentDidMount() {
+		const {
+			keyGenerator,
+		} = this.state;
+
 		this.setState({
 			'tick': window.setInterval(() => {
 				this.setState({
-					'key': this.state.key + 1,
+					'key': keyGenerator.next().value,
 				});
 			}, 1000),
 		});
+	}
+
+	public shouldComponentUpdate(nextProps: ComponentProps, nextState: ComponentState) {
+		return this.state.key !== nextState.key;
+	}
+
+	public componentWillUnmount() {
+		const {
+			tick,
+		} = this.state;
+
+		if(tick !== null) {
+			window.clearInterval(tick);
+		}
 	}
 
 	public render() {
