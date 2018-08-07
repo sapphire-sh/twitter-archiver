@@ -154,14 +154,15 @@ class MenuComponent extends React.Component<ComponentProps, ComponentState> {
 					return;
 				}
 
-				if(document.body.scrollHeight <= document.body.clientHeight + window.scrollY) {
-					this.setState({
-						'onScroll': false,
-					});
-				}
-
-				if(onScroll === true) {
-					return;
+				if(document.body.scrollHeight === document.body.clientHeight + window.scrollY) {
+					if(onScroll === true) {
+						this.setState({
+							'onScroll': false,
+						});
+					}
+					else {
+						return;
+					}
 				}
 
 				window.scroll(0, document.body.scrollHeight);
