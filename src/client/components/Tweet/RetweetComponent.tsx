@@ -45,7 +45,7 @@ export class RetweetComponent extends React.Component<ComponentProps> {
 					<Segment>
 						<TweetComponent {...this.props} tweet={retweeted_status} />
 					</Segment>
-					<FooterComponent {...this.props} isRetweet={false} />
+					<FooterComponent {...this.props} />
 				</Segment.Group>
 			</div>
 		);

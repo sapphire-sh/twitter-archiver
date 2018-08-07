@@ -16,8 +16,6 @@ import {
 
 interface ComponentProps {
 	tweet: Tweet;
-	isRetweet: boolean;
-	isQuote: boolean;
 
 	openModal: typeof openModal;
 }
@@ -38,8 +36,6 @@ export class FooterComponent extends React.Component<ComponentProps> {
 	public render() {
 		const {
 			tweet,
-			isRetweet,
-			isQuote,
 		} = this.props;
 
 		const {
@@ -55,11 +51,11 @@ export class FooterComponent extends React.Component<ComponentProps> {
 					<Icon name="reply" />
 					<span>{reply_count === undefined ? -1 : reply_count}</span>
 				</Button>
-				<Button basic={true} color="grey" disabled={isRetweet || isQuote}>
+				<Button basic={true} color="grey">
 					<Icon name="retweet" />
 					<span>{retweet_count}</span>
 				</Button>
-				<Button basic={true} color="grey" disabled={isRetweet || isQuote}>
+				<Button basic={true} color="grey">
 					<Icon name="star" />
 					<span>{favorite_count}</span>
 				</Button>

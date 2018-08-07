@@ -68,7 +68,6 @@ export class TweetComponent extends React.Component<ComponentProps> {
 	public render() {
 		const {
 			tweet,
-			isRetweet,
 			isQuote,
 		} = this.props;
 
@@ -114,7 +113,7 @@ export class TweetComponent extends React.Component<ComponentProps> {
 							</Segment>
 						);
 					})()}
-					<FooterComponent {...this.props} isRetweet={isRetweet} />
+					<FooterComponent {...this.props} />
 				</Segment.Group>
 			</div>
 		);
