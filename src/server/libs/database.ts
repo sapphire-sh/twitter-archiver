@@ -6,6 +6,7 @@ import {
 
 import {
 	Tweet,
+	User,
 	SocketEventType,
 } from '../../shared/models';
 
@@ -55,6 +56,19 @@ knex.schema.hasTable('history').then((exists) => {
 	});
 });
 
+knex.schema.hasTable('filters').then((exists) => {
+	if(exists) {
+		return Promise.resolve();
+	}
+	return knex.schema.createTable('filters', (table) => {
+		table.increments('id').primary();
+		table.integer('type').notNullable();
+		table.binary('data').notNullable();
+
+		table.timestamps(true, true);
+	});
+});
+
 export class Database {
 	private static knex: Knex = knex;
 
@@ -91,12 +105,11 @@ export class Database {
 
 	private static checkUnique(tweet: Tweet) {
 		return new Promise((resolve, reject) => {
-			return this.knex('tweets').where({
+			this.knex('tweets').where({
 				'key': tweet.id_str,
 			}).then((data: string[]) => {
 				if(data.length === 1) {
 					resolve(false);
-					return;
 				}
 				resolve(true);
 			}).catch((err) => {
@@ -130,7 +143,7 @@ export class Database {
 
 	public static getTweets(key: string) {
 		return new Promise((resolve, reject) => {
-			return this.knex('tweets').where('key', '>=', key).orderBy('key', 'asc').limit(100).then((rows: DataRow[]) => {
+			this.knex('tweets').where('key', '>=', key).orderBy('key', 'asc').limit(100).then((rows: DataRow[]) => {
 				return Promise.all(rows.map((row) => {
 					return inflate<Tweet>(row.data);
 				}));
@@ -142,9 +155,26 @@ export class Database {
 		});
 	}
 
+	public static getHistory() {
+		return new Promise<string>((resolve, reject) => {
+			this.knex('history').orderBy('id', 'desc').limit(1).then((rows: Array<{
+				key: string;
+			}>) => {
+				if(rows.length === 0) {
+					resolve('1');
+				}
+				else {
+					resolve(rows[0].key);
+				}
+			}).catch((err) => {
+				reject(err);
+			});
+		});
+	}
+
 	public static setHistory(key: string) {
 		return new Promise((resolve, reject) => {
-			return this.knex('history').insert({
+			this.knex('history').insert({
 				'key': key,
 			}).then((rows: number[]) => {
 				Socket.emit(SocketEventType.UPDATE_HISTORY, key);
@@ -155,17 +185,58 @@ export class Database {
 		});
 	}
 
-	public static getHistory() {
-		return new Promise<string>((resolve, reject) => {
-			return this.knex('history').orderBy('id', 'desc').limit(1).then((rows: Array<{
-				key: string;
-			}>) => {
+	public static getBlockedUsersList() {
+		return new Promise((resolve, reject) => {
+			return this.knex('filters').where({
+				'type': 1,
+			}).orderBy('id', 'desc').limit(1).then((rows) => {
 				if(rows.length === 0) {
-					resolve('1');
+					reject();
 				}
-				else {
-					resolve(rows[0].key);
+				resolve(rows.pop().data);
+			});
+		}).then((data) => {
+			return deflate(data);
+		}).catch(() => {
+			return Promise.resolve([]);
+		});
+	}
+
+	public static setBlockedUsersList(users: User[]) {
+		return new Promise((resolve, reject) => {
+			this.knex('filters').insert({
+				'type': 1,
+			}).then((rows) => {
+				resolve(rows);
+			}).catch((err) => {
+				reject(err);
+			});
+		});
+	}
+
+	public static getMutedUsersList() {
+		return new Promise((resolve, reject) => {
+			return this.knex('filters').where({
+				'type': 2,
+			}).orderBy('id', 'desc').limit(1).then((rows) => {
+				if(rows.length === 0) {
+					reject();
 				}
+				resolve(rows.pop().data);
+			});
+		}).then((data) => {
+			return deflate(data);
+		}).catch(() => {
+			return Promise.resolve([]);
+		});
+	}
+
+	public static setMutedUsersList(users: User[]) {
+		return new Promise((resolve, reject) => {
+			this.knex('filters').insert({
+				'type': 2,
+			}).then((rows) => {
+				resolve(rows);
 			}).catch((err) => {
 				reject(err);
 			});

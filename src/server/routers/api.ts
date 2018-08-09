@@ -33,4 +33,36 @@ router.get('/limit', (_, res) => {
 	});
 });
 
+router.get('/users/followers', (_, res) => {
+	Twitter.getFollowersList().then((users) => {
+		res.json(users);
+	}).catch((err) => {
+		res.json(err);
+	});
+});
+
+router.get('/users/following', (_, res) => {
+	Twitter.getFollowingUsersList().then((users) => {
+		res.json(users);
+	}).catch((err) => {
+		res.json(err);
+	});
+});
+
+router.get('/users/blocked', (_, res) => {
+	Twitter.getBlockedUsersList().then((users) => {
+		res.json(users);
+	}).catch((err) => {
+		res.json(err);
+	});
+});
+
+router.get('/users/muted', (_, res) => {
+	Twitter.getMutedUsersList().then((users) => {
+		res.json(users);
+	}).catch((err) => {
+		res.json(err);
+	});
+});
+
 export default router;

@@ -8,6 +8,7 @@ import {
 
 import {
 	Tweet,
+	User,
 } from '../../shared/models';
 
 import {
@@ -119,5 +120,54 @@ export class Twitter {
 				resolve(res);
 			});
 		});
+	}
+
+	private static async getUsersList(endpoint: string) {
+		try {
+			let users: User[] = [];
+			let cursor = null;
+
+			while(cursor !== '0') {
+				const {
+					data,
+				} = await this.twit.get(endpoint, {
+					'count': 200,
+					'cursor': cursor,
+				}) as {
+					data: {
+						users: User[];
+						next_cursor_str: string;
+					};
+				};
+
+				users = users.concat(data.users);
+				cursor = data.next_cursor_str;
+
+				await new Promise((resolve) => {
+					setTimeout(resolve, 1000);
+				});
+			}
+
+			return Promise.resolve(users);
+		}
+		catch(err) {
+			return Promise.reject(err);
+		}
+	}
+
+	public static async getFollowersList() {
+		return this.getUsersList('followers/list');
+	}
+
+	public static async getFollowingUsersList() {
+		return this.getUsersList('friends/list');
+	}
+
+	public static async getBlockedUsersList() {
+		return this.getUsersList('blocks/list');
+	}
+
+	public static async getMutedUsersList() {
+		return this.getUsersList('mutes/users/list');
 	}
 }
