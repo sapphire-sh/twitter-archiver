@@ -1,9 +1,4 @@
-/* istanbul ignore file */
-import Promise from 'bluebird';
-
 import Twit, {
-	Callback,
-	Params,
 	Stream,
 } from 'twit';
 
@@ -22,11 +17,6 @@ import {
 export interface OAuthToken extends AccessToken {
 	consumer_key: string;
 	consumer_secret: string;
-}
-
-enum RequestType {
-	GET = 'GET',
-	POST = 'POST',
 }
 
 export class Twitter {
@@ -74,53 +64,21 @@ export class Twitter {
 		});
 	}
 
-	private static _request(type: RequestType, url: string, params: Params = {}) {
-		let fn: (url: string, params: object, callback: Callback) => void;
-
-		switch(type) {
-		case RequestType.GET:
-			fn = this.twit.get;
-			break;
-		case RequestType.POST:
-			fn = this.twit.post;
-			break;
-		default:
-			return Promise.reject('invalid request type');
-		}
-
+	public static getCurrentUser() {
 		return new Promise((resolve, reject) => {
-			fn(url, params, (err, res) => {
+			this.twit.get('account/verify_credentials', (err, res) => {
 				if(err) {
 					reject(err);
 				}
-				else {
-					resolve(res);
-				}
+				resolve(res);
 			});
 		});
 	}
 
-	private static get(url: string, params: Params = {}) {
-		if(params === undefined) {
-			params = {};
-		}
-
-		return this._request(RequestType.GET, url, params);
-	}
-
-	private static post(url: string, params: Params = {}) {
-		return this._request(RequestType.POST, url, params);
-	}
-
-	public static getCurrentUser() {
-		return this.get('account/verify_credentials', {});
-	}
-
 	public static getWebhookList() {
 		return new Promise((resolve, reject) => {
-			this.twit.get('account_activity/all/webhooks', {}, (err, res) => {
+			this.twit.get('account_activity/all/webhooks', (err, res) => {
 				if(err) {
-					console.log(err);
 					reject(err);
 				}
 				resolve(res);
@@ -129,20 +87,37 @@ export class Twitter {
 	}
 
 	public static setWebhook() {
-		this.post('account_activity/all/dev/webhooks', {
-			'url': 'https://archive.sapphire.sh/webhook',
-		}).then((res) => {
-			console.log(res);
-		}).catch((err) => {
-			console.log(err);
+		return new Promise((resolve, reject) => {
+			this.twit.post('account_activity/all/dev/webhooks', {
+				'url': 'https://archive.sapphire.sh/webhook',
+			}, (err, res) => {
+				if(err) {
+					reject(err);
+				}
+				resolve(res);
+			});
 		});
 	}
 
 	public static subscribe() {
-		this.post('account_activity/all/dev/subscriptions').then((res) => {
-			console.log(res);
-		}).catch((err) => {
-			console.log(err);
+		return new Promise((resolve, reject) => {
+			this.twit.post('account_activity/all/dev/subscriptions', (err, res) => {
+				if(err) {
+					reject(err);
+				}
+				resolve(res);
+			});
+		});
+	}
+
+	public static getRateLimitStatus() {
+		return new Promise((resolve, reject) => {
+			this.twit.get('application/rate_limit_status', (err, res) => {
+				if(err) {
+					reject(err);
+				}
+				resolve(res);
+			});
 		});
 	}
 }

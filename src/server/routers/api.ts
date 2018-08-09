@@ -2,6 +2,7 @@ import Express from 'express';
 
 import {
 	Database,
+	Twitter,
 } from '../libs';
 
 const router = Express.Router();
@@ -19,6 +20,14 @@ router.get('/tweets', (_, res) => {
 router.post('/history', (req, res) => {
 	Database.setHistory(req.body.id).then(() => {
 		res.json(true);
+	}).catch((err) => {
+		res.json(err);
+	});
+});
+
+router.get('/limit', (_, res) => {
+	Twitter.getRateLimitStatus().then((status) => {
+		res.json(status);
 	}).catch((err) => {
 		res.json(err);
 	});
