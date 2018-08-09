@@ -220,6 +220,19 @@ class MenuComponent extends React.Component<ComponentProps, ComponentState> {
 				</Menu.Item>
 
 				<Menu.Item>
+					<Menu.Header>relations</Menu.Header>
+
+					<Menu.Menu>
+						<Menu.Item>
+							<span>followings</span>
+						</Menu.Item>
+						<Menu.Item>
+							<span>followers</span>
+						</Menu.Item>
+					</Menu.Menu>
+				</Menu.Item>
+
+				<Menu.Item>
 					<Menu.Header>search</Menu.Header>
 
 					<Menu.Menu>

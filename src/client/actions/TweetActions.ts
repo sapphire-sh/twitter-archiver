@@ -52,7 +52,7 @@ function fetchTweets() {
 	return (dispatch: Dispatch<any>) => {
 		dispatch(requestTweets());
 
-		sendRequest(RequestType.FETCH_TWEET).then((tweets: Tweet[]) => {
+		sendRequest(RequestType.FETCH_TWEETS).then((tweets: Tweet[]) => {
 			dispatch(receiveTweets(tweets));
 		}).catch((err) => {
 			console.log(err);

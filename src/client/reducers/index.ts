@@ -13,6 +13,11 @@ import {
 } from './ModalReducer';
 
 import {
+	relations,
+	RelationsState,
+} from './RelationsReducer';
+
+import {
 	socket,
 	SocketState,
 } from './SocketReducer';
@@ -30,6 +35,7 @@ import {
 export interface State {
 	historyState: HistoryState;
 	modalState: ModalState;
+	relationsState: RelationsState;
 	socketState: SocketState;
 	statsState: StatsState;
 	tweetState: TweetState;
@@ -38,6 +44,7 @@ export interface State {
 export const reducers = combineReducers<State>({
 	'historyState': history,
 	'modalState': modal,
+	'relationsState': relations,
 	'socketState': socket,
 	'statsState': stats,
 	'tweetState': tweet,

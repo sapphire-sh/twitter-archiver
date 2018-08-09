@@ -33,8 +33,8 @@ router.get('/limit', (_, res) => {
 	});
 });
 
-router.get('/users/followers', (_, res) => {
-	Twitter.getFollowersList().then((users) => {
+router.get('/users/follower', (_, res) => {
+	Twitter.getFollowerUsersList().then((users) => {
 		res.json(users);
 	}).catch((err) => {
 		res.json(err);

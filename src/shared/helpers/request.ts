@@ -1,8 +1,10 @@
 const API_URL = '/api';
 
 export enum RequestType {
-	FETCH_TWEET = 10001,
+	FETCH_TWEETS = 10001,
 	UPDATE_HISTORY = 20001,
+	FETCH_FOLLOWING_USERS = 30001,
+	FETCH_FOLLOWER_USERS,
 }
 
 enum RequestMethod {
@@ -12,16 +14,22 @@ enum RequestMethod {
 
 function getURL(requestType: RequestType): string {
 	switch(requestType) {
-	case RequestType.FETCH_TWEET:
+	case RequestType.FETCH_TWEETS:
 		return `${API_URL}/tweets`;
 	case RequestType.UPDATE_HISTORY:
 		return `${API_URL}/history`;
+	case RequestType.FETCH_FOLLOWING_USERS:
+		return `${API_URL}/users/following`;
+	case RequestType.FETCH_FOLLOWER_USERS:
+		return `${API_URL}/users/follower`;
 	}
 }
 
 function getMethod(requestType: RequestType): RequestMethod {
 	switch(requestType) {
-	case RequestType.FETCH_TWEET:
+	case RequestType.FETCH_TWEETS:
+	case RequestType.FETCH_FOLLOWING_USERS:
+	case RequestType.FETCH_FOLLOWER_USERS:
 		return RequestMethod.GET;
 	case RequestType.UPDATE_HISTORY:
 		return RequestMethod.POST;

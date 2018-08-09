@@ -155,7 +155,7 @@ export class Twitter {
 		}
 	}
 
-	public static async getFollowersList() {
+	public static async getFollowerUsersList() {
 		return this.getUsersList('followers/list');
 	}
 
