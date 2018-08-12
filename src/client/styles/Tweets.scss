@@ -37,6 +37,11 @@
 		}
 	}
 
+	&-video {
+		width: 150px;
+		height: auto;
+	}
+
 	&-footer {
 		display: flex;
 		justify-content: space-between;

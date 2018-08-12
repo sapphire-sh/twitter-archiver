@@ -97,7 +97,6 @@ export class TweetComponent extends React.Component<ComponentProps> {
 							<Segment>
 								<MediaComponent
 									{...this.props}
-									id={tweet.id_str}
 									entities={entities}
 								/>
 							</Segment>

@@ -15,7 +15,6 @@ import {
 } from 'semantic-ui-react';
 
 interface ComponentProps {
-	id: string;
 	entities: Entities;
 
 	openModal: typeof openModal;
@@ -38,7 +37,6 @@ export class MediaComponent extends React.Component<ComponentProps> {
 
 	public render() {
 		const {
-			id,
 			entities,
 		} = this.props;
 
@@ -55,13 +53,35 @@ export class MediaComponent extends React.Component<ComponentProps> {
 				{entities.media.map((medium) => {
 					switch(medium.type) {
 					case 'video':
+						const video = (medium as any).video_info.variants.filter((e) => {
+							return e.bitrate !== undefined;
+						}).sort((a, b) => {
+							return a.bitrate - b.bitrate;
+						}).pop();
+
 						return (
-							<iframe
+							<video
+								className="tweet-video"
 								key={medium.id_str}
 								style={{
 									'margin': '0 auto',
 								}}
-								src={`https://twitter.com/i/videos/${id}`}
+								src={video.url}
+								controls={true}
+							/>
+						);
+					case 'animated_gif':
+						const id = medium.media_url_https.split('/').pop().split('.').shift();
+
+						return (
+							<video
+								className="tweet-video"
+								key={medium.id_str}
+								style={{
+									'margin': '0 auto',
+								}}
+								src={`https://video.twimg.com/tweet_video/${id}.mp4`}
+								controls={true}
 							/>
 						);
 					case 'photo':
