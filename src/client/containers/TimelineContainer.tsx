@@ -11,6 +11,8 @@ import {
 } from 'react-redux';
 
 import {
+	invalidateTweets,
+	fetchTweetsIfNeeded,
 	updateHistoryIfNeeded,
 	openModal,
 } from '../actions';
@@ -45,11 +47,18 @@ interface ComponentProps {
 	tweets: Tweet[];
 	historyID: string;
 
+	invalidateTweets: typeof invalidateTweets;
+	fetchTweetsIfNeeded: typeof fetchTweetsIfNeeded;
 	updateHistoryIfNeeded: typeof updateHistoryIfNeeded;
 	openModal: typeof openModal;
 }
 
 class TimelineComponent extends React.Component<ComponentProps> {
+	public componentDidMount() {
+		this.props.invalidateTweets();
+		this.props.fetchTweetsIfNeeded();
+	}
+
 	public render() {
 		const {
 			tweets,
@@ -83,6 +92,8 @@ function mapStateToProps(state: State) {
 
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>) {
 	return bindActionCreators({
+		'invalidateTweets': invalidateTweets,
+		'fetchTweetsIfNeeded': fetchTweetsIfNeeded,
 		'updateHistoryIfNeeded': updateHistoryIfNeeded,
 		'openModal': openModal,
 	}, dispatch);

@@ -43,6 +43,10 @@ interface ComponentProps {
 }
 
 class AppComponent extends React.Component<ComponentProps> {
+	public componentDidMount() {
+		window.scroll(0, 0);
+	}
+
 	public render() {
 		return (
 			<div>

@@ -1,0 +1,14 @@
+export interface MenuItem {
+	type: MenuItemType;
+}
+
+export enum MenuItemType {
+	MENU_ITEM_PROFILE,
+	MENU_ITEM_RELATIONS,
+	MENU_ITEM_SEARCH,
+	MENU_ITEM_FILTERS,
+	MENU_ITEM_STATS,
+	MENU_ITEM_HELP,
+	MENU_ITEM_FORCE_REFRESH,
+	MENU_ITEM_AUTO_SCROLL,
+}
