@@ -1,7 +1,7 @@
 const path = require('path');
 
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -30,17 +30,17 @@ module.exports = {
 			},
 			{
 				'test': /\.s?css$/,
-				'use': ExtractTextPlugin.extract({
-					'fallback': 'style-loader',
-					'use': [
-						{
-							'loader': 'css-loader',
-						},
-						{
-							'loader': 'sass-loader',
-						},
-					],
-				}),
+				'use': [
+					{
+						'loader': MiniCssExtractPlugin.loader,
+					},
+					{
+						'loader': 'css-loader',
+					},
+					{
+						'loader': 'sass-loader',
+					},
+				],
 			},
 			{
 				'test': /\.(png|jpe?g|svg)$/,
@@ -79,7 +79,9 @@ module.exports = {
 	},
 	'plugins': [
 		...baseConfig.plugins,
-		new ExtractTextPlugin('styles.css'),
+		new MiniCssExtractPlugin({
+			'filename': 'styles.css',
+		}),
 		new webpack.DllReferencePlugin({
 			'context': process.cwd(),
 			'manifest': require('../dll/react.json'),
@@ -89,13 +91,6 @@ module.exports = {
 				return [
 					new webpack.HotModuleReplacementPlugin(),
 					new webpack.NoEmitOnErrorsPlugin(),
-				];
-			}
-			if(env === 'production') {
-				return [
-					new webpack.LoaderOptionsPlugin({
-						'minimize': true,
-					}),
 				];
 			}
 			return [];
