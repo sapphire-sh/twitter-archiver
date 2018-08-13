@@ -10,7 +10,7 @@ import {
 } from '../../../shared/models';
 
 import {
-	ProfileComponent,
+	HeaderComponent,
 	TweetComponent,
 	FooterComponent,
 } from '../../components';
@@ -40,13 +40,13 @@ export class RetweetComponent extends React.Component<ComponentProps> {
 
 		return (
 			<div className="tweet retweet">
-				<ProfileComponent {...this.props} isRetweet={false} />
+				<HeaderComponent {...this.props} isRetweet={false} />
 				<Segment.Group size="tiny">
 					<Segment>
 						<TweetComponent {...this.props} tweet={retweeted_status} />
 					</Segment>
-					<FooterComponent {...this.props} />
 				</Segment.Group>
+				<FooterComponent {...this.props} />
 			</div>
 		);
 	}

@@ -10,7 +10,7 @@ import {
 } from '../../../shared/models';
 
 import {
-	ProfileComponent,
+	HeaderComponent,
 	TextComponent,
 	MediaComponent,
 	FooterComponent,
@@ -80,7 +80,7 @@ export class TweetComponent extends React.Component<ComponentProps> {
 
 		return (
 			<div className="tweet">
-				<ProfileComponent {...this.props} isQuote={isQuote} />
+				<HeaderComponent {...this.props} isQuote={isQuote} />
 				<Segment.Group size="tiny">
 					<Segment>
 						<TextComponent text={text} entities={entities} />
@@ -112,8 +112,8 @@ export class TweetComponent extends React.Component<ComponentProps> {
 							</Segment>
 						);
 					})()}
-					<FooterComponent {...this.props} />
 				</Segment.Group>
+				<FooterComponent {...this.props} />
 			</div>
 		);
 	}

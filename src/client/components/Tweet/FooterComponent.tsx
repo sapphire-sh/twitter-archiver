@@ -46,7 +46,7 @@ export class FooterComponent extends React.Component<ComponentProps> {
 		} = tweet as any;
 
 		return (
-			<Button.Group attached="bottom" size="tiny">
+			<Button.Group fluid={true} size="tiny">
 				<Button basic={true} color="grey">
 					<Icon name="reply" />
 					<span>{reply_count === undefined ? -1 : reply_count}</span>

@@ -7,20 +7,20 @@
 		word-wrap: break-word;
 	}
 
-	&-profile {
+	&-header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+	}
 
-		&-label {
-			&-name {
-				display: inline-block;
-				max-width: 180px;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				vertical-align: top;
-			}
+	&-profile {
+		&-name {
+			display: inline-block;
+			max-width: 180px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			vertical-align: top;
 		}
 
 		.ui.label {
@@ -50,6 +50,8 @@
 
 	.ui {
 		&.label {
+			padding-right: 1.2em;
+
 			&.image img {
 				padding-left: .5em;
 			}
@@ -58,8 +60,8 @@
 				margin-right: .5em;
 			}
 
-			&.ribbon {
-				padding-right: .833em;
+			.icon:last-child {
+				margin-right: -.375em;
 			}
 		}
 
@@ -71,7 +73,7 @@
 
 .retweet {
 	.tweet {
-		&-profile {
+		&-header {
 			margin-bottom: 4px;
 		}
 	}
