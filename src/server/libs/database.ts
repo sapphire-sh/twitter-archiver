@@ -74,33 +74,23 @@ export class Database {
 
 	private static queue: Tweet[] = [];
 
-	public static initialize() {
-		let prevCount = -1;
-
-		Promise.resolve().then(function loop() {
-			return Promise.resolve().then(() => {
-				const currCount = Database.queue.length;
-
+	public static async initialize() {
+		try {
+			while(true) {
 				const tweet = Database.queue.shift();
 
-				if(prevCount !== currCount) {
-					// Socket.emit(SocketEventType.QUEUE_COUNT, `${currCount}`);
-				}
-				prevCount = currCount;
-
 				if(tweet !== undefined) {
-					return Database.insertTweet(tweet);
+					await Database.insertTweet(tweet);
 				}
 
-				return Promise.resolve();
-			}).catch((err) => {
-				console.log(err);
-			}).then(() => {
-				setTimeout(loop, 100);
-			});
-		}).catch((err) => {
+				await new Promise((resolve) => {
+					setTimeout(resolve, 100);
+				});
+			}
+		}
+		catch(err) {
 			console.log(err);
-		});
+		}
 	}
 
 	private static checkUnique(tweet: Tweet) {
