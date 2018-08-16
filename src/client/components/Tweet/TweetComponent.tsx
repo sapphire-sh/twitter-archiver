@@ -69,6 +69,7 @@ export class TweetComponent extends React.Component<ComponentProps, ComponentSta
 
 		const {
 			text,
+			full_text,
 			quoted_status,
 		} = hydratedTweet;
 
@@ -81,7 +82,7 @@ export class TweetComponent extends React.Component<ComponentProps, ComponentSta
 				<Segment.Group size="tiny">
 					<Segment>
 						<TextComponent
-							text={text}
+							text={full_text !== undefined ? full_text : text}
 							entities={hydratedEntities}
 						/>
 					</Segment>
