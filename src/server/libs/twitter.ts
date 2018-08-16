@@ -58,6 +58,7 @@ export class Twitter {
 		return new Promise<Tweet[]>((resolve, reject) => {
 			this.twit.get('statuses/home_timeline', {
 				'count': 200,
+				'tweet_mode': 'extended',
 			}, (err, res) => {
 				if(err) {
 					reject(err);
