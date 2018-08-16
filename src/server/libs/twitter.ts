@@ -24,7 +24,7 @@ export class Twitter {
 	private static twit: Twit;
 	private static stream: Stream;
 
-	public static initialize(token: OAuthToken) {
+	public static async initialize(token: OAuthToken) {
 		this.twit = new Twit(token);
 
 		this.stream = this.twit.stream('user', {
@@ -35,17 +35,32 @@ export class Twitter {
 			Database.addQueue(tweet);
 		});
 
-		Promise.resolve().then(function loop() {
-			Twitter.fetchTimeline().then((tweets) => {
+		try {
+			while(true) {
+				const tweets = await this.fetchTimeline();
+
 				tweets.forEach((tweet) => {
 					Database.addQueue(tweet);
 				});
-			}).catch((err) => {
-				console.log(err);
-			}).then(() => {
-				setTimeout(loop, 2 * 60 * 1000);
-			});
-		});
+
+				{
+					const users = await this.getMutedUsersList();
+					Database.setMutedUsersList(users);
+				}
+
+				{
+					const users = await this.getBlockedUsersList();
+					Database.setBlockedUsersList(users);
+				}
+
+				await new Promise((resolve) => {
+					setTimeout(resolve, 5 * 60 * 1000);
+				});
+			}
+		}
+		catch(err) {
+			console.log(err);
+		}
 	}
 
 	public static fetchTimeline() {
@@ -155,19 +170,19 @@ export class Twitter {
 		}
 	}
 
-	public static async getFollowerUsersList() {
-		return this.getUsersList('followers/list');
-	}
-
 	public static async getFollowingUsersList() {
 		return this.getUsersList('friends/list');
 	}
 
-	public static async getBlockedUsersList() {
-		return this.getUsersList('blocks/list');
+	public static async getFollowerUsersList() {
+		return this.getUsersList('followers/list');
 	}
 
 	public static async getMutedUsersList() {
 		return this.getUsersList('mutes/users/list');
+	}
+
+	public static async getBlockedUsersList() {
+		return this.getUsersList('blocks/list');
 	}
 }

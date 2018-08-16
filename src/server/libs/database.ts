@@ -175,6 +175,26 @@ export class Database {
 		});
 	}
 
+	public static async setBlockedUsersList(users: User[]) {
+		try {
+			const data = await deflate(users);
+
+			return new Promise((resolve, reject) => {
+				this.knex('filters').insert({
+					'type': 1,
+					'data': data,
+				}).then((rows) => {
+					resolve(rows);
+				}).catch((err) => {
+					reject(err);
+				});
+			});
+		}
+		catch(err) {
+			return Promise.reject(err);
+		}
+	}
+
 	public static getBlockedUsersList() {
 		return new Promise((resolve, reject) => {
 			return this.knex('filters').where({
@@ -186,22 +206,30 @@ export class Database {
 				resolve(rows.pop().data);
 			});
 		}).then((data) => {
-			return deflate(data);
+			return inflate(data as any);
 		}).catch(() => {
 			return Promise.resolve([]);
 		});
 	}
 
-	public static setBlockedUsersList(users: User[]) {
-		return new Promise((resolve, reject) => {
-			this.knex('filters').insert({
-				'type': 1,
-			}).then((rows) => {
-				resolve(rows);
-			}).catch((err) => {
-				reject(err);
+	public static async setMutedUsersList(users: User[]) {
+		try {
+			const data = await deflate(users);
+
+			return new Promise((resolve, reject) => {
+				this.knex('filters').insert({
+					'type': 2,
+					'data': data,
+				}).then((rows) => {
+					resolve(rows);
+				}).catch((err) => {
+					reject(err);
+				});
 			});
-		});
+		}
+		catch(err) {
+			return Promise.reject(err);
+		}
 	}
 
 	public static getMutedUsersList() {
@@ -215,21 +243,9 @@ export class Database {
 				resolve(rows.pop().data);
 			});
 		}).then((data) => {
-			return deflate(data);
+			return inflate(data as any);
 		}).catch(() => {
 			return Promise.resolve([]);
-		});
-	}
-
-	public static setMutedUsersList(users: User[]) {
-		return new Promise((resolve, reject) => {
-			this.knex('filters').insert({
-				'type': 2,
-			}).then((rows) => {
-				resolve(rows);
-			}).catch((err) => {
-				reject(err);
-			});
 		});
 	}
 }
