@@ -24,8 +24,8 @@ export class Twitter {
 	public static async initialize(token: OAuthToken) {
 		this.twit = new Twit(token);
 
-		try {
-			while(true) {
+		while(true) {
+			try {
 				const tweets = await this.fetchTimeline();
 
 				console.log(`tweets ${tweets.length}`);
@@ -43,14 +43,14 @@ export class Twitter {
 					const users = await this.getBlockedUsersList();
 					Database.setBlockedUsersList(users);
 				}
-
-				await new Promise((resolve) => {
-					setTimeout(resolve, 1.1 * 60 * 1000);
-				});
 			}
-		}
-		catch(err) {
-			console.log(err);
+			catch(err) {
+				console.log(err);
+			}
+
+			await new Promise((resolve) => {
+				setTimeout(resolve, 1.1 * 60 * 1000);
+			});
 		}
 	}
 
