@@ -1,6 +1,4 @@
-import Twit, {
-	Stream,
-} from 'twit';
+import Twit from 'twit';
 
 import {
 	Database,
@@ -22,18 +20,9 @@ export interface OAuthToken extends AccessToken {
 
 export class Twitter {
 	private static twit: Twit;
-	private static stream: Stream;
 
 	public static async initialize(token: OAuthToken) {
 		this.twit = new Twit(token);
-
-		this.stream = this.twit.stream('user', {
-			'tweet_mode': 'extended',
-		});
-
-		this.stream.on('tweet', (tweet) => {
-			Database.addQueue(tweet);
-		});
 
 		try {
 			while(true) {
