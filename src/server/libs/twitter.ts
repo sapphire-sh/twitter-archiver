@@ -28,6 +28,8 @@ export class Twitter {
 			while(true) {
 				const tweets = await this.fetchTimeline();
 
+				console.log(`tweets ${tweets.length}`);
+
 				tweets.forEach((tweet) => {
 					Database.addQueue(tweet);
 				});
@@ -43,7 +45,7 @@ export class Twitter {
 				}
 
 				await new Promise((resolve) => {
-					setTimeout(resolve, 5 * 60 * 1000);
+					setTimeout(resolve, 1.1 * 60 * 1000);
 				});
 			}
 		}
