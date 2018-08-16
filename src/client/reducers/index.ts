@@ -3,6 +3,11 @@ import {
 } from 'redux';
 
 import {
+	filter,
+	FilterState,
+} from './FilterReducer';
+
+import {
 	history,
 	HistoryState,
 } from './HistoryReducer';
@@ -33,6 +38,7 @@ import {
 } from './TweetReducer';
 
 export interface State {
+	filterState: FilterState;
 	historyState: HistoryState;
 	modalState: ModalState;
 	relationsState: RelationsState;
@@ -42,6 +48,7 @@ export interface State {
 }
 
 export const reducers = combineReducers<State>({
+	'filterState': filter,
 	'historyState': history,
 	'modalState': modal,
 	'relationsState': relations,

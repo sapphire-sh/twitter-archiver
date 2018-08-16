@@ -1,3 +1,4 @@
+export * from './FilterSelectors';
 export * from './HistorySelectors';
 export * from './ModalSelectors';
 export * from './RelationsSelectors';

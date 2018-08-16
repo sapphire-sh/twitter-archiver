@@ -1,3 +1,4 @@
+export * from './FilterActions';
 export * from './HistoryActions';
 export * from './ModalActions';
 export * from './RelationsActions';

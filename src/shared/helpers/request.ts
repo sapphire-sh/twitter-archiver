@@ -5,6 +5,8 @@ export enum RequestType {
 	UPDATE_HISTORY = 20001,
 	FETCH_FOLLOWING_USERS = 30001,
 	FETCH_FOLLOWER_USERS,
+	FETCH_MUTED_USERS,
+	FETCH_BLOCKED_USERS,
 }
 
 enum RequestMethod {
@@ -22,6 +24,10 @@ function getURL(requestType: RequestType): string {
 		return `${API_URL}/users/following`;
 	case RequestType.FETCH_FOLLOWER_USERS:
 		return `${API_URL}/users/follower`;
+	case RequestType.FETCH_MUTED_USERS:
+		return `${API_URL}/users/muted`;
+	case RequestType.FETCH_BLOCKED_USERS:
+		return `${API_URL}/users/blocked`;
 	}
 }
 
@@ -30,6 +36,8 @@ function getMethod(requestType: RequestType): RequestMethod {
 	case RequestType.FETCH_TWEETS:
 	case RequestType.FETCH_FOLLOWING_USERS:
 	case RequestType.FETCH_FOLLOWER_USERS:
+	case RequestType.FETCH_MUTED_USERS:
+	case RequestType.FETCH_BLOCKED_USERS:
 		return RequestMethod.GET;
 	case RequestType.UPDATE_HISTORY:
 		return RequestMethod.POST;
