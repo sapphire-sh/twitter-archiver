@@ -16,6 +16,10 @@ import {
 } from '../actions';
 
 import {
+	User,
+} from '../../shared/models';
+
+import {
 	State,
 } from '../reducers';
 
@@ -82,6 +86,19 @@ class ModalComponent extends React.Component<ComponentProps> {
 						case ModalType.MODAL_IMAGE:
 							return (
 								<img src={modalContent.url} />
+							);
+						case ModalType.MODAL_MUTED_USERS:
+						case ModalType.MODAL_BLOCKED_USERS:
+							const users: User[] = modalContent;
+
+							return (
+								<React.Fragment>
+									{users.map((user, i) => {
+										return (
+											<div key={i}>{user.screen_name}</div>
+										);
+									})}
+								</React.Fragment>
 							);
 						}
 					})()}

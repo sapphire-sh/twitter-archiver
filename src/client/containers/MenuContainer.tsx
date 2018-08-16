@@ -13,9 +13,11 @@ import {
 import {
 	invalidateTweets,
 	fetchTweetsIfNeeded,
+	openModal,
 } from '../actions';
 
 import {
+	User,
 	MenuItem,
 	MenuItemType,
 } from '../../shared/models';
@@ -23,6 +25,11 @@ import {
 import {
 	State,
 } from '../reducers';
+
+import {
+	getMutedUsers,
+	getBlockedUsers,
+} from '../selectors';
 
 import {
 	MenuItemComponent,
@@ -35,8 +42,12 @@ import {
 import '../styles/Menu.scss';
 
 interface ComponentProps {
+	mutedUsers: User[];
+	blockedUsers: User[];
+
 	invalidateTweets: typeof invalidateTweets;
 	fetchTweetsIfNeeded: typeof fetchTweetsIfNeeded;
+	openModal: typeof openModal;
 }
 
 interface ComponentState {
@@ -105,13 +116,17 @@ class MenuComponent extends React.Component<ComponentProps, ComponentState> {
 }
 
 function mapStateToProps(state: State) {
-	return {};
+	return {
+		'mutedUsers': getMutedUsers(state),
+		'blockedUsers': getBlockedUsers(state),
+	};
 }
 
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>) {
 	return bindActionCreators({
 		'invalidateTweets': invalidateTweets,
 		'fetchTweetsIfNeeded': fetchTweetsIfNeeded,
+		'openModal': openModal,
 	}, dispatch);
 }
 

@@ -20,6 +20,7 @@ import {
 
 import {
 	TimelineContainer,
+	FilterContainer,
 	ModalContainer,
 	MenuContainer,
 	SocketContainer,
@@ -58,6 +59,11 @@ class AppComponent extends React.Component<ComponentProps> {
 						</Grid.Column>
 
 						<Grid.Column floated="right" width={12}>
+							{(() => {
+								return (
+									<FilterContainer />
+								);
+							})()}
 							<TimelineContainer />
 						</Grid.Column>
 					</Grid>

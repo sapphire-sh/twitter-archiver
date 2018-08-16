@@ -8,6 +8,8 @@ export enum ModalType {
 	MODAL_IDLE = -1,
 	MODAL_JSON = 1,
 	MODAL_IMAGE,
+	MODAL_MUTED_USERS,
+	MODAL_BLOCKED_USERS,
 }
 
 export function invalidateModal(): InvalidateModalAction {

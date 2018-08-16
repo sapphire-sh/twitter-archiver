@@ -3,9 +3,12 @@ import React from 'react';
 import {
 	invalidateTweets,
 	fetchTweetsIfNeeded,
+	openModal,
+	ModalType,
 } from '../../actions';
 
 import {
+	User,
 	MenuItem,
 	MenuItemType,
 } from '../../../shared/models';
@@ -17,8 +20,12 @@ import {
 } from 'semantic-ui-react';
 
 interface ComponentProps extends MenuItem {
+	mutedUsers: User[];
+	blockedUsers: User[];
+
 	invalidateTweets: typeof invalidateTweets;
 	fetchTweetsIfNeeded: typeof fetchTweetsIfNeeded;
+	openModal: typeof openModal;
 }
 
 interface ComponentState {
@@ -33,6 +40,8 @@ export class MenuItemComponent extends React.Component<ComponentProps, Component
 		this.handleRefreshTweets = this.handleRefreshTweets.bind(this);
 		this.handleScroll = this.handleScroll.bind(this);
 		this.handleAutoScroll = this.handleAutoScroll.bind(this);
+		this.handleClick_MutedUsers = this.handleClick_MutedUsers.bind(this);
+		this.handleClick_BlockedUsers = this.handleClick_BlockedUsers.bind(this);
 
 		this.state = {
 			'autoScroll': false,
@@ -111,6 +120,22 @@ export class MenuItemComponent extends React.Component<ComponentProps, Component
 		}
 	}
 
+	private handleClick_MutedUsers() {
+		const {
+			mutedUsers,
+		} = this.props;
+
+		this.props.openModal(ModalType.MODAL_MUTED_USERS, mutedUsers);
+	}
+
+	private handleClick_BlockedUsers() {
+		const {
+			blockedUsers,
+		} = this.props;
+
+		this.props.openModal(ModalType.MODAL_BLOCKED_USERS, blockedUsers);
+	}
+
 	public componentWillUnmount() {
 		const {
 			tick,
@@ -178,10 +203,10 @@ export class MenuItemComponent extends React.Component<ComponentProps, Component
 						<Menu.Item>
 							<span>{'muted keywords'}</span>
 						</Menu.Item>
-						<Menu.Item>
+						<Menu.Item onClick={this.handleClick_MutedUsers}>
 							<span>{'muted users'}</span>
 						</Menu.Item>
-						<Menu.Item>
+						<Menu.Item onClick={this.handleClick_BlockedUsers}>
 							<span>{'blocked users'}</span>
 						</Menu.Item>
 					</Menu.Menu>
