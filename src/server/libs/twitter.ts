@@ -58,8 +58,16 @@ export class Twitter {
 		return new Promise<Tweet[]>((resolve, reject) => {
 			this.twit.get('statuses/home_timeline', {
 				'count': 200,
+				'include_my_retweet': true,
+				'cards_platform': 'Web-13',
+				'include_entities': true,
+				'include_user_entities': true,
+				'include_cards': true,
+				'send_error_codes': true,
 				'tweet_mode': 'extended',
-			}, (err, res) => {
+				'include_ext_alt_text': true,
+				'include_reply_count': true,
+			} as any, (err, res) => {
 				if(err) {
 					reject(err);
 				}
