@@ -34,15 +34,15 @@ export class Twitter {
 					Database.addQueue(tweet);
 				});
 
-				{
-					const users = await this.getMutedUsersList();
-					Database.setMutedUsersList(users);
-				}
+				// {
+				// 	const users = await this.getMutedUsersList();
+				// 	Database.setMutedUsersList(users);
+				// }
 
-				{
-					const users = await this.getBlockedUsersList();
-					Database.setBlockedUsersList(users);
-				}
+				// {
+				// 	const users = await this.getBlockedUsersList();
+				// 	Database.setBlockedUsersList(users);
+				// }
 			}
 			catch(err) {
 				console.log(err);
