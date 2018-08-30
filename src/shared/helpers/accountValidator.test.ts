@@ -44,8 +44,8 @@ describe('./utils/accountValidator.ts', () => {
 			session.isValid = false;
 
 			return request.get('/').then((res) => {
-				// expect(res.status).to.equal(302);
-				expect(res.status).to.equal(200);
+				expect(res.status).to.equal(302);
+				// expect(res.status).to.equal(200);
 			});
 		});
 
