@@ -16,7 +16,7 @@ module.exports.dllPath = dllPath;
 module.exports.env = env;
 
 module.exports.baseConfig = {
-	'devtool': '#source-map',
+	'devtool': false,
 	'resolve': {
 		'extensions': [
 			'.ts',

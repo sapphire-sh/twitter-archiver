@@ -17,7 +17,7 @@ module.exports = {
 			'redux',
 			'redux-thunk',
 			'semantic-ui-css',
-			'semantic-ui-react',
+			// 'semantic-ui-react',
 		],
 	},
 	'output': {
@@ -27,9 +27,6 @@ module.exports = {
 	},
 	'plugins': [
 		...baseConfig.plugins,
-		new webpack.LoaderOptionsPlugin({
-			'minimize': true,
-		}),
 		new webpack.DllPlugin({
 			'name': '[name]',
 			'path': path.resolve(dllPath, '[name].json') ,

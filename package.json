@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf ./dist ./coverage",
     "clean:dll": "rm -rf ./dll",
-    "build:dll": "NODE_ENV=development node ./scripts/build_dll.js",
+    "build:dll": "NODE_ENV=production node ./scripts/build_dll.js",
     "prebuild": "npm run clean && npm run lint",
     "build": "( [[ -d ./dll ]] || npm run build:dll ) && node ./scripts/build.js",
     "build:dev": "cross-env NODE_ENV=development npm run build",
