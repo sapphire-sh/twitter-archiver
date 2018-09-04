@@ -27,19 +27,25 @@ enum FilterType {
 
 export class Database {
 	private static knex: Knex;
-	private static queue: Tweet[] = [];
+	private static queue: Tweet[];
+	private static shouldProcess: boolean;
 
-	public static async initialize(): Promise<void> {
-		this.knex = Knex({
-			'client': 'mysql',
-			'connection': {
-				'host': 'localhost',
-				'user': __env.database_user,
-				'password': __env.database_password,
-				'database': __env.database_name,
-			},
-			'useNullAsDefault': true,
-		});
+	public static async initialize(config?: Knex.Config): Promise<void> {
+		/* istanbul ignore if */
+		if(config === undefined) {
+			config = {
+				'client': 'mysql',
+				'connection': {
+					'host': 'localhost',
+					'user': __env.database_user,
+					'password': __env.database_password,
+					'database': __env.database_name,
+				},
+				'useNullAsDefault': true,
+			};
+		}
+
+		this.knex = Knex(config);
 
 		{
 			const exists = await this.knex.schema.hasTable('tweets');
@@ -75,11 +81,14 @@ export class Database {
 				});
 			}
 		}
+
+		this.queue = [];
+		this.shouldProcess = true;
 	}
 
 	public static async start(): Promise<void> {
 		try {
-			while(true) {
+			while(this.shouldProcess) {
 				const tweet = Database.queue.shift();
 				if(tweet !== undefined) {
 					await Database.insertTweet(tweet);
@@ -90,8 +99,13 @@ export class Database {
 			}
 		}
 		catch(err) {
+			/* istanbul ignore next */
 			console.log(err);
 		}
+	}
+
+	public static stop() {
+		this.shouldProcess = false;
 	}
 
 	private static async checkUnique(tweet: Tweet): Promise<boolean> {
@@ -102,6 +116,7 @@ export class Database {
 			return data.length === 0;
 		}
 		catch(err) {
+			/* istanbul ignore next */
 			console.log(err);
 			return false;
 		}
@@ -121,9 +136,13 @@ export class Database {
 				'key': tweet.id_str,
 				'data': await deflate(tweet),
 			});
-			Socket.emit(SocketEventType.INSERT_TWEET, tweet.id_str);
+			/* istanbul ignore next */
+			if(__test === false) {
+				Socket.emit(SocketEventType.INSERT_TWEET, tweet.id_str);
+			}
 		}
 		catch(err) {
+			/* istanbul ignore next */
 			console.log(err);
 		}
 	}
@@ -136,6 +155,7 @@ export class Database {
 			}));
 		}
 		catch(err) {
+			/* istanbul ignore next */
 			console.log(err);
 			return [];
 		}
@@ -149,6 +169,7 @@ export class Database {
 			return rows.length === 0 ? '1' : rows[0].key;
 		}
 		catch(err) {
+			/* istanbul ignore next */
 			console.log(err);
 			return '1';
 		}

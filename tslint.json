@@ -16,5 +16,10 @@
 		"max-line-length": [true, 180],
 		"no-console": false,
 		"jsx-no-multiline-js": false
+	},
+	"linterOptions": {
+		"exclude": [
+			"**/*.json"
+		]
 	}
 }

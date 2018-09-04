@@ -27,7 +27,8 @@ module.exports.baseConfig = {
 	},
 	'plugins': [
 		new webpack.DefinePlugin({
-			'__dev': (process.env.NODE_ENV === 'development'),
+			'__dev': process.env.NODE_ENV === 'development',
+			'__test': process.env.NODE_ENV === 'test',
 			'__env': (() => {
 				if(process.env.TRAVIS === 'true') {
 					return {

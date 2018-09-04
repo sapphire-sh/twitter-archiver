@@ -22,13 +22,15 @@ export class Server {
 			app.use(path, router);
 		});
 
-		if(process.env.NODE_ENV !== 'test') {
+		/* istanbul ignore next */
+		if(__test === false) {
 			app.use('/', Express.static(__path.dist));
 			app.use('/', Express.static(__path.dll));
 		}
 
 		this.server = app.listen(port, () => {
-			if(process.env.NODE_ENV !== 'test') {
+			/* istanbul ignore next */
+			if(__test === false) {
 				console.log(`http://localhost:${port}`);
 			}
 		});
