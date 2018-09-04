@@ -82,6 +82,7 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			'filename': 'styles.css',
 		}),
+		new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 		new webpack.DllReferencePlugin({
 			'context': process.cwd(),
 			'manifest': require('../dll/react.json'),
