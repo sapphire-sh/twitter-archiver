@@ -20,6 +20,11 @@ interface DataRow {
 	data: Buffer;
 }
 
+enum FilterType {
+	BLOCK = 1,
+	MUTE,
+}
+
 const knex = Knex({
 	'client': 'mysql',
 	'connection': {
@@ -175,30 +180,10 @@ export class Database {
 		});
 	}
 
-	public static async setBlockedUsersList(users: User[]) {
-		try {
-			const data = await deflate(users);
-
-			return new Promise((resolve, reject) => {
-				this.knex('filters').insert({
-					'type': 1,
-					'data': data,
-				}).then((rows) => {
-					resolve(rows);
-				}).catch((err) => {
-					reject(err);
-				});
-			});
-		}
-		catch(err) {
-			return Promise.reject(err);
-		}
-	}
-
-	public static getBlockedUsersList() {
+	private static getFilteredUserList(type: FilterType) {
 		return new Promise((resolve, reject) => {
 			return this.knex('filters').where({
-				'type': 1,
+				'type': type,
 			}).orderBy('id', 'desc').limit(1).then((rows) => {
 				if(rows.length === 0) {
 					reject();
@@ -212,13 +197,21 @@ export class Database {
 		});
 	}
 
-	public static async setMutedUsersList(users: User[]) {
+	public static getBlockedUserList() {
+		return this.getFilteredUserList(FilterType.BLOCK);
+	}
+
+	public static getMutedUserList() {
+		return this.getFilteredUserList(FilterType.MUTE);
+	}
+
+	public static async setFilteredUserList(type: FilterType, users: User[]) {
 		try {
 			const data = await deflate(users);
 
 			return new Promise((resolve, reject) => {
 				this.knex('filters').insert({
-					'type': 2,
+					'type': type,
 					'data': data,
 				}).then((rows) => {
 					resolve(rows);
@@ -232,20 +225,11 @@ export class Database {
 		}
 	}
 
-	public static getMutedUsersList() {
-		return new Promise((resolve, reject) => {
-			return this.knex('filters').where({
-				'type': 2,
-			}).orderBy('id', 'desc').limit(1).then((rows) => {
-				if(rows.length === 0) {
-					reject();
-				}
-				resolve(rows.pop().data);
-			});
-		}).then((data) => {
-			return inflate(data as any);
-		}).catch(() => {
-			return Promise.resolve([]);
-		});
+	public static async setBlockedUserList(users: User[]) {
+		return this.setFilteredUserList(FilterType.BLOCK, users);
+	}
+
+	public static async setMutedUserList(users: User[]) {
+		return this.setFilteredUserList(FilterType.MUTE, users);
 	}
 }
