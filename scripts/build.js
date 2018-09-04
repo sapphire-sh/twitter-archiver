@@ -3,12 +3,17 @@ const serverConfig = require('../configs/webpack.config.server');
 
 const compiler = require('./compiler');
 
-compiler([
-	clientConfig,
-	serverConfig,
-]).then(() => {
+(async () => {
+	try {
+		await compiler([
+			clientConfig,
+			serverConfig,
+		]);
+	}
+	catch(err) {
+		console.error(err);
+		process.exit(1);
+	}
+
 	console.log('done');
-}).catch((err) => {
-	console.error(err);
-	process.exit(1);
-});
+})();

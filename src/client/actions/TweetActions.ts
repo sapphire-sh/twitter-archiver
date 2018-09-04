@@ -49,14 +49,16 @@ function receiveTweets(tweets: Tweet[]): ReceiveTweetsAction {
 }
 
 function fetchTweets() {
-	return (dispatch: Dispatch<any>) => {
+	return async (dispatch: Dispatch<any>) => {
 		dispatch(requestTweets());
 
-		sendRequest(RequestType.FETCH_TWEETS).then((tweets: Tweet[]) => {
+		try {
+			const tweets: Tweet[] = await sendRequest(RequestType.FETCH_TWEETS);
 			dispatch(receiveTweets(tweets));
-		}).catch((err) => {
+		}
+		catch(err) {
 			console.log(err);
-		});
+		}
 	};
 }
 

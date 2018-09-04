@@ -32,12 +32,14 @@ router.post('/', (req, res) => {
 	res.json(true);
 });
 
-router.get('/list', (_, res) => {
-	Twitter.getWebhookList().then((data) => {
+router.get('/list', async (_, res) => {
+	try {
+		const data = await Twitter.getWebhookList();
 		res.json(data);
-	}).catch((err) => {
-		res.json(err);
-	});
+	}
+	catch(err) {
+		res.status(500).json(err);
+	}
 });
 
 router.get('/set', (req, res) => {

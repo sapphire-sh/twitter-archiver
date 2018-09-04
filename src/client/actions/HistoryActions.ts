@@ -40,20 +40,23 @@ function receiveHistoryUpdate(id: string): HistoryUpdateReceiveAction {
 }
 
 function updateHistory(id: string) {
-	return (dispatch: Dispatch<any>) => {
+	return async (dispatch: Dispatch<any>) => {
 		dispatch(requestHistoryUpdate());
 
-		sendRequest(RequestType.UPDATE_HISTORY, {
-			'id': id,
-		}).then((res) => {
+		try {
+			await sendRequest(RequestType.UPDATE_HISTORY, {
+				'id': id,
+			});
+
 			window.scrollTo(0, 0);
 
 			dispatch(receiveHistoryUpdate(id));
 			dispatch(invalidateTweets());
 			dispatch(fetchTweetsIfNeeded());
-		}).catch((err) => {
+		}
+		catch(err) {
 			console.log(err);
-		});
+		}
 	};
 }
 

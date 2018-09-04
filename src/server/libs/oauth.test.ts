@@ -4,8 +4,6 @@
 
 import {
 	OAuth,
-	// RequestToken,
-	// AccessToken,
 } from './oauth';
 
 describe('./libs/oauth.ts', () => {
@@ -13,25 +11,25 @@ describe('./libs/oauth.ts', () => {
 		OAuth.initialize('consumer_key', 'consumer_secret');
 	});
 
-	it('get request token', (done) => {
-		done();
-		// OAuth.getRequestToken().then((_: RequestToken) => {
-		// 	done();
-		// }).catch((err: Error) => {
+	it('get request token', async () => {
+		// try {
+		// 	await OAuth.getRequestToken();
+		// }
+		// catch(err) {
+		// 	// tslint:disable:no-unused-expression
 		// 	expect(err).to.be.null;
-		// 	done();
-		// });
+		// }
 	});
 
-	it('get access token', (done) => {
-		done();
-		// OAuth.getAccessToken({
-		// 	'oauth_verifier': '',
-		// }).then((_: AccessToken) => {
-		// 	done();
-		// }).catch((err: Error) => {
+	it('get access token', async () => {
+		// try {
+		// 	await OAuth.getAccessToken({
+		// 		'oauth_verifier': '',
+		// 	});
+		// }
+		// catch(err) {
+		// 	// tslint:disable:no-unused-expression
 		// 	expect(err).to.be.null;
-		// 	done();
-		// });
+		// }
 	});
 });

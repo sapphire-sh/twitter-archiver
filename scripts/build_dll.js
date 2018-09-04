@@ -8,19 +8,24 @@ const {
 
 const config = require('../configs/webpack.config.dll');
 
-try {
-	fs.statSync(dllPath);
-	console.log(`dll directory already exists`);
-}
-catch(err) {
-	if(err.code === 'ENOENT') {
-		compiler([
-			config,
-		]).then(() => {
-			console.log('done');
-		}).catch((err) => {
-			console.error(err);
-			process.exit(1);
-		});
+(async () => {
+	try {
+		fs.statSync(dllPath);
+		console.log(`dll directory already exists`);
 	}
-}
+	catch(err) {
+		if(err.code === 'ENOENT') {
+			try {
+				await compiler([
+					config,
+				]);
+			}
+			catch(err) {
+				console.error(err);
+				process.exit(1);
+			}
+
+			console.log('done');
+		}
+	}
+})();

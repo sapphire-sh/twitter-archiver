@@ -40,42 +40,37 @@ describe('./utils/accountValidator.ts', () => {
 			});
 		});
 
-		it('invalid session at /', () => {
+		it('invalid session at /', async () => {
 			session.isValid = false;
 
-			return request.get('/').then((res) => {
-				expect(res.status).to.equal(302);
-				// expect(res.status).to.equal(200);
+			const res = await request.get('/');
+			expect(res.status).to.equal(302);
+		});
+
+		it('invalid session at /auth', async () => {
+			session.isValid = false;
+
+			const res = await request.get('/auth');
+			expect(res.body).to.deep.equal({
+				'path': '/auth',
 			});
 		});
 
-		it('invalid session at /auth', () => {
+		it('invalid session at /auth/callback', async () => {
 			session.isValid = false;
 
-			return request.get('/auth').then((res) => {
-				expect(res.body).to.deep.equal({
-					'path': '/auth',
-				});
+			const res = await request.get('/auth/callback');
+			expect(res.body).to.deep.equal({
+				'path': '/auth/callback',
 			});
 		});
 
-		it('invalid session at /auth/callback', () => {
-			session.isValid = false;
-
-			return request.get('/auth/callback').then((res) => {
-				expect(res.body).to.deep.equal({
-					'path': '/auth/callback',
-				});
-			});
-		});
-
-		it('valid session at /', () => {
+		it('valid session at /', async () => {
 			session.isValid = true;
 
-			return request.get('/').then((res) => {
-				expect(res.body).to.deep.equal({
-					'path': '*',
-				});
+			const res = await request.get('/');
+			expect(res.body).to.deep.equal({
+				'path': '*',
 			});
 		});
 	});

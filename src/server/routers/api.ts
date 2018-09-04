@@ -7,62 +7,75 @@ import {
 
 const router = Express.Router();
 
-router.get('/tweets', (_, res) => {
-	Database.getHistory().then((id) => {
-		return Database.getTweets(id);
-	}).then((tweets) => {
+router.get('/tweets', async (_, res) => {
+	try {
+		const id = await Database.getHistory();
+		const tweets = await Database.getTweets(id);
 		res.json(tweets);
-	}).catch((err) => {
+	}
+	catch(err) {
 		res.status(500).json(err);
-	});
+	}
 });
 
-router.post('/history', (req, res) => {
-	Database.setHistory(req.body.id).then(() => {
+router.post('/history', async (req, res) => {
+	try {
+		await Database.setHistory(req.body.id);
 		res.json(true);
-	}).catch((err) => {
-		res.json(err);
-	});
+	}
+	catch(err) {
+		res.status(500).json(err);
+	}
 });
 
-router.get('/limit', (_, res) => {
-	Twitter.getRateLimitStatus().then((status) => {
+router.get('/limit', async (_, res) => {
+	try {
+		const status = await Twitter.getRateLimitStatus();
 		res.json(status);
-	}).catch((err) => {
-		res.json(err);
-	});
+	}
+	catch(err) {
+		res.status(500).json(err);
+	}
 });
 
-router.get('/users/follower', (_, res) => {
-	Twitter.getFollowerUsersList().then((users) => {
+router.get('/users/follower', async (_, res) => {
+	try {
+		const users = await Twitter.getFollowerUsersList();
 		res.json(users);
-	}).catch((err) => {
-		res.json(err);
-	});
+	}
+	catch(err) {
+		res.status(500).json(err);
+	}
 });
 
-router.get('/users/following', (_, res) => {
-	Twitter.getFollowingUsersList().then((users) => {
+router.get('/users/following', async (_, res) => {
+	try {
+		const users = await Twitter.getFollowingUsersList();
 		res.json(users);
-	}).catch((err) => {
-		res.json(err);
-	});
+	}
+	catch(err) {
+		res.status(500).json(err);
+	}
 });
 
-router.get('/users/blocked', (_, res) => {
-	Twitter.getBlockedUsersList().then((users) => {
+router.get('/users/blocked', async (_, res) => {
+	try {
+		const users = await Twitter.getBlockedUsersList();
 		res.json(users);
-	}).catch((err) => {
-		res.json(err);
-	});
+	}
+	catch(err) {
+		res.status(500).json(err);
+	}
 });
 
-router.get('/users/muted', (_, res) => {
-	Twitter.getMutedUsersList().then((users) => {
+router.get('/users/muted', async (_, res) => {
+	try {
+		const users = await Twitter.getMutedUsersList();
 		res.json(users);
-	}).catch((err) => {
-		res.json(err);
-	});
+	}
+	catch(err) {
+		res.status(500).json(err);
+	}
 });
 
 export default router;

@@ -44,27 +44,27 @@ function getMethod(requestType: RequestType): RequestMethod {
 	}
 }
 
-export function sendRequest(requestType: RequestType, params: {} = {}) {
+export async function sendRequest(requestType: RequestType, params: {} = {}) {
 	const url = getURL(requestType);
 	const method = getMethod(requestType);
 
+	let response: Response;
 	switch(method) {
 	case RequestMethod.GET:
-		return fetch(url, {
+		response = await fetch(url, {
 			'credentials': 'include',
-		}).then((res) => {
-			return res.json();
 		});
+		break;
 	case RequestMethod.POST:
-		return fetch(url, {
+		response = await fetch(url, {
 			'method': 'post',
 			'headers': {
 				'Content-Type': 'application/json',
 			},
 			'credentials': 'include',
 			'body': JSON.stringify(params),
-		}).then((res) => {
-			return res.json();
 		});
+		break;
 	}
+	return response.json();
 }

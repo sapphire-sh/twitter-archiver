@@ -8,15 +8,16 @@ import {
 
 const router = Express.Router();
 
-router.get('/', (req, res) => {
-	OAuth.getRequestToken().then((token) => {
+router.get('/', async (req, res) => {
+	try {
+		const token = await OAuth.getRequestToken();
 		req.session!.oauth = token;
 
 		res.redirect(`https://twitter.com/oauth/authenticate?oauth_token=${token.oauth_token}`);
-	}).catch((err) => {
-		console.log(err);
+	}
+	catch(err) {
 		res.status(500).json(err);
-	});
+	}
 });
 
 function validateOAuthToken(requestToken: RequestToken, oauth_verifier: string) {
@@ -37,10 +38,12 @@ function validateOAuthToken(requestToken: RequestToken, oauth_verifier: string) 
 	return true;
 }
 
-function validateAccessToken({
-	access_token,
-	access_token_secret,
-}: AccessToken) {
+function validateAccessToken(token: AccessToken) {
+	const {
+		access_token,
+		access_token_secret,
+	} = token;
+
 	if(__env.access_token !== access_token) {
 		return false;
 	}
@@ -50,7 +53,7 @@ function validateAccessToken({
 	return true;
 }
 
-router.get('/callback', (req, res) => {
+router.get('/callback', async (req, res) => {
 	const oauth_verifier = req.query.oauth_verifier;
 
 	const {
@@ -63,20 +66,22 @@ router.get('/callback', (req, res) => {
 		'oauth_token_secret': oauth_token_secret,
 	}, oauth_verifier)) {
 		res.redirect('/');
+		return;
 	}
-	else {
-		OAuth.getAccessToken({
+
+	try {
+		const token = await OAuth.getAccessToken({
 			'oauth_verifier': oauth_verifier,
-		}).then((token) => {
-			req.session!.isValid = validateAccessToken(token);
-
-			delete req.session!.oauth;
-
-			res.redirect('/');
-		}).catch((err) => {
-			console.error(err);
-			res.redirect('/auth');
 		});
+		req.session!.isValid = validateAccessToken(token);
+
+		delete req.session!.oauth;
+
+		res.redirect('/');
+	}
+	catch(err) {
+		console.error(err);
+		res.redirect('/auth');
 	}
 });
 
