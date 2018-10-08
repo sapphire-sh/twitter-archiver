@@ -4,7 +4,20 @@ import {
 	NextFunction,
 } from 'express';
 
+function getClientAddress(req: Request): string {
+	const forwardedAdress = req.headers['x-forwarded-for'];
+	if(forwardedAdress !== undefined) {
+		return forwardedAdress as string;
+	}
+	return req.connection.remoteAddress;
+}
+
 function isValid(req: Request) {
+	const clientAddress = getClientAddress(req);
+	if(clientAddress === __env.dev_address) {
+		return true;
+	}
+
 	if(req.session!.isValid === true) {
 		return true;
 	}
