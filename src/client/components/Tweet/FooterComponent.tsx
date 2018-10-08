@@ -41,16 +41,10 @@ export class FooterComponent extends React.Component<ComponentProps> {
 		const {
 			retweet_count,
 			favorite_count,
-			quote_count,
-			reply_count,
-		} = tweet as any;
+		} = tweet;
 
 		return (
 			<Button.Group fluid={true} size="tiny">
-				<Button basic={true} color="grey">
-					<Icon name="reply" />
-					<span>{reply_count === undefined ? -1 : reply_count}</span>
-				</Button>
 				<Button basic={true} color="grey">
 					<Icon name="retweet" />
 					<span>{retweet_count}</span>
@@ -58,10 +52,6 @@ export class FooterComponent extends React.Component<ComponentProps> {
 				<Button basic={true} color="grey">
 					<Icon name="star" />
 					<span>{favorite_count}</span>
-				</Button>
-				<Button basic={true} color="grey">
-					<Icon name="quote left" />
-					<span>{quote_count === undefined ? -1 : quote_count}</span>
 				</Button>
 				<Button basic={true} color="grey" onClick={this.handlePrintJSON(tweet)}>
 					<Icon name="code" />
