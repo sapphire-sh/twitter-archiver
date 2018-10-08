@@ -91,41 +91,6 @@ export class Twitter {
 		});
 	}
 
-	public static getWebhookList() {
-		return new Promise((resolve, reject) => {
-			this.twit.get('account_activity/all/webhooks', (err, res) => {
-				if(err) {
-					reject(err);
-				}
-				resolve(res);
-			});
-		});
-	}
-
-	public static setWebhook() {
-		return new Promise((resolve, reject) => {
-			this.twit.post('account_activity/all/dev/webhooks', {
-				'url': 'https://archive.sapphire.sh/webhook',
-			}, (err, res) => {
-				if(err) {
-					reject(err);
-				}
-				resolve(res);
-			});
-		});
-	}
-
-	public static subscribe() {
-		return new Promise((resolve, reject) => {
-			this.twit.post('account_activity/all/dev/subscriptions', (err, res) => {
-				if(err) {
-					reject(err);
-				}
-				resolve(res);
-			});
-		});
-	}
-
 	public static getRateLimitStatus() {
 		return new Promise((resolve, reject) => {
 			this.twit.get('application/rate_limit_status', (err, res) => {
