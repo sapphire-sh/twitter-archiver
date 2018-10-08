@@ -36,8 +36,9 @@ const app = new Server(port);
 	}
 
 	try {
-		await Promise.all([
+		Promise.all([
 			Database.start(),
+			Twitter.start(),
 		]);
 	}
 	catch(err) {

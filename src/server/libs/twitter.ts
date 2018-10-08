@@ -23,7 +23,9 @@ export class Twitter {
 
 	public static async initialize(token: OAuthToken) {
 		this.twit = new Twit(token);
+	}
 
+	public static async start() {
 		while(true) {
 			try {
 				const tweets = await this.fetchTimeline();
