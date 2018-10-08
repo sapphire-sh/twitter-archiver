@@ -12,7 +12,6 @@ import {
 import {
 	HeaderComponent,
 	TweetComponent,
-	FooterComponent,
 } from '../../components';
 
 import {
@@ -46,7 +45,6 @@ export class RetweetComponent extends React.Component<ComponentProps> {
 						<TweetComponent {...this.props} tweet={retweeted_status} />
 					</Segment>
 				</Segment.Group>
-				<FooterComponent {...this.props} />
 			</div>
 		);
 	}
