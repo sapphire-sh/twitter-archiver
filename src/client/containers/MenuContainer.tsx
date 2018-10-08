@@ -39,7 +39,7 @@ import {
 	Menu,
 } from 'semantic-ui-react';
 
-import '../styles/Menu.scss';
+import '../styles/MenuContainer.scss';
 
 interface ComponentProps {
 	mutedUsers: User[];

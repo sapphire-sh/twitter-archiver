@@ -36,8 +36,7 @@ import {
 } from 'semantic-ui-react';
 
 import 'semantic-ui-css/semantic.min.css';
-
-import '../styles/App.scss';
+import '../styles/AppComponent.scss';
 
 interface ComponentProps {
 	isSocketConnected: boolean;
@@ -58,7 +57,7 @@ class AppComponent extends React.Component<ComponentProps> {
 							<MenuContainer />
 						</Grid.Column>
 
-						<Grid.Column floated="right" width={12}>
+						<Grid.Column floated={'right'} width={12}>
 							{(() => {
 								return (
 									<FilterContainer />

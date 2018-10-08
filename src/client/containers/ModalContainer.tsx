@@ -28,7 +28,7 @@ import {
 	getModalContent,
 } from '../selectors';
 
-import '../styles/Modal.scss';
+import '../styles/ModalComponent.scss';
 
 interface ComponentProps {
 	modalType: ModalType;

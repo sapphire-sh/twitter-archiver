@@ -12,6 +12,14 @@ body {
 	);
 }
 
-.ui.container {
-	padding: 40px 0;
+.ui {
+	&.grid {
+		margin-top: 0;
+		margin-bottom: 0;
+
+		& > .column:not(.row) {
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+	}
 }

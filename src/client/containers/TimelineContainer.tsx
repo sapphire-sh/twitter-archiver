@@ -40,7 +40,8 @@ import {
 	Segment,
 } from 'semantic-ui-react';
 
-import '../styles/Tweets.scss';
+import '../styles/TweetsComponent.scss';
+import '../styles/TimelineContainer.scss';
 
 interface ComponentProps {
 	isFetchingTweets: boolean;
@@ -66,7 +67,7 @@ class TimelineComponent extends React.Component<ComponentProps> {
 		} = this.props;
 
 		return (
-			<div>
+			<div id="timeline">
 				<Segment.Group size="tiny">
 					<PlaceholderComponent {...this.props} />
 					{tweets.filter((tweet) => {

@@ -11,16 +11,12 @@ import {
 
 interface ComponentProps {
 	user: User;
-	isRetweet: boolean;
-	isQuote: boolean;
 }
 
 export class ProfileComponent extends React.Component<ComponentProps> {
 	public render() {
 		const {
 			user,
-			isRetweet,
-			isQuote,
 		} = this.props;
 
 		const {
@@ -38,7 +34,6 @@ export class ProfileComponent extends React.Component<ComponentProps> {
 				className="tweet-profile"
 				as="a"
 				image={true}
-				ribbon={isQuote || isRetweet ? false : true}
 				href={`https://twitter.com/${screen_name}`}
 				target="_blank"
 				style={{
