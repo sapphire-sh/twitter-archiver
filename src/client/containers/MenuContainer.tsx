@@ -18,8 +18,6 @@ import {
 
 import {
 	User,
-	MenuItem,
-	MenuItemType,
 } from '../../shared/models';
 
 import {
@@ -32,7 +30,14 @@ import {
 } from '../selectors';
 
 import {
-	MenuItemComponent,
+	MenuAutoScrollComponent,
+	MenuFiltersComponent,
+	MenuForceRefreshComponent,
+	MenuHelpComponent,
+	MenuProfileComponent,
+	MenuRelationsComponent,
+	MenuSearchComponent,
+	MenuStatsComponent,
 } from '../components';
 
 import {
@@ -50,66 +55,23 @@ interface ComponentProps {
 	openModal: typeof openModal;
 }
 
-interface ComponentState {
-	menuItems: MenuItem[];
-}
-
-class MenuComponent extends React.Component<ComponentProps, ComponentState> {
-	constructor(props: ComponentProps) {
-		super(props);
-
-		this.state = {
-			'menuItems': [],
-		};
-	}
-
-	public componentDidMount() {
-		this.setState({
-			'menuItems': [
-				{
-					'type': MenuItemType.MENU_ITEM_PROFILE,
-				},
-				{
-					'type': MenuItemType.MENU_ITEM_RELATIONS,
-				},
-				{
-					'type': MenuItemType.MENU_ITEM_SEARCH,
-				},
-				{
-					'type': MenuItemType.MENU_ITEM_FILTERS,
-				},
-				{
-					'type': MenuItemType.MENU_ITEM_STATS,
-				},
-				{
-					'type': MenuItemType.MENU_ITEM_HELP,
-				},
-				{
-					'type': MenuItemType.MENU_ITEM_FORCE_REFRESH,
-				},
-				{
-					'type': MenuItemType.MENU_ITEM_AUTO_SCROLL,
-				},
-			],
-		});
-	}
-
+class MenuComponent extends React.Component<ComponentProps> {
 	public render() {
-		const {
-			menuItems,
-		} = this.state;
-
 		return (
 			<Menu
 				id="menu"
 				size="tiny"
 				vertical={true}
+				fluid={true}
 			>
-				{menuItems.map((menuItem, i) => {
-					return (
-						<MenuItemComponent key={i} {...this.props} {...menuItem} />
-					);
-				})}
+				<MenuProfileComponent {...this.props} />
+				<MenuRelationsComponent {...this.props} />
+				<MenuSearchComponent {...this.props} />
+				<MenuFiltersComponent {...this.props} />
+				<MenuStatsComponent {...this.props} />
+				<MenuHelpComponent {...this.props} />
+				<MenuForceRefreshComponent {...this.props} />
+				<MenuAutoScrollComponent {...this.props} />
 			</Menu>
 		);
 	}
