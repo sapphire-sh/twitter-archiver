@@ -33,9 +33,9 @@ import {
 	MenuAutoScrollComponent,
 	MenuFiltersComponent,
 	MenuForceRefreshComponent,
-	MenuHelpComponent,
+	// MenuHelpComponent,
 	MenuProfileComponent,
-	MenuRelationsComponent,
+	// MenuRelationsComponent,
 	MenuSearchComponent,
 	MenuStatsComponent,
 } from '../components';
@@ -65,11 +65,11 @@ class MenuComponent extends React.Component<ComponentProps> {
 					fluid={true}
 				>
 					<MenuProfileComponent {...this.props} />
-					<MenuRelationsComponent {...this.props} />
+					{/* <MenuRelationsComponent {...this.props} /> */}
 					<MenuSearchComponent {...this.props} />
 					<MenuFiltersComponent {...this.props} />
 					<MenuStatsComponent {...this.props} />
-					<MenuHelpComponent {...this.props} />
+					{/* <MenuHelpComponent {...this.props} /> */}
 					<MenuForceRefreshComponent {...this.props} />
 					<MenuAutoScrollComponent {...this.props} />
 				</Menu>
