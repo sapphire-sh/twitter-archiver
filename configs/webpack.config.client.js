@@ -8,7 +8,6 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const {
 	baseConfig,
 	distPath,
-	dllPath,
 	env,
 } = require('../configs/webpack.config.base');
 
@@ -83,10 +82,6 @@ module.exports = {
 			'filename': 'styles.css',
 		}),
 		new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-		new webpack.DllReferencePlugin({
-			'context': process.cwd(),
-			'manifest': require('../dll/react.json'),
-		}),
 		...(() => {
 			if(env === 'development') {
 				return [
@@ -108,7 +103,6 @@ module.exports = {
 	'devServer': {
 		'contentBase': [
 			distPath,
-			dllPath,
 		],
 		'watchContentBase': true,
 		'proxy': {

@@ -4,14 +4,12 @@ const path = require('path');
 const webpack = require('webpack');
 
 const distPath = path.resolve(__dirname, '../dist');
-const dllPath = path.resolve(__dirname, '../dll');
 
 const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
 const envPath = path.resolve(__dirname, '../.env');
 
 module.exports.distPath = distPath;
-module.exports.dllPath = dllPath;
 
 module.exports.env = env;
 
@@ -53,7 +51,6 @@ module.exports.baseConfig = {
 			})(),
 			'__path': JSON.stringify({
 				'dist': distPath,
-				'dll': dllPath,
 			}),
 		}),
 		new webpack.ProgressPlugin(),

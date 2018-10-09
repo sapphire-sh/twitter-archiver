@@ -58,21 +58,22 @@ interface ComponentProps {
 class MenuComponent extends React.Component<ComponentProps> {
 	public render() {
 		return (
-			<Menu
-				id="menu"
-				size="tiny"
-				vertical={true}
-				fluid={true}
-			>
-				<MenuProfileComponent {...this.props} />
-				<MenuRelationsComponent {...this.props} />
-				<MenuSearchComponent {...this.props} />
-				<MenuFiltersComponent {...this.props} />
-				<MenuStatsComponent {...this.props} />
-				<MenuHelpComponent {...this.props} />
-				<MenuForceRefreshComponent {...this.props} />
-				<MenuAutoScrollComponent {...this.props} />
-			</Menu>
+			<div id="menu">
+				<Menu
+					size="tiny"
+					vertical={true}
+					fluid={true}
+				>
+					<MenuProfileComponent {...this.props} />
+					<MenuRelationsComponent {...this.props} />
+					<MenuSearchComponent {...this.props} />
+					<MenuFiltersComponent {...this.props} />
+					<MenuStatsComponent {...this.props} />
+					<MenuHelpComponent {...this.props} />
+					<MenuForceRefreshComponent {...this.props} />
+					<MenuAutoScrollComponent {...this.props} />
+				</Menu>
+			</div>
 		);
 	}
 }

@@ -1,26 +1,29 @@
 import React from 'react';
 
 import {
-	Menu,
+	Dropdown,
 } from 'semantic-ui-react';
 
 export class MenuHelpComponent extends React.Component {
 	public render() {
 		return (
-			<Menu.Item>
-				<Menu.Header>{'help'}</Menu.Header>
-				<Menu.Menu>
-					<Menu.Item>
+			<Dropdown
+				item={true}
+				text={'help'}
+			>
+				<Dropdown.Menu>
+					{/* <Dropdown.Header>{'help'}</Dropdown.Header> */}
+					<Dropdown.Item>
 						<span>{'github'}</span>
-					</Menu.Item>
-					<Menu.Item>
+					</Dropdown.Item>
+					<Dropdown.Item>
 						<span>{'@sapphire_dev'}</span>
-					</Menu.Item>
-					<Menu.Item>
+					</Dropdown.Item>
+					<Dropdown.Item>
 						<span>{'keyboard shortcuts'}</span>
-					</Menu.Item>
-				</Menu.Menu>
-			</Menu.Item>
+					</Dropdown.Item>
+				</Dropdown.Menu>
+			</Dropdown>
 		);
 	}
 }

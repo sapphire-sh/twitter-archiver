@@ -5,10 +5,8 @@
   "main": "./src/main.ts",
   "scripts": {
     "clean": "rm -rf ./dist ./coverage",
-    "clean:dll": "rm -rf ./dll",
-    "build:dll": "NODE_ENV=production node ./scripts/build_dll.js",
     "prebuild": "npm run clean && npm run lint",
-    "build": "( [[ -d ./dll ]] || npm run build:dll ) && node ./scripts/build.js",
+    "build": "node ./scripts/build.js",
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "prestart": "cross-env NODE_ENV=production npm run build",
     "start": "pm2 start ./app.json",

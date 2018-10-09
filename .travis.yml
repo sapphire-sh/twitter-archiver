@@ -6,7 +6,6 @@ node_js:
 sudo: false
 
 script:
-  - npm run build:dll
   - npm test
 
 notifications:
@@ -21,5 +20,4 @@ addons:
 
 after_success:
   - npm run clean
-  - npm run clean:dll
 #   - npm run coveralls

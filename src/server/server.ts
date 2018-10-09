@@ -25,7 +25,6 @@ export class Server {
 		/* istanbul ignore next */
 		if(__test === false) {
 			app.use('/', Express.static(__path.dist));
-			app.use('/', Express.static(__path.dll));
 		}
 
 		this.server = app.listen(port, () => {
