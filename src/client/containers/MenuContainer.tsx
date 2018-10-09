@@ -36,7 +36,6 @@ import {
 	// MenuHelpComponent,
 	MenuProfileComponent,
 	// MenuRelationsComponent,
-	MenuSearchComponent,
 	MenuStatsComponent,
 } from '../components';
 
@@ -66,7 +65,6 @@ class MenuComponent extends React.Component<ComponentProps> {
 				>
 					<MenuProfileComponent {...this.props} />
 					{/* <MenuRelationsComponent {...this.props} /> */}
-					<MenuSearchComponent {...this.props} />
 					<MenuFiltersComponent {...this.props} />
 					<MenuStatsComponent {...this.props} />
 					{/* <MenuHelpComponent {...this.props} /> */}

@@ -23,6 +23,7 @@ import {
 
 import {
 	getIsFetchingTweets,
+	getDidInvalidateTweets,
 	getTweets,
 	getHistoryID,
 } from '../selectors';
@@ -45,6 +46,7 @@ import '../styles/TimelineContainer.scss';
 
 interface ComponentProps {
 	isFetchingTweets: boolean;
+	didInvalidateTweets: boolean;
 	tweets: Tweet[];
 	historyID: string;
 
@@ -62,9 +64,20 @@ class TimelineComponent extends React.Component<ComponentProps> {
 
 	public render() {
 		const {
+			didInvalidateTweets,
 			tweets,
 			historyID,
 		} = this.props;
+
+		if(didInvalidateTweets === true) {
+			return (
+				<Segment.Group size="tiny">
+					<Segment>
+						<div>loading...</div>
+					</Segment>
+				</Segment.Group>
+			);
+		}
 
 		return (
 			<div id="timeline">
@@ -87,6 +100,7 @@ function mapStateToProps(state: State) {
 	return {
 		'tweets': getTweets(state),
 		'isFetchingTweets': getIsFetchingTweets(state),
+		'didInvalidateTweets': getDidInvalidateTweets(state),
 		'historyID': getHistoryID(state),
 	};
 }

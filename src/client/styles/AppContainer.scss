@@ -23,3 +23,17 @@ body {
 		}
 	}
 }
+
+#component {
+	&_b {
+		height: calc(100vh - 40px);
+		margin-top: 40px;
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+
+		> div:last-child {
+			margin-top: 0;
+		}
+	}
+}
