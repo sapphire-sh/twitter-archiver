@@ -7,6 +7,7 @@ export enum RequestType {
 	FETCH_FOLLOWER_USERS,
 	FETCH_MUTED_USERS,
 	FETCH_BLOCKED_USERS,
+	SEARCH = 40001,
 }
 
 enum RequestMethod {
@@ -28,6 +29,8 @@ function getURL(requestType: RequestType): string {
 		return `${API_URL}/users/muted`;
 	case RequestType.FETCH_BLOCKED_USERS:
 		return `${API_URL}/users/blocked`;
+	case RequestType.SEARCH:
+		return `${API_URL}/search`;
 	}
 }
 
@@ -38,10 +41,22 @@ function getMethod(requestType: RequestType): RequestMethod {
 	case RequestType.FETCH_FOLLOWER_USERS:
 	case RequestType.FETCH_MUTED_USERS:
 	case RequestType.FETCH_BLOCKED_USERS:
+	case RequestType.SEARCH:
 		return RequestMethod.GET;
 	case RequestType.UPDATE_HISTORY:
 		return RequestMethod.POST;
 	}
+}
+
+function getQuery(params: {}): string {
+	const query = Object.keys(params).map((e) => {
+		return `${e}=${params[e]}`;
+	}).join('&');
+
+	if(query === undefined) {
+		return '';
+	}
+	return `?${query}`;
 }
 
 export async function sendRequest(requestType: RequestType, params: {} = {}) {
@@ -51,7 +66,9 @@ export async function sendRequest(requestType: RequestType, params: {} = {}) {
 	let response: Response;
 	switch(method) {
 	case RequestMethod.GET:
-		response = await fetch(url, {
+		const query = getQuery(params);
+
+		response = await fetch(`${url}${query}`, {
 			'credentials': 'include',
 		});
 		break;

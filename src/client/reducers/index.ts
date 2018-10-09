@@ -23,6 +23,11 @@ import {
 } from './RelationsReducer';
 
 import {
+	search,
+	SearchState,
+} from './SearchReducer';
+
+import {
 	socket,
 	SocketState,
 } from './SocketReducer';
@@ -42,6 +47,7 @@ export interface State {
 	historyState: HistoryState;
 	modalState: ModalState;
 	relationsState: RelationsState;
+	searchState: SearchState;
 	socketState: SocketState;
 	statsState: StatsState;
 	tweetState: TweetState;
@@ -52,6 +58,7 @@ export const reducers = combineReducers<State>({
 	'historyState': history,
 	'modalState': modal,
 	'relationsState': relations,
+	'searchState': search,
 	'socketState': socket,
 	'statsState': stats,
 	'tweetState': tweet,

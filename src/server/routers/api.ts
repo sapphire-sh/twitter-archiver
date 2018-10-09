@@ -78,4 +78,8 @@ router.get('/users/muted', async (_, res) => {
 	}
 });
 
+router.get('/search', async (req, res) => {
+	res.json([]);
+});
+
 export default router;
