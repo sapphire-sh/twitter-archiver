@@ -227,4 +227,22 @@ export class Database {
 	public static setMutedUserList(users: User[]): Promise<void> {
 		return this.setFilteredUserList(FilterType.MUTE, users);
 	}
+
+	public static async getTweet(key: string): Promise<Tweet[]> {
+		try {
+			const rows: DataRow[] = await this.knex('tweets').where({
+				'key': key,
+			});
+			if(rows.length === 1) {
+				return Promise.all(rows.map((row) => {
+					return inflate<Tweet>(row.data);
+				}));
+			}
+			return [];
+		}
+		catch(err) {
+			console.log(err);
+			return [];
+		}
+	}
 }

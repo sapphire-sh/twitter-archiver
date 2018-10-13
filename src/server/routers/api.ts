@@ -78,8 +78,11 @@ router.get('/users/muted', async (_, res) => {
 	}
 });
 
-router.get('/search', async (req, res) => {
-	res.json([]);
+router.get('/search/id/:id', async (req, res) => {
+	const id = req.params.id;
+
+	const tweets = await Database.getTweet(id);
+	res.json(tweets);
 });
 
 export default router;
