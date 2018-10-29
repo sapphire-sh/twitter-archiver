@@ -18,6 +18,17 @@ router.get('/tweets', async (_, res) => {
 	}
 });
 
+router.get('/tweets/:history', async (req, res) => {
+	try {
+		const id = req.params.history;
+		const tweets = await Database.getTweets(id);
+		res.json(tweets);
+	}
+	catch(err) {
+		res.status(500).json(err);
+	}
+});
+
 router.post('/history', async (req, res) => {
 	try {
 		await Database.setHistory(req.body.id);
