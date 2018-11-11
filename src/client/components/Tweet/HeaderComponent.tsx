@@ -70,7 +70,7 @@ export class HeaderComponent extends React.Component<ComponentProps> {
 						<div
 							className="source"
 							dangerouslySetInnerHTML={{
-								'__html': source,
+								'__html': source === undefined ? '' : source,
 							}}
 						/>
 					</Button>

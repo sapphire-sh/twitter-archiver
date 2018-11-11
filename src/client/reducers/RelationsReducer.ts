@@ -13,8 +13,8 @@ export interface RelationsState {
 }
 
 const initialState: RelationsState = {
-	'followingUsers': null,
-	'followerUsers': null,
+	'followingUsers': [],
+	'followerUsers': [],
 };
 
 export function relations(state = initialState, action: RelationsAction): RelationsState {
@@ -22,7 +22,7 @@ export function relations(state = initialState, action: RelationsAction): Relati
 	case RelationsKeys.REQUEST_FOLLOWING_USERS:
 		return {
 			...state,
-			'followingUsers': null,
+			'followingUsers': [],
 		};
 	case RelationsKeys.RECEIVE_FOLLOWING_USERS:
 		return {
@@ -32,7 +32,7 @@ export function relations(state = initialState, action: RelationsAction): Relati
 	case RelationsKeys.REQUEST_FOLLOWER_USERS:
 		return {
 			...state,
-			'followerUsers': null,
+			'followerUsers': [],
 		};
 	case RelationsKeys.RECEIVE_FOLLOWER_USERS:
 		return {

@@ -23,7 +23,7 @@ export const getModalType = createSelector([
 export const getModalContent = createSelector([
 	getState,
 	getModalType,
-], (state, modalType): {} => {
+], (state, modalType): any | null => {
 	if(modalType === ModalType.MODAL_IDLE) {
 		return null;
 	}

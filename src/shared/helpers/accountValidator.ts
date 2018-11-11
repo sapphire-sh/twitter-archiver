@@ -9,7 +9,11 @@ function getClientAddress(req: Request): string {
 	if(forwardedAdress !== undefined) {
 		return forwardedAdress as string;
 	}
-	return req.connection.remoteAddress;
+	const remoteAddresss = req.connection.remoteAddress;
+	if(remoteAddresss !== undefined) {
+		return remoteAddresss;
+	}
+	return '';
 }
 
 function isValid(req: Request) {

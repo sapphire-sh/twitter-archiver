@@ -36,7 +36,7 @@ interface ComponentProps {
 }
 
 interface ComponentState {
-	socket: SocketIOClient.Socket;
+	socket: SocketIOClient.Socket | null;
 }
 
 class SocketComponent extends React.Component<ComponentProps, ComponentState> {
@@ -95,6 +95,10 @@ class SocketComponent extends React.Component<ComponentProps, ComponentState> {
 		const {
 			socket,
 		} = this.state;
+
+		if(socket === null) {
+			return;
+		}
 
 		socket.off('connect', this.handleConnect);
 		socket.off('disconnect', this.handleDisconnect);

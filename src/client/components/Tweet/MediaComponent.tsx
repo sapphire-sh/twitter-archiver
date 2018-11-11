@@ -53,9 +53,9 @@ export class MediaComponent extends React.Component<ComponentProps> {
 				{entities.media.map((medium) => {
 					switch(medium.type) {
 					case 'video':
-						const video = (medium as any).video_info.variants.filter((e) => {
+						const video = medium.video_info.variants.filter((e: any) => {
 							return e.bitrate !== undefined;
-						}).sort((a, b) => {
+						}).sort((a: any, b: any) => {
 							return a.bitrate - b.bitrate;
 						}).pop();
 
@@ -71,7 +71,7 @@ export class MediaComponent extends React.Component<ComponentProps> {
 							/>
 						);
 					case 'animated_gif':
-						const id = medium.media_url_https.split('/').pop().split('.').shift();
+						const id = medium.media_url_https.split('/').pop()!.split('.').shift();
 
 						return (
 							<video

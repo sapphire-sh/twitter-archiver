@@ -34,13 +34,20 @@ export class TweetElementComponent extends React.Component<ComponentProps> {
 		return (
 			<Segment key={tweet.id_str} className="tweet-segment">
 				{(() => {
-					if(tweet.retweeted_status === undefined) {
+					const retweet = tweet.retweeted_status;
+
+					if(retweet === undefined) {
 						return (
 							<TweetComponent {...this.props} isRetweet={false} isQuote={false} />
 						);
 					}
 					return (
-						<RetweetComponent {...this.props} isRetweet={true} isQuote={false} />
+						<RetweetComponent
+							{...this.props}
+							retweet={retweet}
+							isRetweet={true}
+							isQuote={false}
+						/>
 					);
 				})()}
 			</Segment>

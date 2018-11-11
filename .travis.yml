@@ -20,4 +20,4 @@ addons:
 
 after_success:
   - npm run clean
-#   - npm run coveralls
+  - npm run coveralls

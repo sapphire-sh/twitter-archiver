@@ -48,7 +48,7 @@ function getMethod(requestType: RequestType): RequestMethod {
 	}
 }
 
-function getQuery(params: {}): string {
+function getQuery(params: any): string {
 	const query = Object.keys(params).map((e) => {
 		return `${e}=${params[e]}`;
 	}).join('&');
@@ -59,11 +59,11 @@ function getQuery(params: {}): string {
 	return `?${query}`;
 }
 
-export async function sendRequest(requestType: RequestType, params: {} = {}) {
+export async function sendRequest(requestType: RequestType, params: any = {}) {
 	const url = getURL(requestType);
 	const method = getMethod(requestType);
 
-	let response: Response;
+	let response: Response | null = null;
 	switch(method) {
 	case RequestMethod.GET:
 		const query = getQuery(params);
@@ -82,6 +82,9 @@ export async function sendRequest(requestType: RequestType, params: {} = {}) {
 			'body': JSON.stringify(params),
 		});
 		break;
+	}
+	if(response === null) {
+		return;
 	}
 	return response.json();
 }

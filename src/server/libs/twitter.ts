@@ -107,9 +107,9 @@ export class Twitter {
 	private static async getUsersList(endpoint: string) {
 		try {
 			let users: User[] = [];
-			let cursor = null;
+			let cursor = '0';
 
-			while(cursor !== '0') {
+			do {
 				const {
 					data,
 				} = await this.twit.get(endpoint, {
@@ -129,6 +129,7 @@ export class Twitter {
 					setTimeout(resolve, 1000);
 				});
 			}
+			while(cursor !== '0');
 
 			return Promise.resolve(users);
 		}

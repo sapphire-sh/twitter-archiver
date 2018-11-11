@@ -124,6 +124,7 @@ module.exports = {
 		},
 		'host': 'localhost',
 		'port': 8016,
+		'hot': true,
 		'open': true,
 	},
 };

@@ -6,7 +6,7 @@ import {
 } from 'semantic-ui-react';
 
 interface ComponentState {
-	tick: number;
+	tick: number | null;
 	autoScroll: boolean;
 }
 

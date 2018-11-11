@@ -57,6 +57,21 @@ export class TweetComponent extends React.Component<ComponentProps, ComponentSta
 		};
 	}
 
+	private getText(hydratedTweet: Tweet) {
+		const {
+			text,
+			full_text,
+		} = hydratedTweet;
+
+		if(full_text !== undefined) {
+			return full_text;
+		}
+		if(text !== undefined) {
+			return text;
+		}
+		return '';
+	}
+
 	public render() {
 		const {
 			isQuote,
@@ -68,10 +83,10 @@ export class TweetComponent extends React.Component<ComponentProps, ComponentSta
 		} = this.state;
 
 		const {
-			text,
-			full_text,
 			quoted_status,
 		} = hydratedTweet;
+
+		const text = this.getText(hydratedTweet);
 
 		return (
 			<div className="tweet">
@@ -82,7 +97,7 @@ export class TweetComponent extends React.Component<ComponentProps, ComponentSta
 				<Segment.Group size="tiny">
 					<Segment>
 						<TextComponent
-							text={full_text !== undefined ? full_text : text}
+							text={text}
 							entities={hydratedEntities}
 						/>
 					</Segment>

@@ -20,6 +20,7 @@ import {
 
 interface ComponentProps {
 	tweet: Tweet;
+	retweet: Tweet;
 	isRetweet: boolean;
 	isQuote: boolean;
 
@@ -31,18 +32,25 @@ export class RetweetComponent extends React.Component<ComponentProps> {
 	public render() {
 		const {
 			tweet,
+			retweet,
 		} = this.props;
 
-		const {
-			retweeted_status,
-		} = tweet;
-
 		return (
-			<div className="tweet retweet">
-				<HeaderComponent {...this.props} isRetweet={false} />
-				<Segment.Group size="tiny">
+			<div
+				className="tweet retweet"
+			>
+				<HeaderComponent
+					{...this.props}
+					isRetweet={false}
+				/>
+				<Segment.Group
+					size="tiny"
+				>
 					<Segment>
-						<TweetComponent {...this.props} tweet={retweeted_status} />
+						<TweetComponent
+							{...this.props}
+							tweet={retweet}
+						/>
 					</Segment>
 				</Segment.Group>
 			</div>
