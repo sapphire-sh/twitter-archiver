@@ -2,7 +2,8 @@ import Twit from 'twit';
 
 import {
 	Database,
-} from './database';
+	Downloader,
+} from '~/server/libs';
 
 import {
 	Tweet,
@@ -33,7 +34,8 @@ export class Twitter {
 				console.log(`tweets ${tweets.length}`);
 
 				tweets.forEach((tweet) => {
-					Database.addQueue(tweet);
+					// Database.addQueue(tweet);
+					Downloader.addQueue(tweet);
 				});
 
 				// {

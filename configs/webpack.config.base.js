@@ -6,6 +6,7 @@ const webpack = require('webpack');
 const rootPath = path.resolve(__dirname, '..');
 const srcPath = path.resolve(rootPath, 'src');
 const distPath = path.resolve(rootPath, 'dist');
+const dataPath = path.resolve(rootPath, 'data');
 
 const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
@@ -61,7 +62,10 @@ module.exports.baseConfig = {
 				}));
 			})(),
 			'__path': JSON.stringify({
+				'root': rootPath,
+				'src': srcPath,
 				'dist': distPath,
+				'data': dataPath,
 			}),
 		}),
 		new webpack.ProgressPlugin(),

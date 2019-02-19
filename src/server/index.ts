@@ -4,6 +4,7 @@ import {
 
 import {
 	Database,
+	Downloader,
 	OAuth,
 	Socket,
 	Twitter,
@@ -23,27 +24,27 @@ const app = new Server(port);
 (async () => {
 	try {
 		await Promise.all([
-			Database.initialize(),
+			// Database.initialize(),
+			Downloader.initialize(),
 			OAuth.initialize(token.consumer_key, token.consumer_secret),
 			Socket.initialize(app.server),
 			Twitter.initialize(token),
 		]);
 	}
-	catch(err) {
+	catch(error) {
 		console.log('initialized failed');
-		console.log(err);
-		return;
+		throw error;
 	}
 
 	try {
-		Promise.all([
-			Database.start(),
+		await Promise.all([
+			// Database.start(),
+			Downloader.start(),
 			Twitter.start(),
 		]);
 	}
-	catch(err) {
+	catch(error) {
 		console.log('start failed');
-		console.log(err);
-		return;
+		throw error;
 	}
 })();
