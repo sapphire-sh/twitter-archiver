@@ -3,12 +3,16 @@ const path = require('path');
 
 const webpack = require('webpack');
 
-const distPath = path.resolve(__dirname, '../dist');
+const rootPath = path.resolve(__dirname, '..');
+const srcPath = path.resolve(rootPath, 'src');
+const distPath = path.resolve(rootPath, 'dist');
 
 const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
 const envPath = path.resolve(__dirname, '../.env');
 
+module.exports.rootPath = rootPath;
+module.exports.srcPath = srcPath;
 module.exports.distPath = distPath;
 
 module.exports.env = env;
@@ -23,10 +27,10 @@ module.exports.baseConfig = {
 			'.json',
 		],
 		'alias': {
-			'~': path.resolve(__dirname, '../src'),
-			'~/client': path.resolve(__dirname, '../src/client'),
-			'~/server': path.resolve(__dirname, '../src/server'),
-			'~/shared': path.resolve(__dirname, '../src/shared'),
+			'~': srcPath,
+			'~/client': path.resolve(srcPath, 'client'),
+			'~/server': path.resolve(srcPath, 'server'),
+			'~/shared': path.resolve(srcPath, 'shared'),
 		},
 	},
 	'plugins': [
@@ -43,6 +47,7 @@ module.exports.baseConfig = {
 				}
 
 				const data = fs.readFileSync(envPath);
+				
 				return JSON.stringify(data.toString().trim().split('\n').map((e) => {
 					const t = e.split('=');
 					return {

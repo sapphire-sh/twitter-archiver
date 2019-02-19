@@ -7,13 +7,14 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 const {
 	baseConfig,
+	srcPath,
 	distPath,
 	env,
 } = require('../configs/webpack.config.base');
 
 module.exports = {
 	...baseConfig,
-	'entry': path.resolve(__dirname, '../src/client', 'index.tsx'),
+	'entry': path.resolve(srcPath, 'client', 'index.tsx'),
 	'output': {
 		'path': distPath,
 		'filename': 'bundle.js',

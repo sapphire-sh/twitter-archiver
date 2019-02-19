@@ -5,13 +5,14 @@ const nodeExternals = require('webpack-node-externals');
 
 const {
 	baseConfig,
+	srcPath,
 	distPath,
 	env,
 } = require('../configs/webpack.config.base');
 
 module.exports = {
 	...baseConfig,
-	'entry': path.resolve(__dirname, '../src/server', 'index.ts'),
+	'entry': path.resolve(srcPath, 'server', 'index.ts'),
 	'output': {
 		'path': distPath,
 		'filename': 'main.js',
