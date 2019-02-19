@@ -13,26 +13,26 @@ import {
 	invalidateSearchQuery,
 	updateSearchQueryIfNeeded,
 	fetchSearchResultIfNeeded,
-} from '../actions';
+} from '~/client/actions';
 
 import {
 	SearchQuery,
 	Tweet,
-} from '../../shared/models';
+} from '~/shared/models';
 
 import {
 	State,
-} from '../reducers';
+} from '~/client/reducers';
 
 import {
 	getSearchQuery,
 	getSearchResult,
-} from '../selectors';
+} from '~/client/selectors';
 
 import {
 	SearchFormComponent,
 	SearchResultComponent,
-} from '../components';
+} from '~/client/components';
 
 import {
 	Segment,

@@ -4,7 +4,7 @@ import {
 	OAuth,
 	RequestToken,
 	AccessToken,
-} from '../libs';
+} from '~/server/libs';
 
 const router = Express.Router();
 

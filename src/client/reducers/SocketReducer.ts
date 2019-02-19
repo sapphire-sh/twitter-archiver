@@ -1,7 +1,7 @@
 import {
 	SocketKeys,
 	SocketAction,
-} from '../actions/types';
+} from '~/client/actions/types';
 
 export interface SocketState {
 	isConnected: boolean;

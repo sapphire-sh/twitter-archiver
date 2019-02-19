@@ -3,7 +3,7 @@ import Express from 'express';
 import {
 	Database,
 	Twitter,
-} from '../libs';
+} from '~/server/libs';
 
 const router = Express.Router();
 

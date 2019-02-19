@@ -1,11 +1,11 @@
 import {
 	FilterKeys,
 	FilterAction,
-} from '../actions/types';
+} from '~/client/actions/types';
 
 import {
 	User,
-} from '../../shared/models';
+} from '~/shared/models';
 
 export interface FilterState {
 	mutedUsers: User[];

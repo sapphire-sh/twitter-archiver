@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../styles/IndicatorComponent.scss';
+import '~/client/styles/IndicatorComponent.scss';
 
 interface ComponentProps {
 	isSocketConnected: boolean;

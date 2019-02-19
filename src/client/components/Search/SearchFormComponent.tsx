@@ -4,12 +4,12 @@ import {
 	invalidateSearchQuery,
 	updateSearchQueryIfNeeded,
 	fetchSearchResultIfNeeded,
-} from '../../actions';
+} from '~/client/actions';
 
 import {
 	initialSearchQuery,
 	SearchQuery,
-} from '../../../shared/models';
+} from '~/shared/models';
 
 import {
 	Form,

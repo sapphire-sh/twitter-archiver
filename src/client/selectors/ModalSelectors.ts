@@ -4,11 +4,11 @@ import {
 
 import {
 	State,
-} from '../reducers';
+} from '~/client/reducers';
 
 import {
 	ModalType,
-} from '../actions';
+} from '~/client/actions';
 
 function getState(state: State) {
 	return state.modalState;

@@ -13,21 +13,21 @@ import {
 
 import {
 	State,
-} from '../reducers';
+} from '~/client/reducers';
 
 import {
 	getFollowingUsers,
 	getFollowerUsers,
-} from '../selectors';
+} from '~/client/selectors';
 
 import {
 	User,
-} from '../../shared/models';
+} from '~/shared/models';
 
 import {
 	sendRequest,
 	RequestType,
-} from '../../shared/helpers';
+} from '~/shared/helpers';
 
 function requestFollowingUsers(): RequestFollowingUsersAction {
 	return {

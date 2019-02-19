@@ -13,22 +13,22 @@ import {
 import {
 	invalidateModal,
 	ModalType,
-} from '../actions';
+} from '~/client/actions';
 
 import {
 	User,
-} from '../../shared/models';
+} from '~/shared/models';
 
 import {
 	State,
-} from '../reducers';
+} from '~/client/reducers';
 
 import {
 	getModalType,
 	getModalContent,
-} from '../selectors';
+} from '~/client/selectors';
 
-import '../styles/ModalComponent.scss';
+import '~/client/styles/ModalComponent.scss';
 
 interface ComponentProps {
 	modalType: ModalType;

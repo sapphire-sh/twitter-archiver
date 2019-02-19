@@ -9,7 +9,7 @@ import {
 	Database,
 } from './database';
 
-import tweet from '../../tweet.json';
+import tweet from '~/server/tweet.json';
 
 describe('./libs/database.ts', () => {
 	const databasePath = path.resolve(__dirname, './test.sqlite');

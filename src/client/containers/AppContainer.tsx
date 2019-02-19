@@ -12,11 +12,11 @@ import {
 
 import {
 	State,
-} from '../reducers';
+} from '~/client/reducers';
 
 import {
 	getIsSocketConnected,
-} from '../selectors';
+} from '~/client/selectors';
 
 import {
 	MainContainer,
@@ -24,12 +24,12 @@ import {
 	ModalContainer,
 	MenuContainer,
 	SocketContainer,
-} from '../containers';
+} from '~/client/containers';
 
 import {
 	IndicatorComponent,
 	NavigationComponent,
-} from '../components';
+} from '~/client/components';
 
 import {
 	Container,
@@ -37,7 +37,7 @@ import {
 } from 'semantic-ui-react';
 
 import 'semantic-ui-css/semantic.min.css';
-import '../styles/AppContainer.scss';
+import '~/client/styles/AppContainer.scss';
 
 interface ComponentProps {
 	isSocketConnected: boolean;

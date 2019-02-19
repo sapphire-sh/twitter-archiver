@@ -2,18 +2,18 @@ import Knex from 'knex';
 
 import {
 	Socket,
-} from '../libs';
+} from '~/server/libs';
 
 import {
 	Tweet,
 	User,
 	SocketEventType,
-} from '../../shared/models';
+} from '~/shared/models';
 
 import {
 	deflate,
 	inflate,
-} from '../../shared/helpers';
+} from '~/shared/helpers';
 
 interface DataRow {
 	id: string;

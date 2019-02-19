@@ -2,7 +2,7 @@ import React from 'react';
 
 import {
 	User,
-} from '../../../shared/models';
+} from '~/shared/models';
 
 import {
 	Label,

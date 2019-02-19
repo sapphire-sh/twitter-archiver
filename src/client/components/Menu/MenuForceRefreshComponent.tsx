@@ -3,7 +3,7 @@ import React from 'react';
 import {
 	invalidateTweets,
 	fetchTweetsIfNeeded,
-} from '../../actions';
+} from '~/client/actions';
 
 import {
 	Menu,

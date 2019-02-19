@@ -2,7 +2,7 @@ import React from 'react';
 
 import {
 	Tweet,
-} from '../../shared/models';
+} from '~/shared/models';
 
 import {
 	Segment,

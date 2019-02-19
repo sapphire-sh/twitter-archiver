@@ -12,22 +12,22 @@ import {
 
 import {
 	State,
-} from '../reducers';
+} from '~/client/reducers';
 
 import {
 	getDidInvalidateTweets,
 	getIsFetchingTweets,
 	getLatestTweetID,
-} from '../selectors';
+} from '~/client/selectors';
 
 import {
 	Tweet,
-} from '../../shared/models';
+} from '~/shared/models';
 
 import {
 	sendRequest,
 	RequestType,
-} from '../../shared/helpers';
+} from '~/shared/helpers';
 
 export function invalidateTweets(): InvalidateTweetAction {
 	return {

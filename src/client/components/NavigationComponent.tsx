@@ -8,7 +8,7 @@ import {
 	Menu,
 } from 'semantic-ui-react';
 
-import '../styles/NavigationComponent.scss';
+import '~/client/styles/NavigationComponent.scss';
 
 export class NavigationComponent extends React.Component {
 	public render() {

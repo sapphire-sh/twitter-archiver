@@ -3,12 +3,12 @@ import React from 'react';
 import {
 	openModal,
 	ModalType,
-} from '../../actions';
+} from '~/client/actions';
 
 import {
 	Entities,
 	MediaEntity,
-} from '../../../shared/models';
+} from '~/shared/models';
 
 import {
 	Image,

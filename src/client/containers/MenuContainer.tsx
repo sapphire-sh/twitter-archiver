@@ -14,20 +14,20 @@ import {
 	invalidateTweets,
 	fetchTweetsIfNeeded,
 	openModal,
-} from '../actions';
+} from '~/client/actions';
 
 import {
 	User,
-} from '../../shared/models';
+} from '~/shared/models';
 
 import {
 	State,
-} from '../reducers';
+} from '~/client/reducers';
 
 import {
 	getMutedUsers,
 	getBlockedUsers,
-} from '../selectors';
+} from '~/client/selectors';
 
 import {
 	MenuAutoScrollComponent,
@@ -37,13 +37,13 @@ import {
 	MenuProfileComponent,
 	// MenuRelationsComponent,
 	MenuStatsComponent,
-} from '../components';
+} from '~/client/components';
 
 import {
 	Menu,
 } from 'semantic-ui-react';
 
-import '../styles/MenuContainer.scss';
+import '~/client/styles/MenuContainer.scss';
 
 interface ComponentProps {
 	mutedUsers: User[];

@@ -5,21 +5,21 @@ import {
 
 import {
 	State,
-} from '../reducers';
+} from '~/client/reducers';
 
 import {
 	getSearchQuery,
-} from '../selectors';
+} from '~/client/selectors';
 
 import {
 	SearchQuery,
 	Tweet,
-} from '../../shared/models';
+} from '~/shared/models';
 
 import {
 	sendRequest,
 	RequestType,
-} from '../../shared/helpers';
+} from '~/shared/helpers';
 
 export enum SearchKeys {
 	INVALIDATE_SEARCH_QUERY = 'INVALIDATE_SEARCH_QUERY',

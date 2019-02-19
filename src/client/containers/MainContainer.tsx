@@ -6,9 +6,9 @@ import {
 
 import {
 	TimelineContainer,
-} from '../containers';
+} from '~/client/containers';
 
-import '../styles/MainContainer.scss';
+import '~/client/styles/MainContainer.scss';
 
 class MainComponent extends React.Component {
 	public render() {

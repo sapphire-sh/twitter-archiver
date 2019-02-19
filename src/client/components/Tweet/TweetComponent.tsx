@@ -3,24 +3,24 @@ import React from 'react';
 import {
 	updateHistoryIfNeeded,
 	openModal,
-} from '../../actions';
+} from '~/client/actions';
 
 import {
 	Tweet,
 	Entities,
-} from '../../../shared/models';
+} from '~/shared/models';
 
 import {
 	HeaderComponent,
 	TextComponent,
 	MediaComponent,
 	FooterComponent,
-} from '../../components';
+} from '~/client/components';
 
 import {
 	hydrateTweet,
 	hydrateEntities,
-} from '../../../shared/helpers';
+} from '~/shared/helpers';
 
 import {
 	Segment,

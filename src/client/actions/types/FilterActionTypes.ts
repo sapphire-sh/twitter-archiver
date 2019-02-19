@@ -4,7 +4,7 @@ import {
 
 import {
 	User,
-} from '../../../shared/models';
+} from '~/shared/models';
 
 export enum FilterKeys {
 	INVALIDATE_FILTERS = 'INVALIDATE_FILTERS',

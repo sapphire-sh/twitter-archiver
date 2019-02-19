@@ -4,7 +4,7 @@ import {
 
 import {
 	Tweet,
-} from '../../../shared/models';
+} from '~/shared/models';
 
 export enum TweetKeys {
 	INVALIDATE_TWEETS = 'INVALIDATE_TWEETS',

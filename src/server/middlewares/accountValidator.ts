@@ -2,7 +2,7 @@ import Express from 'express';
 
 import {
 	accountValidator,
-} from '../../shared/helpers';
+} from '~/shared/helpers';
 
 const router = Express.Router();
 

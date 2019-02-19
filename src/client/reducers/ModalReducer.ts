@@ -1,11 +1,11 @@
 import {
 	ModalKeys,
 	ModalAction,
-} from '../actions/types';
+} from '~/client/actions/types';
 
 import {
 	ModalType,
-} from '../actions';
+} from '~/client/actions';
 
 export interface ModalState {
 	modalType: ModalType;

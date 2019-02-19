@@ -5,7 +5,7 @@ import SocketIO from 'socket.io';
 import {
 	SocketEventType,
 	SocketEvent,
-} from '../../shared/models';
+} from '~/shared/models';
 
 export class Socket {
 	private static io: SocketIO.Server;

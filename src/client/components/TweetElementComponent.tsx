@@ -3,16 +3,16 @@ import React from 'react';
 import {
 	updateHistoryIfNeeded,
 	openModal,
-} from '../actions';
+} from '~/client/actions';
 
 import {
 	Tweet,
-} from '../../shared/models';
+} from '~/shared/models';
 
 import {
 	TweetComponent,
 	RetweetComponent,
-} from '../components';
+} from '~/client/components';
 
 import {
 	Segment,

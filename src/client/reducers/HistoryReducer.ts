@@ -1,7 +1,7 @@
 import {
 	HistoryKeys,
 	HistoryAction,
-} from '../actions/types';
+} from '~/client/actions/types';
 
 export interface HistoryState {
 	historyID: string;

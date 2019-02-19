@@ -1,6 +1,6 @@
 import {
 	Tweet,
-} from '../models';
+} from '~/shared/models';
 
 export function hydrateTweet(tweet: Tweet) {
 	const extendedTweet = (tweet as any).extended_tweet;

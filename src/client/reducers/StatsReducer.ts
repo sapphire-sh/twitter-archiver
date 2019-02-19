@@ -1,7 +1,7 @@
 import {
 	StatsKeys,
 	StatsAction,
-} from '../actions/types';
+} from '~/client/actions/types';
 
 export interface StatsState {
 	queueCount: number;

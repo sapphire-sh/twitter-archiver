@@ -3,11 +3,11 @@ import React from 'react';
 import {
 	openModal,
 	ModalType,
-} from '../../actions';
+} from '~/client/actions';
 
 import {
 	User,
-} from '../../../shared/models';
+} from '~/shared/models';
 
 import {
 	Menu,

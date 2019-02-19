@@ -4,7 +4,7 @@ import {
 
 import {
 	User,
-} from '../../../shared/models';
+} from '~/shared/models';
 
 export enum RelationsKeys {
 	REQUEST_FOLLOWING_USERS = 'REQUEST_FOLLOWING_USERS',

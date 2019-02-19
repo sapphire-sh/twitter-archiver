@@ -11,20 +11,20 @@ import {
 import {
 	invalidateTweets,
 	fetchTweetsIfNeeded,
-} from '../actions';
+} from '~/client/actions';
 
 import {
 	State,
-} from '../reducers';
+} from '~/client/reducers';
 
 import {
 	getHistoryID,
-} from '../selectors';
+} from '~/client/selectors';
 
 import {
 	sendRequest,
 	RequestType,
-} from '../../shared/helpers';
+} from '~/shared/helpers';
 
 function requestHistoryUpdate(): HistoryUpdateRequestAction {
 	return {

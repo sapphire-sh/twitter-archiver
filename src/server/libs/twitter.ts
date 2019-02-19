@@ -7,11 +7,11 @@ import {
 import {
 	Tweet,
 	User,
-} from '../../shared/models';
+} from '~/shared/models';
 
 import {
 	AccessToken,
-} from './oauth';
+} from '~/server/libs';
 
 export interface OAuthToken extends AccessToken {
 	consumer_key: string;

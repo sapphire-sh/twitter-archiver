@@ -2,19 +2,19 @@ import React from 'react';
 
 import {
 	updateHistoryIfNeeded,
-} from '../../actions';
+} from '~/client/actions';
 
 import {
 	Tweet,
-} from '../../../shared/models';
+} from '~/shared/models';
 
 import {
 	dateToString,
-} from '../../../shared/helpers';
+} from '~/shared/helpers';
 
 import {
 	ProfileComponent,
-} from '../../components';
+} from '~/client/components';
 
 import {
 	Button,

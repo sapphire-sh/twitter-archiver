@@ -16,16 +16,16 @@ import {
 	updateQueueCount,
 	socketConnected,
 	socketDisconnected,
-} from '../actions';
+} from '~/client/actions';
 
 import {
 	SocketEventType,
 	SocketEvent,
-} from '../../shared/models';
+} from '~/shared/models';
 
 import {
 	State,
-} from '../reducers';
+} from '~/client/reducers';
 
 interface ComponentProps {
 	updateLatestTweetIDIfNeeded: typeof updateLatestTweetIDIfNeeded;

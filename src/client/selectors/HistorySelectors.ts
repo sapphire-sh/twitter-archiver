@@ -4,7 +4,7 @@ import {
 
 import {
 	State,
-} from '../reducers';
+} from '~/client/reducers';
 
 const getState = (state: State) => {
 	return state.historyState;

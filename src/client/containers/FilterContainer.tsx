@@ -13,20 +13,20 @@ import {
 import {
 	fetchMutedUsersIfNeeded,
 	fetchBlockedUsersIfNeeded,
-} from '../actions';
+} from '~/client/actions';
 
 import {
 	User,
-} from '../../shared/models';
+} from '~/shared/models';
 
 import {
 	State,
-} from '../reducers';
+} from '~/client/reducers';
 
 import {
 	getMutedUsers,
 	getBlockedUsers,
-} from '../selectors';
+} from '~/client/selectors';
 
 interface ComponentProps {
 	mutedUsers: User[];

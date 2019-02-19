@@ -1,11 +1,11 @@
 import {
 	RelationsKeys,
 	RelationsAction,
-} from '../actions/types';
+} from '~/client/actions/types';
 
 import {
 	User,
-} from '../../shared/models';
+} from '~/shared/models';
 
 export interface RelationsState {
 	followingUsers: User[];

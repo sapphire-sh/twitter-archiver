@@ -1,11 +1,11 @@
 import {
 	TweetKeys,
 	TweetAction,
-} from '../actions/types';
+} from '~/client/actions/types';
 
 import {
 	Tweet,
-} from '../../shared/models';
+} from '~/shared/models';
 
 export interface TweetState {
 	isFetching: boolean;

@@ -1,13 +1,13 @@
 import {
 	SearchAction,
 	SearchKeys,
-} from '../actions';
+} from '~/client/actions';
 
 import {
 	initialSearchQuery,
 	SearchQuery,
 	Tweet,
-} from '../../shared/models';
+} from '~/shared/models';
 
 export interface SearchState {
 	searchQuery: SearchQuery;

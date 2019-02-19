@@ -15,33 +15,33 @@ import {
 	fetchTweetsIfNeeded,
 	updateHistoryIfNeeded,
 	openModal,
-} from '../actions';
+} from '~/client/actions';
 
 import {
 	State,
-} from '../reducers';
+} from '~/client/reducers';
 
 import {
 	getIsFetchingTweets,
 	getTweets,
 	getHistoryID,
-} from '../selectors';
+} from '~/client/selectors';
 
 import {
 	Tweet,
-} from '../../shared/models';
+} from '~/shared/models';
 
 import {
 	PlaceholderComponent,
 	TweetElementComponent,
-} from '../components';
+} from '~/client/components';
 
 import {
 	Segment,
 } from 'semantic-ui-react';
 
-import '../styles/TweetsComponent.scss';
-import '../styles/TimelineContainer.scss';
+import '~/client/styles/TweetsComponent.scss';
+import '~/client/styles/TimelineContainer.scss';
 
 interface ComponentProps {
 	isFetchingTweets: boolean;

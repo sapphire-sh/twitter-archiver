@@ -7,7 +7,7 @@ import {
 	OAuth,
 	Socket,
 	Twitter,
-} from './libs';
+} from '~/server/libs';
 
 const token = {
 	'consumer_key': __env.consumer_key,
