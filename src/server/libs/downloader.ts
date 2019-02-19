@@ -5,7 +5,7 @@ import {
 import {
 	createDirectory,
 	downloadMedia,
-} from '~/shared/helpers';
+} from '~/server/helpers';
 
 export class Downloader {
 	private static queue: Tweet[];

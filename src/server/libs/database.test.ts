@@ -9,7 +9,7 @@ import {
 	Database,
 } from './database';
 
-import tweet from '~/server/tweet.json';
+import tweet from '~/tweet.json';
 
 describe('./libs/database.ts', () => {
 	const databasePath = path.resolve(__dirname, './test.sqlite');
@@ -28,13 +28,13 @@ describe('./libs/database.ts', () => {
 	});
 
 	it('insert tweet', async (done) => {
-		Database.addQueue(tweet);
+		Database.addQueue(tweet as any);
 
 		setTimeout(done, 1000);
 	});
 
 	it('insert tweet - duplicate', async (done) => {
-		Database.addQueue(tweet);
+		Database.addQueue(tweet as any);
 
 		setTimeout(done, 1000);
 	});
