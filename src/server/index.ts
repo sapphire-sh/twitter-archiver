@@ -24,8 +24,8 @@ const app = new Server(port);
 (async () => {
 	try {
 		await Promise.all([
-			// Database.initialize(),
-			Downloader.initialize(),
+			Database.initialize(),
+			// Downloader.initialize(),
 			OAuth.initialize(token.consumer_key, token.consumer_secret),
 			Socket.initialize(app.server),
 			Twitter.initialize(token),
@@ -38,8 +38,8 @@ const app = new Server(port);
 
 	try {
 		await Promise.all([
-			// Database.start(),
-			Downloader.start(),
+			Database.start(),
+			// Downloader.start(),
 			Twitter.start(),
 		]);
 	}
