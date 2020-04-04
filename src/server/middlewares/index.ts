@@ -7,5 +7,5 @@ export default [
 	bodyParser,
 	morgan,
 	session,
-	accountValidator,
+	// accountValidator,
 ];
