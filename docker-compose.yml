@@ -3,6 +3,8 @@ version: '3'
 services:
   server:
     build: .
+    env_file:
+      - .env
     environment:
       - DATABASE_HOST=mysql
     ports:
@@ -15,8 +17,8 @@ services:
 
   mysql:
     image: mysql:5.7
-    ports:
-      - 3306:3306
+    expose:
+      - 3306
     environment:
       MYSQL_DATABASE: ${DATABASE_NAME}
       MYSQL_USER: ${DATABASE_USER}
