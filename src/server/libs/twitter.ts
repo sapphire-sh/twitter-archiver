@@ -61,6 +61,7 @@ export class Twitter {
 	public static fetchTimeline() {
 		return new Promise<Tweet[]>((resolve, reject) => {
 			this.twit.get('lists/statuses', {
+				'list_id': '1246349741807374336',
 				'count': 200,
 				'include_my_retweet': true,
 				'cards_platform': 'Web-13',
