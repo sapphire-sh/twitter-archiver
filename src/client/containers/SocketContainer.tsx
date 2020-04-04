@@ -80,7 +80,7 @@ class SocketComponent extends React.Component<ComponentProps, ComponentState> {
 	}
 
 	public componentDidMount() {
-		const socket = io('https://archive.sapphire.sh');
+		const socket = io('');
 
 		socket.on('connect', this.handleConnect);
 		socket.on('disconnect', this.handleDisconnect);

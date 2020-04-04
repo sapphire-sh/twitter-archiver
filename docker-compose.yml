@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  server:
+    build: .
+    environment:
+      - DATABASE_HOST=mysql
+    ports:
+      - 8015:8015
+    networks:
+      - mysql
+    depends_on:
+      - mysql
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_USER: ${DATABASE_USER}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - ./data:/var/lib/mysql
+    networks:
+      - mysql
+    restart: unless-stopped
+
+networks:
+  mysql:

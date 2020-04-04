@@ -60,7 +60,7 @@ export class Twitter {
 
 	public static fetchTimeline() {
 		return new Promise<Tweet[]>((resolve, reject) => {
-			this.twit.get('statuses/home_timeline', {
+			this.twit.get('lists/statuses', {
 				'count': 200,
 				'include_my_retweet': true,
 				'cards_platform': 'Web-13',
