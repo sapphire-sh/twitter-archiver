@@ -163,9 +163,9 @@ export class Database {
 
 	public static async getHistory(): Promise<string> {
 		try {
-			const rows: Array<{
+			const rows: {
 				key: string;
-			}> = await this.knex('history').orderBy('id', 'desc').limit(1);
+			}[] = await this.knex('history').orderBy('id', 'desc').limit(1);
 			return rows.length === 0 ? '1' : rows[0].key;
 		}
 		catch(err) {
