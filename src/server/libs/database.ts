@@ -36,10 +36,10 @@ export class Database {
 			config = {
 				'client': 'mysql',
 				'connection': {
-					'host': 'localhost',
-					'user': __env.database_user,
-					'password': __env.database_password,
-					'database': __env.database_name,
+					'host': __env.DATABASE_HOST ?? 'localhost',
+					'user': __env.DATABASE_USER,
+					'password': __env.DATABASE_PASSWORD,
+					'database': __env.DATABASE_NAME,
 				},
 				'useNullAsDefault': true,
 			};

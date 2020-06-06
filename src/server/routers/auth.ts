@@ -44,10 +44,10 @@ function validateAccessToken(token: AccessToken) {
 		access_token_secret,
 	} = token;
 
-	if(__env.access_token !== access_token) {
+	if(__env.ACCESS_TOKEN !== access_token) {
 		return false;
 	}
-	if(__env.access_token_secret !== access_token_secret) {
+	if(__env.ACCESS_TOKEN_SECRET !== access_token_secret) {
 		return false;
 	}
 	return true;

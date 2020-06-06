@@ -8,7 +8,7 @@
 
 describe('./libs/oauth.ts', () => {
 	// beforeEach(() => {
-	// 	OAuth.initialize(__env.consumer_key, __env.consumer_secret);
+	// 	OAuth.initialize(__env.CONSUMER_KEY, __env.CONSUMER_SECRET);
 	// });
 
 	it('get request token', async () => {

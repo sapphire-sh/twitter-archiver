@@ -18,13 +18,14 @@ Automatically backups your timeline
 
 ```sh
 PORT={{port}}
-consumer_key={{consumer_key}}
-consumer_secret={{consumer_secet}}
-access_token={{access_token}}
-access_token_secret={{access_token_secert}}
-database_user={{database_user}
-database_password={{database_password}}
-database_name={{database_name}}
+CONSUMER_KEY={{consumer_key}}
+CONSUMER_SECRET={{consumer_secet}}
+ACCESS_TOKEN={{access_token}}
+ACCESS_TOKEN_SECRET={{access_token_secert}}
+DATABASE_HOST={{database_host}}
+DATABASE_USER={{database_user}
+DATABASE_PASSWORD={{database_password}}
+DATABASE_NAME={{database_name}}
 ```
 
 ### Start

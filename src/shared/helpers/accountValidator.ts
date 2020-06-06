@@ -18,7 +18,7 @@ function getClientAddress(req: Request): string {
 
 function isValid(req: Request) {
 	const clientAddress = getClientAddress(req);
-	if(clientAddress === __env.dev_address) {
+	if(clientAddress === __env.DEV_ADDRESS) {
 		return true;
 	}
 

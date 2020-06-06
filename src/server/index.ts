@@ -11,10 +11,10 @@ import {
 } from '~/server/libs';
 
 const token = {
-	'consumer_key': __env.consumer_key,
-	'consumer_secret': __env.consumer_secret,
-	'access_token': __env.access_token,
-	'access_token_secret': __env.access_token_secret,
+	'consumer_key': __env.CONSUMER_KEY,
+	'consumer_secret': __env.CONSUMER_SECRET,
+	'access_token': __env.ACCESS_TOKEN,
+	'access_token_secret': __env.ACCESS_TOKEN_SECRET,
 };
 
 const port = __env.PORT === undefined ? 8015 : parseInt(__env.PORT!, 10);
