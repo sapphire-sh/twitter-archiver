@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import request from 'request';
+// import request from 'request';
 
 import {
 	Tweet,
@@ -61,7 +61,8 @@ async function download(id: string, url: string) {
 	if (exists === false) {
 		return new Promise((resolve, reject) => {
 			const stream = fs.createWriteStream(filePath);
-			request(`${url}:orig`).on('error', reject).on('close', resolve).pipe(stream);
+			// FIXME: downloader
+			// request(`${url}:orig`).on('error', reject).on('close', resolve).pipe(stream);
 		});
 	}
 }
