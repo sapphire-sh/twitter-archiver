@@ -53,11 +53,11 @@ class ModalComponent extends React.Component<ComponentProps> {
 		const prevModalType = prevProps.modalType;
 		const currModalType = this.props.modalType;
 
-		if(prevModalType !== currModalType) {
-			if(prevModalType === ModalType.MODAL_IDLE) {
+		if (prevModalType !== currModalType) {
+			if (prevModalType === ModalType.MODAL_IDLE) {
 				document.body.classList.add('no-scroll');
 			}
-			if(currModalType === ModalType.MODAL_IDLE) {
+			if (currModalType === ModalType.MODAL_IDLE) {
 				document.body.classList.remove('no-scroll');
 			}
 		}
@@ -69,7 +69,7 @@ class ModalComponent extends React.Component<ComponentProps> {
 			modalContent,
 		} = this.props;
 
-		if(modalType === ModalType.MODAL_IDLE) {
+		if (modalType === ModalType.MODAL_IDLE) {
 			return null;
 		}
 
@@ -78,7 +78,7 @@ class ModalComponent extends React.Component<ComponentProps> {
 				<div id="modal_background" onClick={this.handleClose} />
 				<div id="modal_content">
 					{(() => {
-						switch(modalType) {
+						switch (modalType) {
 						case ModalType.MODAL_JSON:
 							return (
 								<pre>{JSON.stringify(modalContent, null, 1)}</pre>

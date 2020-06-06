@@ -5,7 +5,7 @@ import {
 export function hydrateTweet(tweet: Tweet) {
 	const extendedTweet = (tweet as any).extended_tweet;
 
-	if(extendedTweet === undefined) {
+	if (extendedTweet === undefined) {
 		return tweet;
 	}
 
@@ -22,7 +22,7 @@ export function hydrateEntities(tweet: Tweet) {
 		extended_entities,
 	} = tweet as any;
 
-	if(extended_entities === undefined) {
+	if (extended_entities === undefined) {
 		return entities;
 	}
 	return {

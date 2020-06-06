@@ -44,7 +44,7 @@ export class ProfileComponent extends React.Component<ComponentProps> {
 				<span className="tweet-profile-name">{name}</span>
 				<div className="detail">@{screen_name}</div>
 				{(() => {
-					if(user.protected === true) {
+					if (user.protected === true) {
 						return (
 							<Icon name="lock" color="grey" />
 						);
@@ -52,7 +52,7 @@ export class ProfileComponent extends React.Component<ComponentProps> {
 					return null;
 				})()}
 				{(() => {
-					if(verified === true) {
+					if (verified === true) {
 						return (
 							<Icon name="check" color="blue" />
 						);
@@ -60,7 +60,7 @@ export class ProfileComponent extends React.Component<ComponentProps> {
 					return null;
 				})()}
 				{(() => {
-					switch(translator_type) {
+					switch (translator_type) {
 					case 'badged':
 						return (
 							<Icon name="globe" color="blue" />

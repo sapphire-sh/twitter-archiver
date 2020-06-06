@@ -16,7 +16,7 @@ enum RequestMethod {
 }
 
 function getURL(requestType: RequestType): string {
-	switch(requestType) {
+	switch (requestType) {
 	case RequestType.FETCH_TWEETS:
 		return `${API_URL}/tweets`;
 	case RequestType.UPDATE_HISTORY:
@@ -35,7 +35,7 @@ function getURL(requestType: RequestType): string {
 }
 
 function getMethod(requestType: RequestType): RequestMethod {
-	switch(requestType) {
+	switch (requestType) {
 	case RequestType.FETCH_TWEETS:
 	case RequestType.FETCH_FOLLOWING_USERS:
 	case RequestType.FETCH_FOLLOWER_USERS:
@@ -53,7 +53,7 @@ function getQuery(params: any): string {
 		return `${e}=${params[e]}`;
 	}).join('&');
 
-	if(query === undefined) {
+	if (query === undefined) {
 		return '';
 	}
 	return `?${query}`;
@@ -64,7 +64,7 @@ export async function sendRequest(requestType: RequestType, params: any = {}) {
 	const method = getMethod(requestType);
 
 	let response: Response | null = null;
-	switch(method) {
+	switch (method) {
 	case RequestMethod.GET:
 		const query = getQuery(params);
 
@@ -83,7 +83,7 @@ export async function sendRequest(requestType: RequestType, params: any = {}) {
 		});
 		break;
 	}
-	if(response === null) {
+	if (response === null) {
 		return;
 	}
 	return response.json();

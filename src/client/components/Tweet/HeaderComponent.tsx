@@ -84,10 +84,10 @@ export class HeaderComponent extends React.Component<ComponentProps> {
 						{dateToString(date)}
 					</Button>
 					{(() => {
-						if(isRetweet === true) {
+						if (isRetweet === true) {
 							return null;
 						}
-						if(isQuote === true) {
+						if (isQuote === true) {
 							return null;
 						}
 						return (

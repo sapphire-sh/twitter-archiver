@@ -56,7 +56,7 @@ function fetchTweets() {
 			const tweets: Tweet[] = await sendRequest(RequestType.FETCH_TWEETS);
 			dispatch(receiveTweets(tweets));
 		}
-		catch(err) {
+		catch (err) {
 			console.log(err);
 		}
 	};
@@ -73,7 +73,7 @@ export function fetchTweetsIfNeeded() {
 	return (dispatch: Dispatch<any>, getState: () => State) => {
 		const state = getState();
 
-		if(shouldFetchTweets(state)) {
+		if (shouldFetchTweets(state)) {
 			dispatch(fetchTweets());
 		}
 	};
@@ -94,7 +94,7 @@ export function updateLatestTweetIDIfNeeded(id: string) {
 	return (dispatch: Dispatch<any>, getState: () => State) => {
 		const state = getState();
 
-		if(shouldUpdateLatestTweetID(state, id)) {
+		if (shouldUpdateLatestTweetID(state, id)) {
 			dispatch(updateLatestTweetID(id));
 			dispatch(invalidateTweets());
 			dispatch(fetchTweetsIfNeeded());

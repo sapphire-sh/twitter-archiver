@@ -36,7 +36,7 @@ export class TweetElementComponent extends React.Component<ComponentProps> {
 				{(() => {
 					const retweet = tweet.retweeted_status;
 
-					if(retweet === undefined) {
+					if (retweet === undefined) {
 						return (
 							<TweetComponent {...this.props} isRetweet={false} isQuote={false} />
 						);

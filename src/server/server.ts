@@ -23,13 +23,13 @@ export class Server {
 		});
 
 		/* istanbul ignore next */
-		if(__test === false) {
+		if (__test === false) {
 			app.use('/', Express.static(__path.dist));
 		}
 
 		this.server = app.listen(port, () => {
 			/* istanbul ignore next */
-			if(__test === false) {
+			if (__test === false) {
 				console.log(`http://localhost:${port}`);
 			}
 		});

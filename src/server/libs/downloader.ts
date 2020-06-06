@@ -20,9 +20,9 @@ export class Downloader {
 
 	public static async start() {
 		try {
-			while(this.shouldProcess) {
+			while (this.shouldProcess) {
 				const tweet = Downloader.queue.shift();
-				if(tweet !== undefined) {
+				if (tweet !== undefined) {
 					await Downloader.downloadTweet(tweet);
 				}
 				await new Promise((resolve) => {
@@ -30,7 +30,7 @@ export class Downloader {
 				});
 			}
 		}
-		catch(err) {
+		catch (err) {
 			/* istanbul ignore next */
 			console.log(err);
 		}
@@ -45,7 +45,7 @@ export class Downloader {
 	}
 
 	private static async downloadTweet(tweet: Tweet) {
-		if(tweet.retweeted_status === undefined) {
+		if (tweet.retweeted_status === undefined) {
 			await downloadMedia(tweet);
 		}
 		else {

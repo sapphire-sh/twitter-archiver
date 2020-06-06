@@ -22,7 +22,7 @@ const initialState: TweetState = {
 };
 
 export function tweet(state = initialState, action: TweetAction): TweetState {
-	switch(action.type) {
+	switch (action.type) {
 	case TweetKeys.INVALIDATE_TWEETS:
 		return {
 			...state,

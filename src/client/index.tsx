@@ -25,7 +25,7 @@ import './index.html';
 const middlewares = [
 	applyMiddleware(thunk),
 ];
-if(__dev) {
+if (__dev) {
 	middlewares.push(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 }
 const store = createStore(reducers, compose(...middlewares));

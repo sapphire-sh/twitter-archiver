@@ -34,7 +34,7 @@ export class OAuth {
 		return new Promise((resolve, reject) => {
 			this.oauth.getOAuthRequestToken((err, oauth_token, oauth_token_secret) => {
 				/* istanbul ignore if */
-				if(err) {
+				if (err) {
 					reject(err);
 				}
 				else {
@@ -58,7 +58,7 @@ export class OAuth {
 		return new Promise((resolve, reject) => {
 			this.oauth.getOAuthAccessToken(this.oauth_token, this.oauth_token_secret, oauth_verifier, (err, access_token, access_token_secret) => {
 				/* istanbul ignore if */
-				if(err) {
+				if (err) {
 					reject(err);
 				}
 				else {

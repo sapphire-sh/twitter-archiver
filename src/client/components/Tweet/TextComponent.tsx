@@ -18,7 +18,7 @@ export class TextComponent extends React.Component<TextProps> {
 			entities,
 		} = this.props;
 
-		if(text === undefined) {
+		if (text === undefined) {
 			return null;
 		}
 

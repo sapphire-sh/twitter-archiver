@@ -19,7 +19,7 @@ export async function downloadMedia(tweet: Tweet) {
 
 	const entities: Entities | undefined = (tweet as any).extended_entities;
 
-	if(entities === undefined) {
+	if (entities === undefined) {
 		return;
 	}
 
@@ -29,7 +29,7 @@ export async function downloadMedia(tweet: Tweet) {
 		return medium.media_url_https;
 	});
 
-	for(const url of urls) {
+	for (const url of urls) {
 		await download(user.id_str, url);
 	}
 }
@@ -41,8 +41,8 @@ async function checkFile(id: string, name: string): Promise<boolean> {
 		await fs.promises.lstat(targetPath);
 		return true;
 	}
-	catch(error) {
-		switch(error.code) {
+	catch (error) {
+		switch (error.code) {
 			case 'ENOENT': {
 				return false;
 			}
@@ -58,7 +58,7 @@ async function download(id: string, url: string) {
 	const filePath = path.resolve(__path.data, id, name);
 
 	const exists = await checkFile(id, name);
-	if(exists === false) {
+	if (exists === false) {
 		return new Promise((resolve, reject) => {
 			const stream = fs.createWriteStream(filePath);
 			request(`${url}:orig`).on('error', reject).on('close', resolve).pipe(stream);

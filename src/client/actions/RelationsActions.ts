@@ -50,7 +50,7 @@ function fetchFollowingUsers() {
 			const users = await sendRequest(RequestType.FETCH_FOLLOWING_USERS);
 			dispatch(receiveFollowingUsers(users));
 		}
-		catch(err) {
+		catch (err) {
 			console.log(err);
 		}
 	};
@@ -64,7 +64,7 @@ export function fetchFollowingUsersIfNeeded() {
 	return (dispatch: Dispatch<any>, getState: () => State) => {
 		const state = getState();
 
-		if(shouldFetchFollowingUsers(state)) {
+		if (shouldFetchFollowingUsers(state)) {
 			dispatch(fetchFollowingUsers());
 		}
 	};
@@ -91,7 +91,7 @@ function fetchFollowerUsers() {
 			const users = await sendRequest(RequestType.FETCH_FOLLOWER_USERS);
 			dispatch(receiveFollowerUsers(users));
 		}
-		catch(err) {
+		catch (err) {
 			console.log(err);
 		}
 	};
@@ -105,7 +105,7 @@ export function fetchFollowerUsersIfNeeded() {
 	return (dispatch: Dispatch<any>, getState: () => State) => {
 		const state = getState();
 
-		if(shouldFetchFollowerUsers(state)) {
+		if (shouldFetchFollowerUsers(state)) {
 			dispatch(fetchFollowerUsers());
 		}
 	};

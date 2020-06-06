@@ -12,7 +12,7 @@ const initialState: StatsState = {
 };
 
 export function stats(state = initialState, action: StatsAction): StatsState {
-	switch(action.type) {
+	switch (action.type) {
 	case StatsKeys.UPDATE_QUEUE_COUNT:
 		return {
 			...state,

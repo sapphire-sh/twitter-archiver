@@ -18,7 +18,7 @@ const initialState: ModalState = {
 };
 
 export function modal(state = initialState, action: ModalAction): ModalState {
-	switch(action.type) {
+	switch (action.type) {
 	case ModalKeys.INVALIDATE_MODAL:
 		return {
 			...initialState,

@@ -12,7 +12,7 @@ const initialState: HistoryState = {
 };
 
 export function history(state = initialState, action: HistoryAction): HistoryState {
-	switch(action.type) {
+	switch (action.type) {
 	case HistoryKeys.REQUEST_UPDATE_HISTORY:
 		return state;
 	case HistoryKeys.RECEIVE_UPDATE_HISTORY:

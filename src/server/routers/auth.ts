@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 
 		res.redirect(`https://twitter.com/oauth/authenticate?oauth_token=${token.oauth_token}`);
 	}
-	catch(err) {
+	catch (err) {
 		res.status(500).json(err);
 	}
 });
@@ -26,13 +26,13 @@ function validateOAuthToken(requestToken: RequestToken, oauth_verifier: string) 
 		oauth_token_secret,
 	} = requestToken;
 
-	if(oauth_token === undefined) {
+	if (oauth_token === undefined) {
 		return false;
 	}
-	if(oauth_token_secret === undefined) {
+	if (oauth_token_secret === undefined) {
 		return false;
 	}
-	if(oauth_verifier === undefined) {
+	if (oauth_verifier === undefined) {
 		return false;
 	}
 	return true;
@@ -44,10 +44,10 @@ function validateAccessToken(token: AccessToken) {
 		access_token_secret,
 	} = token;
 
-	if(__env.ACCESS_TOKEN !== access_token) {
+	if (__env.ACCESS_TOKEN !== access_token) {
 		return false;
 	}
-	if(__env.ACCESS_TOKEN_SECRET !== access_token_secret) {
+	if (__env.ACCESS_TOKEN_SECRET !== access_token_secret) {
 		return false;
 	}
 	return true;
@@ -56,7 +56,7 @@ function validateAccessToken(token: AccessToken) {
 router.get('/callback', async (req, res) => {
 	function getOAuthVerifier(): string {
 		const value = req.query.oauth_verifier;
-		if(typeof value === 'string') {
+		if (typeof value === 'string') {
 			return value;
 		}
 		return '';
@@ -69,7 +69,7 @@ router.get('/callback', async (req, res) => {
 		oauth_token_secret,
 	} = req.session!;
 
-	if(validateOAuthToken({
+	if (validateOAuthToken({
 		'oauth_token': oauth_token,
 		'oauth_token_secret': oauth_token_secret,
 	}, oauth_verifier)) {
@@ -87,7 +87,7 @@ router.get('/callback', async (req, res) => {
 
 		res.redirect('/');
 	}
-	catch(err) {
+	catch (err) {
 		console.error(err);
 		res.redirect('/auth');
 	}

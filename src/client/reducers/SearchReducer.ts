@@ -22,7 +22,7 @@ const initialState: SearchState = {
 };
 
 export function search(state = initialState, action: SearchAction): SearchState {
-	switch(action.type) {
+	switch (action.type) {
 	case SearchKeys.INVALIDATE_SEARCH_QUERY:
 		return {
 			...state,

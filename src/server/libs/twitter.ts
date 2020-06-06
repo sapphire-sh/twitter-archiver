@@ -27,7 +27,7 @@ export class Twitter {
 	}
 
 	public static async start() {
-		while(true) {
+		while (true) {
 			try {
 				const tweets = await this.fetchTimeline();
 
@@ -48,7 +48,7 @@ export class Twitter {
 				// 	Database.setBlockedUsersList(users);
 				// }
 			}
-			catch(err) {
+			catch (err) {
 				console.log(err);
 			}
 
@@ -72,11 +72,11 @@ export class Twitter {
 				'include_ext_alt_text': true,
 				'include_reply_count': true,
 			} as any, (err, res) => {
-				if(err) {
+				if (err) {
 					reject(err);
 				}
 				const tweets = res as Tweet[];
-				if(tweets === null) {
+				if (tweets === null) {
 					reject('invalid response');
 				}
 				resolve(tweets);
@@ -87,7 +87,7 @@ export class Twitter {
 	public static getCurrentUser() {
 		return new Promise((resolve, reject) => {
 			this.twit.get('account/verify_credentials', (err, res) => {
-				if(err) {
+				if (err) {
 					reject(err);
 				}
 				resolve(res);
@@ -98,7 +98,7 @@ export class Twitter {
 	public static getRateLimitStatus() {
 		return new Promise((resolve, reject) => {
 			this.twit.get('application/rate_limit_status', (err, res) => {
-				if(err) {
+				if (err) {
 					reject(err);
 				}
 				resolve(res);
@@ -131,11 +131,11 @@ export class Twitter {
 					setTimeout(resolve, 1000);
 				});
 			}
-			while(cursor !== '0');
+			while (cursor !== '0');
 
 			return Promise.resolve(users);
 		}
-		catch(err) {
+		catch (err) {
 			return Promise.reject(err);
 		}
 	}

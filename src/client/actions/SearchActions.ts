@@ -80,7 +80,7 @@ export function updateSearchQueryIfNeeded(searchQuery: SearchQuery) {
 	return (dispatch: Dispatch<any>, getState: () => State) => {
 		const state = getState();
 
-		if(shouldUpdateSearchQuery(state, searchQuery)) {
+		if (shouldUpdateSearchQuery(state, searchQuery)) {
 			dispatch(updateSearchQuery(searchQuery));
 			dispatch(fetchSearchResultIfNeeded());
 		}
@@ -117,7 +117,7 @@ function fetchSearchResult(searchQuery: SearchQuery) {
 
 			dispatch(fetchSearchResultReceive(res));
 		}
-		catch(err) {
+		catch (err) {
 			console.log(err);
 		}
 	};
@@ -131,7 +131,7 @@ export function fetchSearchResultIfNeeded() {
 	return (dispatch: Dispatch<any>, getState: () => State) => {
 		const state = getState();
 
-		if(shouldFetchSearchResult(state)) {
+		if (shouldFetchSearchResult(state)) {
 			const searchQuery = getSearchQuery(state);
 
 			dispatch(fetchSearchResult(searchQuery));

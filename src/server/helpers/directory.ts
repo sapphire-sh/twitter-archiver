@@ -9,8 +9,8 @@ export async function createDirectory(dirPath: string) {
 	try {
 		await fsPromises.lstat(targetPath);
 	}
-	catch(error) {
-		switch(error.code) {
+	catch (error) {
+		switch (error.code) {
 			case 'ENOENT': {
 				await fsPromises.mkdir(targetPath);
 				break;

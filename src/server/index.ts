@@ -31,7 +31,7 @@ const app = new Server(port);
 			Twitter.initialize(token),
 		]);
 	}
-	catch(error) {
+	catch (error) {
 		console.log('initialized failed');
 		throw error;
 	}
@@ -43,7 +43,7 @@ const app = new Server(port);
 			Twitter.start(),
 		]);
 	}
-	catch(error) {
+	catch (error) {
 		console.log('start failed');
 		throw error;
 	}

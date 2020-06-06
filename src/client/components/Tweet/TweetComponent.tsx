@@ -63,10 +63,10 @@ export class TweetComponent extends React.Component<ComponentProps, ComponentSta
 			full_text,
 		} = hydratedTweet;
 
-		if(full_text !== undefined) {
+		if (full_text !== undefined) {
 			return full_text;
 		}
-		if(text !== undefined) {
+		if (text !== undefined) {
 			return text;
 		}
 		return '';
@@ -102,11 +102,11 @@ export class TweetComponent extends React.Component<ComponentProps, ComponentSta
 						/>
 					</Segment>
 					{(() => {
-						if(hydratedEntities === undefined) {
+						if (hydratedEntities === undefined) {
 							return null;
 						}
 
-						if(hydratedEntities.media === undefined) {
+						if (hydratedEntities.media === undefined) {
 							return null;
 						}
 						return (
@@ -119,7 +119,7 @@ export class TweetComponent extends React.Component<ComponentProps, ComponentSta
 						);
 					})()}
 					{(() => {
-						if(quoted_status === undefined) {
+						if (quoted_status === undefined) {
 							return null;
 						}
 						return (

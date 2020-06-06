@@ -34,12 +34,12 @@ export class MenuAutoScrollComponent extends React.Component<{}, ComponentState>
 			autoScroll,
 		} = this.state;
 
-		if(prevState.autoScroll !== autoScroll) {
-			if(tick !== null) {
+		if (prevState.autoScroll !== autoScroll) {
+			if (tick !== null) {
 				window.clearInterval(tick);
 			}
 
-			if(autoScroll === true) {
+			if (autoScroll === true) {
 				this.setState({
 					'tick': window.setInterval(() => {
 						window.scroll(0, document.body.scrollHeight);
@@ -54,18 +54,18 @@ export class MenuAutoScrollComponent extends React.Component<{}, ComponentState>
 			autoScroll,
 		} = this.state;
 
-		if(autoScroll === false) {
+		if (autoScroll === false) {
 			return;
 		}
 
-		if(e instanceof WheelEvent) {
+		if (e instanceof WheelEvent) {
 			this.setState({
 				'autoScroll': false,
 			});
 			return;
 		}
-		if(e instanceof KeyboardEvent) {
-			switch(e.keyCode) {
+		if (e instanceof KeyboardEvent) {
+			switch (e.keyCode) {
 			case 32: // space
 			case 33: // page up
 			case 34: // page down

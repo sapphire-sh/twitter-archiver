@@ -54,7 +54,7 @@ function updateHistory(id: string) {
 			dispatch(invalidateTweets());
 			dispatch(fetchTweetsIfNeeded());
 		}
-		catch(err) {
+		catch (err) {
 			console.log(err);
 		}
 	};
@@ -68,7 +68,7 @@ export function updateHistoryIfNeeded(id: string) {
 	return (dispatch: Dispatch<any>, getState: () => State) => {
 		const state = getState();
 
-		if(shouldUpdateHistory(state, id)) {
+		if (shouldUpdateHistory(state, id)) {
 			dispatch(updateHistory(id));
 		}
 	};

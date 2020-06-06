@@ -20,7 +20,7 @@ export class PlaceholderComponent extends React.Component<ComponentProps> {
 			tweets,
 		} = this.props;
 
-		if(tweets.length === 0) {
+		if (tweets.length === 0) {
 			return (
 				<Segment>{isFetchingTweets ? 'loading...' : 'none'}</Segment>
 			);

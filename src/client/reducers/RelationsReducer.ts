@@ -18,7 +18,7 @@ const initialState: RelationsState = {
 };
 
 export function relations(state = initialState, action: RelationsAction): RelationsState {
-	switch(action.type) {
+	switch (action.type) {
 	case RelationsKeys.REQUEST_FOLLOWING_USERS:
 		return {
 			...state,

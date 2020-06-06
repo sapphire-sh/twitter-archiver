@@ -56,7 +56,7 @@ function fetchMutedUsers() {
 			const users = await sendRequest(RequestType.FETCH_MUTED_USERS);
 			dispatch(receiveMutedUsers(users));
 		}
-		catch(err) {
+		catch (err) {
 			console.log(err);
 		}
 	};
@@ -70,7 +70,7 @@ export function fetchMutedUsersIfNeeded() {
 	return (dispatch: Dispatch<any>, getState: () => State) => {
 		const state = getState();
 
-		if(shouldFetchMutedUsers(state)) {
+		if (shouldFetchMutedUsers(state)) {
 			dispatch(fetchMutedUsers());
 		}
 	};
@@ -97,7 +97,7 @@ function fetchBlockedUsers() {
 			const users = await sendRequest(RequestType.FETCH_BLOCKED_USERS);
 			dispatch(receiveBlockedUsers(users));
 		}
-		catch(err) {
+		catch (err) {
 			console.log(err);
 		}
 	};
@@ -111,7 +111,7 @@ export function fetchBlockedUsersIfNeeded() {
 	return (dispatch: Dispatch<any>, getState: () => State) => {
 		const state = getState();
 
-		if(shouldFetchBlockedUsers(state)) {
+		if (shouldFetchBlockedUsers(state)) {
 			dispatch(fetchBlockedUsers());
 		}
 	};

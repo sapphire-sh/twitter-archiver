@@ -7,7 +7,7 @@ export function deflate<T>(data: T) {
 	return new Promise((resolve, reject) => {
 		zlib.deflate(buffer, (err, result) => {
 			/* istanbul ignore if */
-			if(err) {
+			if (err) {
 				reject(err);
 			}
 			else {
@@ -20,7 +20,7 @@ export function deflate<T>(data: T) {
 export function inflate<T>(data: Buffer): Promise<T> {
 	return new Promise((resolve, reject) => {
 		zlib.inflate(data, (err, result) => {
-			if(err) {
+			if (err) {
 				reject(err);
 			}
 			else {

@@ -66,7 +66,7 @@ class TimelineComponent extends React.Component<ComponentProps> {
 			historyID,
 		} = this.props;
 
-		if(tweets.length === 0) {
+		if (tweets.length === 0) {
 			return (
 				<Segment.Group size="tiny">
 					<Segment>

@@ -18,7 +18,7 @@ const initialState: FilterState = {
 };
 
 export function filter(state = initialState, action: FilterAction): FilterState {
-	switch(action.type) {
+	switch (action.type) {
 	case FilterKeys.INVALIDATE_FILTERS:
 		return {
 			...initialState,

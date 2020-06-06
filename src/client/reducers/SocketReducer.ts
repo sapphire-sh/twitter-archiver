@@ -12,7 +12,7 @@ const initialState: SocketState = {
 };
 
 export function socket(state = initialState, action: SocketAction): SocketState {
-	switch(action.type) {
+	switch (action.type) {
 	case SocketKeys.SOCKET_CONNECTED:
 		return {
 			...state,

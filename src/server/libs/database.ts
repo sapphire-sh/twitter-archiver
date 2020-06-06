@@ -32,7 +32,7 @@ export class Database {
 
 	public static async initialize(config?: Knex.Config): Promise<void> {
 		/* istanbul ignore if */
-		if(config === undefined) {
+		if (config === undefined) {
 			config = {
 				'client': 'mysql',
 				'connection': {
@@ -49,7 +49,7 @@ export class Database {
 
 		{
 			const exists = await this.knex.schema.hasTable('tweets');
-			if(exists === false) {
+			if (exists === false) {
 				await this.knex.schema.createTable('tweets', (table) => {
 					table.increments('id').primary();
 					table.string('key', 24).unique().notNullable();
@@ -61,7 +61,7 @@ export class Database {
 
 		{
 			const exists = await this.knex.schema.hasTable('history');
-			if(exists === false) {
+			if (exists === false) {
 				await this.knex.schema.createTable('history', (table) => {
 					table.increments('id').primary();
 					table.string('key', 24).notNullable();
@@ -72,7 +72,7 @@ export class Database {
 
 		{
 			const exists = await this.knex.schema.hasTable('filters');
-			if(exists === false) {
+			if (exists === false) {
 				await this.knex.schema.createTable('filters', (table) => {
 					table.increments('id').primary();
 					table.integer('type').notNullable();
@@ -88,9 +88,9 @@ export class Database {
 
 	public static async start(): Promise<void> {
 		try {
-			while(this.shouldProcess) {
+			while (this.shouldProcess) {
 				const tweet = Database.queue.shift();
-				if(tweet !== undefined) {
+				if (tweet !== undefined) {
 					await Database.insertTweet(tweet);
 				}
 				await new Promise((resolve) => {
@@ -98,7 +98,7 @@ export class Database {
 				});
 			}
 		}
-		catch(err) {
+		catch (err) {
 			/* istanbul ignore next */
 			console.log(err);
 		}
@@ -115,7 +115,7 @@ export class Database {
 			});
 			return data.length === 0;
 		}
-		catch(err) {
+		catch (err) {
 			/* istanbul ignore next */
 			console.log(err);
 			return false;
@@ -129,7 +129,7 @@ export class Database {
 	private static async insertTweet(tweet: Tweet): Promise<void> {
 		try {
 			const isUnique = await this.checkUnique(tweet);
-			if(isUnique === false) {
+			if (isUnique === false) {
 				return;
 			}
 			await this.knex('tweets').insert({
@@ -137,11 +137,11 @@ export class Database {
 				'data': await deflate(tweet),
 			});
 			/* istanbul ignore next */
-			if(__test === false) {
+			if (__test === false) {
 				Socket.emit(SocketEventType.INSERT_TWEET, tweet.id_str);
 			}
 		}
-		catch(err) {
+		catch (err) {
 			/* istanbul ignore next */
 			console.log(err);
 		}
@@ -154,7 +154,7 @@ export class Database {
 				return inflate<Tweet>(row.data);
 			}));
 		}
-		catch(err) {
+		catch (err) {
 			/* istanbul ignore next */
 			console.log(err);
 			return [];
@@ -166,7 +166,7 @@ export class Database {
 			const rows: { key: string; }[] = await this.knex('history').orderBy('id', 'desc').limit(1);
 			return rows.length === 0 ? '1' : rows[0].key;
 		}
-		catch(err) {
+		catch (err) {
 			/* istanbul ignore next */
 			console.log(err);
 			return '1';
@@ -180,7 +180,7 @@ export class Database {
 			});
 			Socket.emit(SocketEventType.UPDATE_HISTORY, key);
 		}
-		catch(err) {
+		catch (err) {
 			console.log(err);
 		}
 	}
@@ -192,7 +192,7 @@ export class Database {
 			}).orderBy('id', 'desc').limit(1);
 			return rows.length === 0 ? [] : inflate<User[]>(rows.pop().data);
 		}
-		catch(err) {
+		catch (err) {
 			console.log(err);
 			return [];
 		}
@@ -213,7 +213,7 @@ export class Database {
 				'data': await deflate(users),
 			});
 		}
-		catch(err) {
+		catch (err) {
 			console.log(err);
 		}
 	}
@@ -231,14 +231,14 @@ export class Database {
 			const rows: DataRow[] = await this.knex('tweets').where({
 				'key': key,
 			});
-			if(rows.length === 1) {
+			if (rows.length === 1) {
 				return Promise.all(rows.map((row) => {
 					return inflate<Tweet>(row.data);
 				}));
 			}
 			return [];
 		}
-		catch(err) {
+		catch (err) {
 			console.log(err);
 			return [];
 		}

@@ -51,7 +51,7 @@ export class MediaComponent extends React.Component<ComponentProps> {
 				}}
 			>
 				{entities.media.map((medium) => {
-					switch(medium.type) {
+					switch (medium.type) {
 					case 'video':
 						const video = medium.video_info.variants.filter((e: any) => {
 							return e.bitrate !== undefined;

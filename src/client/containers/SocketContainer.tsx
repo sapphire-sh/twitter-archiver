@@ -66,7 +66,7 @@ class SocketComponent extends React.Component<ComponentProps, ComponentState> {
 			message,
 		} = event;
 
-		switch(type) {
+		switch (type) {
 		case SocketEventType.INSERT_TWEET:
 			this.props.updateLatestTweetIDIfNeeded(message);
 			break;
@@ -96,7 +96,7 @@ class SocketComponent extends React.Component<ComponentProps, ComponentState> {
 			socket,
 		} = this.state;
 
-		if(socket === null) {
+		if (socket === null) {
 			return;
 		}
 
