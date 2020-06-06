@@ -54,7 +54,15 @@ function validateAccessToken(token: AccessToken) {
 }
 
 router.get('/callback', async (req, res) => {
-	const oauth_verifier = req.query.oauth_verifier;
+	function getOAuthVerifier(): string {
+		const value = req.query.oauth_verifier;
+		if(typeof value === 'string') {
+			return value;
+		}
+		return '';
+	}
+
+	const oauth_verifier = getOAuthVerifier();
 
 	const {
 		oauth_token,
