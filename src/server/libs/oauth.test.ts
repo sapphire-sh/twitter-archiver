@@ -1,8 +1,4 @@
 // import {
-// 	expect,
-// } from 'chai';
-
-// import {
 // 	OAuth,
 // } from './oauth';
 
@@ -17,7 +13,7 @@ describe('./libs/oauth.ts', () => {
 	// 	}
 	// 	catch(err) {
 	// 		// tslint:disable:no-unused-expression
-	// 		expect(err).to.be.null;
+	// 		expect(err).toBeNull();
 	// 	}
 	});
 
@@ -29,7 +25,7 @@ describe('./libs/oauth.ts', () => {
 	// 	}
 	// 	catch(err) {
 	// 		// tslint:disable:no-unused-expression
-	// 		expect(err).to.be.null;
+	// 		expect(err).toBeNull();
 	// 	}
 	});
 });

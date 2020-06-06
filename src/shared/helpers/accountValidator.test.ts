@@ -1,9 +1,5 @@
 import supertest from 'supertest';
 
-import {
-	expect,
-} from 'chai';
-
 import Express from 'express';
 
 import {
@@ -44,14 +40,14 @@ describe('./utils/accountValidator.ts', () => {
 			session.isValid = false;
 
 			const res = await request.get('/');
-			expect(res.status).to.equal(302);
+			expect(res.status).toBe(302);
 		});
 
 		it('invalid session at /auth', async () => {
 			session.isValid = false;
 
 			const res = await request.get('/auth');
-			expect(res.body).to.deep.equal({
+			expect(res.body).toEqual({
 				'path': '/auth',
 			});
 		});
@@ -60,7 +56,7 @@ describe('./utils/accountValidator.ts', () => {
 			session.isValid = false;
 
 			const res = await request.get('/auth/callback');
-			expect(res.body).to.deep.equal({
+			expect(res.body).toEqual({
 				'path': '/auth/callback',
 			});
 		});
@@ -69,7 +65,7 @@ describe('./utils/accountValidator.ts', () => {
 			session.isValid = true;
 
 			const res = await request.get('/');
-			expect(res.body).to.deep.equal({
+			expect(res.body).toEqual({
 				'path': '*',
 			});
 		});

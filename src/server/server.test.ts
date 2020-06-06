@@ -1,10 +1,6 @@
 import request from 'supertest';
 
 import {
-	expect,
-} from 'chai';
-
-import {
 	Server,
 } from './server';
 
@@ -15,7 +11,7 @@ describe('./server.ts', () => {
 
 	it('server', async () => {
 		const res  = await request(server).get('/');
-		expect(res.body).to.deep.equal({});
+		expect(res.body).toEqual({});
 	});
 
 	afterEach(() => {

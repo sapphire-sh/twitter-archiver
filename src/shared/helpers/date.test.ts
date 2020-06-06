@@ -1,8 +1,4 @@
 import {
-	expect,
-} from 'chai';
-
-import {
 	dateToString,
 } from './date';
 
@@ -11,6 +7,6 @@ describe('./utils/date.ts', () => {
 	const date = new Date(dateStr);
 
 	it('date to string', () => {
-		expect(dateToString(date)).to.equal(dateStr);
+		expect(dateToString(date)).toBe(dateStr);
 	});
 });

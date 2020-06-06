@@ -1,8 +1,4 @@
 import {
-	expect,
-} from 'chai';
-
-import {
 	deflate,
 	inflate,
 } from './zlib';
@@ -13,23 +9,17 @@ describe('./utils/zlib.ts', () => {
 
 	it('deflate', async () => {
 		const res = await deflate(original);
-		expect(res).to.deep.equal(deflated);
+		expect(res).toEqual(deflated);
 	});
 
 	it('valid inflate', async () => {
 		const res = await inflate(deflated);
-		expect(res).to.deep.equal(original);
+		expect(res).toBe(original);
 	});
 
 	it('invalid inflate', async () => {
-		try {
-			await inflate(Buffer.from(original));
-			// tslint:disable:no-unused-expression
-			expect(true).to.be.false;
-		}
-		catch(err) {
-			// tslint:disable:no-unused-expression
-			expect(true).to.be.true;
-		}
+		await expect(
+			inflate(Buffer.from(original)),
+		).rejects.toThrowError();
 	});
 });

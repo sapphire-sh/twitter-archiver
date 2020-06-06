@@ -2,10 +2,6 @@ import fs from 'fs';
 import path from 'path';
 
 import {
-	expect,
-} from 'chai';
-
-import {
 	Database,
 } from './database';
 
@@ -41,8 +37,8 @@ describe('./libs/database.ts', () => {
 
 	it('get tweets', async () => {
 		const tweets = await Database.getTweets(tweet.id_str);
-		expect(tweets).to.have.lengthOf(1);
-		expect(tweets[0]).to.deep.equal(tweet);
+		expect(tweets).toHaveLength(1);
+		expect(tweets[0]).toEqual(tweet);
 	});
 
 	afterAll(() => {
