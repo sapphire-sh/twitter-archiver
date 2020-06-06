@@ -64,12 +64,10 @@
     "twitter-text": "^3.1.0"
   },
   "devDependencies": {
-    "@types/bluebird": "^3.5.32",
     "@types/chai": "^4.2.11",
     "@types/cookie-session": "^2.0.40",
     "@types/express": "^4.17.6",
     "@types/jest": "^25.2.3",
-    "@types/knex": "^0.16.1",
     "@types/morgan": "^1.9.0",
     "@types/node": "^14.0.11",
     "@types/react": "^16.9.35",
