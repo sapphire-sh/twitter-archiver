@@ -3,5 +3,5 @@
 set -ex
 
 docker-compose build && \
-docker-compose down && \
+docker-compose down --remove-orphans && \
 docker-compose up -d --remove-orphans
