@@ -56,7 +56,7 @@ class AppComponent extends React.Component<ComponentProps> {
 				<React.Fragment>
 					<IndicatorComponent {...this.props} />
 					<Container>
-						<Grid>
+						{/* <Grid>
 							<Grid.Column width={4}>
 								<MenuContainer />
 							</Grid.Column>
@@ -64,7 +64,7 @@ class AppComponent extends React.Component<ComponentProps> {
 							<Grid.Column
 								id="component_b"
 								width={12}
-							>
+							> */}
 								<NavigationComponent />
 								<Switch>
 									<Route
@@ -78,8 +78,8 @@ class AppComponent extends React.Component<ComponentProps> {
 										component={SearchContainer}
 									/>
 								</Switch>
-							</Grid.Column>
-						</Grid>
+							{/* </Grid.Column>
+						</Grid> */}
 					</Container>
 
 					<ModalContainer />
