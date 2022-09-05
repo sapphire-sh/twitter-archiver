@@ -35,7 +35,6 @@ jobs:
       - run: |
           echo ${{ secrets.DOCKER_REGISTRY_URL }} >> .env
 
-      - run: npm run lint
       - run: npm run build
 
       - if: always()
