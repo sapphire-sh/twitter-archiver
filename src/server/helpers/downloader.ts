@@ -42,7 +42,7 @@ async function checkFile(id: string, name: string): Promise<boolean> {
 		return true;
 	}
 	catch (error) {
-		switch (error.code) {
+		switch ((error as any).code) {
 			case 'ENOENT': {
 				return false;
 			}

@@ -28,9 +28,9 @@ const middlewares = [
 if (__dev) {
 	middlewares.push(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 }
-const store = createStore(reducers, compose(...middlewares));
+const store = createStore(reducers, compose(...middlewares) as any);
 
-const AppRouter = () => {
+const AppRouter: React.FC = () => {
 	return (
 		<Provider store={store}>
 			<AppContainer />
