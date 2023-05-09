@@ -74,8 +74,17 @@ class StatsComponent extends React.Component<ComponentProps, ComponentState> {
 			);
 		}
 
+		const tweetUrl = `https://twitter.com/${lastTweet.user.screen_name}/status/${lastTweet.id_str}`;
+
 		return (
-			<div>{new Date(lastTweet.created_at).toString()}</div>
+			<Segment.Group size="tiny">
+				<Segment>
+					<div>
+						<a href={tweetUrl} target="_blank">{tweetUrl}</a>
+					</div>
+					<div>{new Date(lastTweet.created_at).toString()}</div>
+				</Segment>
+			</Segment.Group>
 		);
 	}
 }
