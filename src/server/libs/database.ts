@@ -149,10 +149,15 @@ export class Database {
 
 	public static async getTweets(key: string): Promise<Tweet[]> {
 		try {
-			const rows: DataRow[] = await this.knex('tweets').where('key', '>=', key).orderBy('key', 'asc').limit(100);
-			return await Promise.all(rows.map((row) => {
-				return inflate<Tweet>(row.data);
-			}));
+			const rows: DataRow[] = await this.knex('tweets')
+				.where('key', '>=', key)
+				.orderBy('key', 'asc')
+				.limit(100);
+			return await Promise.all(
+				rows.map((row) => {
+					return inflate<Tweet>(row.data);
+				})
+			);
 		}
 		catch (err) {
 			/* istanbul ignore next */
@@ -163,7 +168,9 @@ export class Database {
 
 	public static async getHistory(): Promise<string> {
 		try {
-			const rows: { key: string; }[] = await this.knex('history').orderBy('id', 'desc').limit(1);
+			const rows: { key: string }[] = await this.knex('history')
+				.orderBy('id', 'desc')
+				.limit(1);
 			return rows.length === 0 ? '1' : rows[0].key;
 		}
 		catch (err) {
@@ -176,7 +183,7 @@ export class Database {
 	public static async setHistory(key: string): Promise<void> {
 		try {
 			await this.knex('history').insert({
-				'key': key,
+				key,
 			});
 			Socket.emit(SocketEventType.UPDATE_HISTORY, key);
 		}
@@ -185,11 +192,16 @@ export class Database {
 		}
 	}
 
-	private static async getFilteredUserList(type: FilterType): Promise<User[]> {
+	private static async getFilteredUserList(
+		type: FilterType
+	): Promise<User[]> {
 		try {
-			const rows = await this.knex('filters').where({
-				'type': type,
-			}).orderBy('id', 'desc').limit(1);
+			const rows = await this.knex('filters')
+				.where({
+					type,
+				})
+				.orderBy('id', 'desc')
+				.limit(1);
 			return rows.length === 0 ? [] : inflate<User[]>(rows.pop().data);
 		}
 		catch (err) {
@@ -206,10 +218,13 @@ export class Database {
 		return this.getFilteredUserList(FilterType.MUTE);
 	}
 
-	public static async setFilteredUserList(type: FilterType, users: User[]): Promise<void> {
+	public static async setFilteredUserList(
+		type: FilterType,
+		users: User[]
+	): Promise<void> {
 		try {
 			await this.knex('filters').insert({
-				'type': type,
+				type,
 				'data': await deflate(users),
 			});
 		}
@@ -229,18 +244,37 @@ export class Database {
 	public static async getTweet(key: string): Promise<Tweet[]> {
 		try {
 			const rows: DataRow[] = await this.knex('tweets').where({
-				'key': key,
+				key,
 			});
 			if (rows.length === 1) {
-				return Promise.all(rows.map((row) => {
-					return inflate<Tweet>(row.data);
-				}));
+				return Promise.all(
+					rows.map((row) => {
+						return inflate<Tweet>(row.data);
+					})
+				);
 			}
 			return [];
 		}
 		catch (err) {
 			console.log(err);
 			return [];
+		}
+	}
+
+	public static async getLastTweet(): Promise<Tweet | null> {
+		try {
+			const rows: DataRow[] = await this.knex('tweets')
+				.orderBy('id', 'desc')
+				.limit(1);
+			if (rows.length !== 1) {
+				return null;
+			}
+
+			return inflate<Tweet>(rows[0].data);
+		}
+		catch (err) {
+			console.log(err);
+			return null;
 		}
 	}
 }

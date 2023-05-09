@@ -5,4 +5,5 @@ export * from './MenuContainer';
 export * from './ModalContainer';
 export * from './SearchContainer';
 export * from './SocketContainer';
+export * from './StatsContainer';
 export * from './TimelineContainer';

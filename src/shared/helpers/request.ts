@@ -2,6 +2,7 @@ const API_URL = '/api';
 
 export enum RequestType {
 	FETCH_TWEETS = 10001,
+	FETCH_STATS,
 	UPDATE_HISTORY = 20001,
 	FETCH_FOLLOWING_USERS = 30001,
 	FETCH_FOLLOWER_USERS,
@@ -19,6 +20,9 @@ function getURL(requestType: RequestType): string {
 	switch (requestType) {
 	case RequestType.FETCH_TWEETS:
 		return `${API_URL}/tweets`;
+	case RequestType.FETCH_STATS: {
+		return `${API_URL}/stats`;
+	}
 	case RequestType.UPDATE_HISTORY:
 		return `${API_URL}/history`;
 	case RequestType.FETCH_FOLLOWING_USERS:
@@ -37,6 +41,7 @@ function getURL(requestType: RequestType): string {
 function getMethod(requestType: RequestType): RequestMethod {
 	switch (requestType) {
 	case RequestType.FETCH_TWEETS:
+	case RequestType.FETCH_STATS:
 	case RequestType.FETCH_FOLLOWING_USERS:
 	case RequestType.FETCH_FOLLOWER_USERS:
 	case RequestType.FETCH_MUTED_USERS:

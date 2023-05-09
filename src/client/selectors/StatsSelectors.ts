@@ -15,3 +15,8 @@ export const getQueueCount = createSelector([
 ], (state) => {
 	return state.queueCount;
 });
+
+export const getLastTweet = createSelector(
+	[getState],
+	(state) => state.lastTweet
+);
