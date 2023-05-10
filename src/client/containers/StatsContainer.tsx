@@ -30,6 +30,16 @@ import {
 	Segment,
 } from 'semantic-ui-react';
 
+const TIME_UNITS = [
+	{ 'amount': 60, 'name': 'seconds' },
+	{ 'amount': 60, 'name': 'minutes' },
+	{ 'amount': 24, 'name': 'hours' },
+	{ 'amount': 7, 'name': 'days' },
+	{ 'amount': 30 / 7, 'name': 'weeks' },
+	{ 'amount': 12, 'name': 'months' },
+	{ 'amount': Infinity, 'name': 'years' }
+] as const;
+
 interface ComponentProps {
 	lastTweet: Tweet | null;
 
@@ -76,13 +86,29 @@ class StatsComponent extends React.Component<ComponentProps, ComponentState> {
 
 		const tweetUrl = `https://twitter.com/${lastTweet.user.screen_name}/status/${lastTweet.id_str}`;
 
+		const formatter = new Intl.RelativeTimeFormat('en-US', { 'numeric': 'auto' });
+
+		const formatTime = (date: Date) => {
+			let diff = (date.getTime() - Date.now()) / 1000
+
+			for (const unit of TIME_UNITS) {
+				if (Math.abs(diff) < unit.amount) {
+					return formatter.format(Math.round(diff), unit.name);
+				}
+				diff /= unit.amount;
+			}
+		}
+
 		return (
 			<Segment.Group size="tiny">
 				<Segment>
 					<div>
-						<a href={tweetUrl} target="_blank">{tweetUrl}</a>
+						{`in ${formatTime(new Date(lastTweet.created_at))}`}
 					</div>
 					<div>{new Date(lastTweet.created_at).toString()}</div>
+					<div>
+						<a href={tweetUrl} target="_blank">{tweetUrl}</a>
+					</div>
 				</Segment>
 			</Segment.Group>
 		);
