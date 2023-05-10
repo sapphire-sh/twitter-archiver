@@ -1,14 +1,11 @@
-const path = require('path');
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import path from 'path';
+import webpack from 'webpack';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import { config, distPath, env, srcPath } from '../configs/webpack.config.base';
 
-const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
-const { baseConfig, srcPath, distPath, env } = require('../configs/webpack.config.base');
-
-module.exports = {
-  ...baseConfig,
+export default {
+  ...config,
   entry: path.resolve(srcPath, 'client', 'index.tsx'),
   output: {
     path: distPath,
@@ -73,11 +70,14 @@ module.exports = {
     ],
   },
   plugins: [
-    ...baseConfig.plugins,
+    ...(config.plugins ?? []),
     new MiniCssExtractPlugin({
       filename: 'styles.css',
     }),
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.IgnorePlugin({
+      resourceRegExp: /^\.\/locale$/,
+      contextRegExp: /moment$/,
+    }),
     ...(() => {
       if (env === 'development') {
         return [new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin()];

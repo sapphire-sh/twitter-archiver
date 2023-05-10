@@ -1,12 +1,10 @@
-const path = require('path');
+import path from 'path';
+import webpack from 'webpack';
+import nodeExternals from 'webpack-node-externals';
+import { config, distPath, env, srcPath } from '../configs/webpack.config.base';
 
-const webpack = require('webpack');
-const nodeExternals = require('webpack-node-externals');
-
-const { baseConfig, srcPath, distPath, env } = require('../configs/webpack.config.base');
-
-module.exports = {
-  ...baseConfig,
+const serverConfig: webpack.Configuration = {
+  ...config,
   entry: path.resolve(srcPath, 'server', 'index.ts'),
   output: {
     path: distPath,
@@ -21,7 +19,7 @@ module.exports = {
     ],
   },
   plugins: [
-    ...baseConfig.plugins,
+    ...(config.plugins ?? []),
     ...(() => {
       if (env === 'production') {
         return [
@@ -39,3 +37,5 @@ module.exports = {
   },
   externals: [nodeExternals()],
 };
+
+export default serverConfig;

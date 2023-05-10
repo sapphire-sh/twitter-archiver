@@ -1,24 +1,17 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import webpack from 'webpack';
 
-const webpack = require('webpack');
-
-const rootPath = path.resolve(__dirname, '..');
-const srcPath = path.resolve(rootPath, 'src');
-const distPath = path.resolve(rootPath, 'dist');
+export const rootPath = path.resolve(__dirname, '..');
+export const srcPath = path.resolve(rootPath, 'src');
+export const distPath = path.resolve(rootPath, 'dist');
 const dataPath = path.resolve(rootPath, 'data');
 
-const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
+export const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
 const envPath = path.resolve(__dirname, '../.env');
 
-module.exports.rootPath = rootPath;
-module.exports.srcPath = srcPath;
-module.exports.distPath = distPath;
-
-module.exports.env = env;
-
-module.exports.baseConfig = {
+export const config: webpack.Configuration = {
   devtool: false,
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
@@ -55,12 +48,7 @@ module.exports.baseConfig = {
                 [t[0]]: t[1],
               };
             })
-            .reduce((a, b) => {
-              return {
-                ...a,
-                ...b,
-              };
-            })
+            .reduce((a, b) => ({ ...a, ...b }))
         );
       })(),
       __path: JSON.stringify({

@@ -1,6 +1,6 @@
 import Knex from 'knex';
+import { deflate, inflate } from '~/server/helpers';
 import { Socket } from '~/server/libs';
-import { deflate, inflate } from '~/shared/helpers';
 import { SocketEventType, Tweet, User } from '~/shared/models';
 
 interface DataRow {
