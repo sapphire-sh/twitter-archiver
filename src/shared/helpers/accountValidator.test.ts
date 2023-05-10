@@ -28,14 +28,14 @@ describe('./utils/accountValidator.ts', () => {
       });
     });
 
-    it('invalid session at /', async () => {
+    test('invalid session at /', async () => {
       session.isValid = false;
 
       const res = await request.get('/');
       expect(res.status).toBe(302);
     });
 
-    it('invalid session at /auth', async () => {
+    test('invalid session at /auth', async () => {
       session.isValid = false;
 
       const res = await request.get('/auth');
@@ -44,7 +44,7 @@ describe('./utils/accountValidator.ts', () => {
       });
     });
 
-    it('invalid session at /auth/callback', async () => {
+    test('invalid session at /auth/callback', async () => {
       session.isValid = false;
 
       const res = await request.get('/auth/callback');
@@ -53,7 +53,7 @@ describe('./utils/accountValidator.ts', () => {
       });
     });
 
-    it('valid session at /', async () => {
+    test('valid session at /', async () => {
       session.isValid = true;
 
       const res = await request.get('/');

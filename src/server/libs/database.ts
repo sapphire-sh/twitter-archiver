@@ -1,4 +1,4 @@
-import Knex from 'knex';
+import knex, { Knex } from 'knex';
 import { deflate, inflate } from '~/server/helpers';
 import { Socket } from '~/server/libs';
 import { SocketEventType, Tweet, User } from '~/shared/models';
@@ -33,7 +33,7 @@ export class Database {
       };
     }
 
-    this.knex = Knex(config);
+    this.knex = knex(config);
 
     {
       const exists = await this.knex.schema.hasTable('tweets');

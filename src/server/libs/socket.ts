@@ -1,5 +1,5 @@
 import http from 'http';
-import SocketIO from 'socket.io';
+import SocketIO, { Server } from 'socket.io';
 import { SocketEvent, SocketEventType } from '~/shared/models';
 
 export class Socket {
@@ -10,7 +10,7 @@ export class Socket {
   };
 
   public static initialize(server: http.Server) {
-    this.io = SocketIO(server);
+    this.io = new Server(server);
 
     this.sockets = {};
 

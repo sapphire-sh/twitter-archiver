@@ -19,19 +19,19 @@ describe('./libs/database.ts', () => {
     Database.start();
   });
 
-  it('insert tweet', async (done) => {
+  test('insert tweet', (done) => {
     Database.addQueue(tweet as any);
 
     setTimeout(done, 1000);
   });
 
-  it('insert tweet - duplicate', async (done) => {
+  test('insert tweet - duplicate', (done) => {
     Database.addQueue(tweet as any);
 
     setTimeout(done, 1000);
   });
 
-  it('get tweets', async () => {
+  test('get tweets', async () => {
     const tweets = await Database.getTweets(tweet.id_str);
     expect(tweets).toHaveLength(1);
     expect(tweets[0]).toEqual(tweet);

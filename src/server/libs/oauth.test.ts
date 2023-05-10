@@ -3,7 +3,7 @@ describe('./libs/oauth.ts', () => {
   // 	OAuth.initialize(__env.CONSUMER_KEY, __env.CONSUMER_SECRET);
   // });
 
-  it('get request token', async () => {
+  test('get request token', async () => {
     // 	try {
     // 		await OAuth.getRequestToken();
     // 	}
@@ -13,7 +13,7 @@ describe('./libs/oauth.ts', () => {
     // 	}
   });
 
-  it('get access token', async () => {
+  test('get access token', async () => {
     // 	try {
     // 		await OAuth.getAccessToken({
     // 			'oauth_verifier': '',

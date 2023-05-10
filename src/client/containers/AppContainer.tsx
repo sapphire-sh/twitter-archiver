@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { HashRouter, Route, Switch } from 'react-router-dom';
-import 'semantic-ui-css/semantic.min.css';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import { IndicatorComponent, NavigationComponent } from '~/client/components';
 import { MainContainer, ModalContainer, SearchContainer, SocketContainer } from '~/client/containers';
@@ -33,10 +32,10 @@ class AppComponent extends React.Component<ComponentProps> {
 
               <Grid.Column id="component_b" width={12}> */}
             <NavigationComponent />
-            <Switch>
-              <Route exact={true} path="/" component={MainContainer} />
-              <Route exact={true} path="/search" component={SearchContainer} />
-            </Switch>
+            <Routes>
+              <Route path="/" element={<MainContainer />} />
+              <Route path="/search" element={<SearchContainer />} />
+            </Routes>
             {/* </Grid.Column>
             </Grid> */}
           </Container>
