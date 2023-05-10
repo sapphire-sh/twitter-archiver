@@ -28,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sapphiredev/twitter-archiver.git"
+    "url": "git+https://github.com/sapphire-sh/twitter-archiver.git"
   },
   "keywords": [
     "twitter"
@@ -36,9 +36,9 @@
   "author": "sapphire",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sapphiredev/twitter-archiver/issues"
+    "url": "https://github.com/sapphire-sh/twitter-archiver/issues"
   },
-  "homepage": "https://github.com/sapphiredev/twitter-archiver#readme",
+  "homepage": "https://github.com/sapphire-sh/twitter-archiver#readme",
   "dependencies": {
     "cookie-session": "^2.0.0",
     "express": "^4.18.2",
