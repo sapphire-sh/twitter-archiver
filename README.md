@@ -1,8 +1,8 @@
 # Twitter-Archiver
 
-[![Build Status](https://travis-ci.org/sapphiredev/twitter-archiver.svg?branch=master)](https://travis-ci.org/sapphiredev/twitter-archiver)
-[![Coverage Status](https://coveralls.io/repos/github/sapphiredev/twitter-archiver/badge.svg?branch=master)](https://coveralls.io/github/sapphiredev/twitter-archiver?branch=master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/c51cc69b1da4685e21e5/maintainability)](https://codeclimate.com/github/sapphiredev/twitter-archiver/maintainability)
+[![status badge](https://github.com/sapphire-sh/twitter-archiver/workflows/build/badge.svg)](https://github.com/sapphire-sh/twitter-archiver/actions/workflows/build.yml)
+[![Coverage Status](https://coveralls.io/repos/github/sapphire-sh/twitter-archiver/badge.svg?branch=master)](https://coveralls.io/github/sapphire-sh/twitter-archiver?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c51cc69b1da4685e21e5/maintainability)](https://codeclimate.com/github/sapphire-sh/twitter-archiver/maintainability)
 
 ## Introduction
 
