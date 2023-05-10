@@ -1,26 +1,23 @@
-import {
-	HistoryKeys,
-	HistoryAction,
-} from '~/client/actions/types';
+import { HistoryAction, HistoryKeys } from '~/client/actions/types';
 
 export interface HistoryState {
-	historyID: string;
+  historyID: string;
 }
 
 const initialState: HistoryState = {
-	'historyID': '',
+  historyID: '',
 };
 
 export function history(state = initialState, action: HistoryAction): HistoryState {
-	switch (action.type) {
-	case HistoryKeys.REQUEST_UPDATE_HISTORY:
-		return state;
-	case HistoryKeys.RECEIVE_UPDATE_HISTORY:
-		return {
-			...state,
-			'historyID': action.historyID,
-		};
-	default:
-		return state;
-	}
+  switch (action.type) {
+    case HistoryKeys.REQUEST_UPDATE_HISTORY:
+      return state;
+    case HistoryKeys.RECEIVE_UPDATE_HISTORY:
+      return {
+        ...state,
+        historyID: action.historyID,
+      };
+    default:
+      return state;
+  }
 }

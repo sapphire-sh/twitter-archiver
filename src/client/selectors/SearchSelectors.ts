@@ -1,23 +1,14 @@
-import {
-	createSelector,
-} from 'reselect';
-
-import {
-	State,
-} from '~/client/reducers';
+import { createSelector } from 'reselect';
+import { State } from '~/client/reducers';
 
 const getState = (state: State) => {
-	return state.searchState;
+  return state.searchState;
 };
 
-export const getSearchQuery = createSelector([
-	getState,
-], (state) => {
-	return state.searchQuery;
+export const getSearchQuery = createSelector([getState], (state) => {
+  return state.searchQuery;
 });
 
-export const getSearchResult = createSelector([
-	getState,
-], (state) => {
-	return state.tweets;
+export const getSearchResult = createSelector([getState], (state) => {
+  return state.tweets;
 });

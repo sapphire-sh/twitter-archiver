@@ -12,9 +12,9 @@ Automatically backups your timeline
 
 ### Prerequisites
 
-* Install `mariadb` and `pm2`
+- Install `mariadb` and `pm2`
 
-* Create a `.env` file on your project root directory
+- Create a `.env` file on your project root directory
 
 ```sh
 PORT={{port}}

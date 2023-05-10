@@ -1,71 +1,49 @@
 import React from 'react';
-
-import {
-	Dispatch,
-	bindActionCreators,
-	AnyAction,
-} from 'redux';
-
-import {
-	connect,
-} from 'react-redux';
-
-import {
-	fetchMutedUsersIfNeeded,
-	fetchBlockedUsersIfNeeded,
-} from '~/client/actions';
-
-import {
-	User,
-} from '~/shared/models';
-
-import {
-	State,
-} from '~/client/reducers';
-
-import {
-	getMutedUsers,
-	getBlockedUsers,
-} from '~/client/selectors';
+import { connect } from 'react-redux';
+import { AnyAction, Dispatch, bindActionCreators } from 'redux';
+import { fetchBlockedUsersIfNeeded, fetchMutedUsersIfNeeded } from '~/client/actions';
+import { State } from '~/client/reducers';
+import { getBlockedUsers, getMutedUsers } from '~/client/selectors';
+import { User } from '~/shared/models';
 
 interface ComponentProps {
-	mutedUsers: User[];
-	blockedUsers: User[];
+  mutedUsers: User[];
+  blockedUsers: User[];
 
-	fetchMutedUsersIfNeeded: typeof fetchMutedUsersIfNeeded;
-	fetchBlockedUsersIfNeeded: typeof fetchBlockedUsersIfNeeded;
+  fetchMutedUsersIfNeeded: typeof fetchMutedUsersIfNeeded;
+  fetchBlockedUsersIfNeeded: typeof fetchBlockedUsersIfNeeded;
 }
 
 class FilterComponent extends React.Component<ComponentProps> {
-	public componentDidMount() {
-		this.props.fetchMutedUsersIfNeeded();
-		this.props.fetchBlockedUsersIfNeeded();
-	}
+  public componentDidMount() {
+    this.props.fetchMutedUsersIfNeeded();
+    this.props.fetchBlockedUsersIfNeeded();
+  }
 
-	public render() {
-		const {
-			mutedUsers,
-			blockedUsers,
-		} = this.props;
+  public render() {
+    const { mutedUsers, blockedUsers } = this.props;
 
-		console.log(`${mutedUsers.length} ${blockedUsers.length}`);
+    console.log(`${mutedUsers.length} ${blockedUsers.length}`);
 
-		return null;
-	}
+    return null;
+  }
 }
 
 function mapStateToProps(state: State) {
-	return {
-		'mutedUsers': getMutedUsers(state),
-		'blockedUsers': getBlockedUsers(state),
-	};
+  return {
+    mutedUsers: getMutedUsers(state),
+    blockedUsers: getBlockedUsers(state),
+  };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>) {
-	return bindActionCreators({
-		'fetchMutedUsersIfNeeded': fetchMutedUsersIfNeeded,
-		'fetchBlockedUsersIfNeeded': fetchBlockedUsersIfNeeded,
-	}, dispatch);
+  return bindActionCreators(
+    {
+      fetchMutedUsersIfNeeded,
+      fetchBlockedUsersIfNeeded,
+    },
+    dispatch
+  );
 }
 
 export const FilterContainer = connect(mapStateToProps, mapDispatchToProps)(FilterComponent);

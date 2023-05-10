@@ -1,51 +1,46 @@
 import http from 'http';
-
 import SocketIO from 'socket.io';
-
-import {
-	SocketEventType,
-	SocketEvent,
-} from '~/shared/models';
+import { SocketEvent, SocketEventType } from '~/shared/models';
 
 export class Socket {
-	private static io: SocketIO.Server;
+  private static io: SocketIO.Server;
 
-	private static sockets: {
-		[key: string]: SocketIO.Socket;
-	};
+  private static sockets: {
+    [key: string]: SocketIO.Socket;
+  };
 
-	public static initialize(server: http.Server) {
-		this.io = SocketIO(server);
+  public static initialize(server: http.Server) {
+    this.io = SocketIO(server);
 
-		this.sockets = {};
+    this.sockets = {};
 
-		this.io.on('connection', (socket) => {
-			this.sockets[socket.id] = socket;
-			console.log(`${socket.id} connected`);
+    this.io.on('connection', (socket) => {
+      this.sockets[socket.id] = socket;
+      console.log(`${socket.id} connected`);
 
-			socket.emit('event', {
-				'message': 'connect',
-			});
+      socket.emit('event', {
+        message: 'connect',
+      });
 
-			socket.on('event', (event) => {
-				console.log(event.message);
-			});
+      socket.on('event', (event) => {
+        console.log(event.message);
+      });
 
-			socket.on('disconnect', () => {
-				delete this.sockets[socket.id];
-				console.log(`${socket.id} disconnected`);
-			});
-		});
-	}
+      socket.on('disconnect', () => {
+        delete this.sockets[socket.id];
+        console.log(`${socket.id} disconnected`);
+      });
+    });
+  }
 
-	public static emit(type: SocketEventType, message: string) {
-		const event: SocketEvent = {
-			'type': type,
-			'message': message,
-		};
+  public static emit(type: SocketEventType, message: string) {
+    const event: SocketEvent = {
+      type,
+      message,
+    };
 
-		Object.values(this.sockets).forEach((socket) => {
-			socket.emit('event', event);
-		});
-	}
+    Object.values(this.sockets).forEach((socket) => {
+      socket.emit('event', event);
+    });
+  }
 }

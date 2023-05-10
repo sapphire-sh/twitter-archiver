@@ -1,30 +1,27 @@
 import React from 'react';
-
 import '~/client/styles/IndicatorComponent.scss';
 
 interface ComponentProps {
-	isSocketConnected: boolean;
+  isSocketConnected: boolean;
 }
 
 interface ComponentState {
-	state: boolean;
+  state: boolean;
 }
 
 export class IndicatorComponent extends React.Component<ComponentProps, ComponentState> {
-	constructor(props: ComponentProps) {
-		super(props);
-	}
+  constructor(props: ComponentProps) {
+    super(props);
+  }
 
-	public render() {
-		const {
-			isSocketConnected,
-		} = this.props;
+  public render() {
+    const { isSocketConnected } = this.props;
 
-		return (
-			<div id="indicator">
-				<div id="indicator_connected" className={`indicators ${isSocketConnected ? 'active' : ''}`} />
-				<div id="indicator_disconnected" className={`indicators ${isSocketConnected ? '' : 'active'}`} />
-			</div>
-		);
-	}
+    return (
+      <div id="indicator">
+        <div id="indicator_connected" className={`indicators ${isSocketConnected ? 'active' : ''}`} />
+        <div id="indicator_disconnected" className={`indicators ${isSocketConnected ? '' : 'active'}`} />
+      </div>
+    );
+  }
 }
